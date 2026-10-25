@@ -1,0 +1,2084 @@
+{
+  "projects": [
+    {
+      "id": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "V0.1 迁移验证（隔离样例）",
+      "createdAt": "2026-10-02T16:12:16.824Z",
+      "updatedAt": "2026-10-02T16:12:16.825Z",
+      "displayTimezone": "Asia/Shanghai"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "platform": "validation-fixture",
+      "sourceConversationId": "fixture-primary",
+      "sourceUrl": null,
+      "fallbackKey": "28f36812657b72afed14db5e8514ede843a8fd94e6914639b8f4091615d28a32:0",
+      "identity": {
+        "basis": "generic.conversation.id",
+        "confidence": "provided"
+      },
+      "savedAt": "2026-10-02T16:12:16.828Z",
+      "revision": 2,
+      "currentPathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "验证样例 · 聊天采集与问答阅读",
+      "sourceTime": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "nativeProject": {
+        "id": null,
+        "name": null,
+        "basis": null,
+        "status": "unknown"
+      },
+      "currentPathStatus": "source_selected",
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastScope": {
+        "kind": "import_file",
+        "history": "file_contents_only",
+        "branches": "unknown",
+        "attachments": "references_only",
+        "description": "仅包含文件实际提供的消息；无法证明源平台完整历史范围。"
+      }
+    },
+    {
+      "id": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "platform": "validation-fixture",
+      "sourceConversationId": "fixture-secondary",
+      "sourceUrl": null,
+      "fallbackKey": "28f36812657b72afed14db5e8514ede843a8fd94e6914639b8f4091615d28a32:1",
+      "identity": {
+        "basis": "generic.conversation.id",
+        "confidence": "provided"
+      },
+      "savedAt": "2026-10-02T16:12:16.831Z",
+      "revision": 1,
+      "currentPathId": "path_a1020e71-4ec7-4418-8529-894520fa21e1",
+      "title": "验证样例 · 项目中的第二条对话",
+      "sourceTime": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "nativeProject": {
+        "id": null,
+        "name": null,
+        "basis": null,
+        "status": "unknown"
+      },
+      "currentPathStatus": "source_selected",
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastScope": {
+        "kind": "import_file",
+        "history": "file_contents_only",
+        "branches": "unknown",
+        "attachments": "references_only",
+        "description": "仅包含文件实际提供的消息；无法证明源平台完整历史范围。"
+      }
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-0",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_28a1ef1a-c916-4fce-adbb-6c77ea6d7776"
+      ],
+      "currentVersionId": "ver_28a1ef1a-c916-4fce-adbb-6c77ea6d7776",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 0,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "ChatGPT 聊天采集如何读取 DOM 页面消息？",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "1aa07738626d30d001d6a41f6418cda415416e773b3582852f07f50ef2abe86f",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_b637073f-c67d-43f6-b283-d825ac0be438",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "a-0",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_c1c8a255-039f-407a-881a-9dafa02322c0"
+      ],
+      "currentVersionId": "ver_c1c8a255-039f-407a-881a-9dafa02322c0",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 1,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "6a94473f134aa0e0be894256dae30b50e7ad189bfaf7184b4288fa6892178d41",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-1",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_d5346971-b450-46ee-812f-df09ba0a3447"
+      ],
+      "currentVersionId": "ver_d5346971-b450-46ee-812f-df09ba0a3447",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 2,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "聊天采集 DOM 如何读取正文和附件？",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "764fd7f3027725f34a1a660d6522cf91776b83cea4b2a00dc6f5808ea3ea0c35",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "tool-1",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_4ddf8608-98ab-4bfe-8d5b-bae906ef482d"
+      ],
+      "currentVersionId": "ver_4ddf8608-98ab-4bfe-8d5b-bae906ef482d",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 3,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "工具观察：附件只有引用，未取得正文。",
+      "role": "tool",
+      "originalRole": "tool",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "1756b30aa56412615f2c91d1e39bb1dd39ca1549539f62937e5ccb1a28b5d535",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "a-1",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_a217c29d-d8af-4bcc-9ebd-63cc4a467749"
+      ],
+      "currentVersionId": "ver_a217c29d-d8af-4bcc-9ebd-63cc4a467749",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 4,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "6a94473f134aa0e0be894256dae30b50e7ad189bfaf7184b4288fa6892178d41",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-2",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_d74bb61d-9d25-4e07-b696-2c2d51d3ccb1"
+      ],
+      "currentVersionId": "ver_d74bb61d-9d25-4e07-b696-2c2d51d3ccb1",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 5,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "聊天采集 DOM 如何识别流式回答变化？",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "354d653d6aa7a25fc777bf50409681db2d0bb20c2141dd7030d93002b6db88c9",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_6907d064-54b5-4753-9424-f010a31fe696",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "a-2",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_6821d319-5489-4227-b3c2-7d00d50df57a"
+      ],
+      "currentVersionId": "ver_6821d319-5489-4227-b3c2-7d00d50df57a",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 6,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "6a94473f134aa0e0be894256dae30b50e7ad189bfaf7184b4288fa6892178d41",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-3",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_5f9a79fd-24b6-4d2d-a813-8572aa706105"
+      ],
+      "currentVersionId": "ver_5f9a79fd-24b6-4d2d-a813-8572aa706105",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 7,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "问答阅读器如何折叠和展开完整长回答？",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "19029fac188856369ed06224f35880f343b35721e708f6614ddb2a7ab094f8c4",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "a-3",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_a4937356-274d-4e29-8e0a-2e459833f134"
+      ],
+      "currentVersionId": "ver_a4937356-274d-4e29-8e0a-2e459833f134",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 8,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "97c5455665c57de2f89f1838695b4a7d1128ddb27692b946718eed2d4165c29e",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-4",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_03cc6bc1-6a8a-4ece-934c-3bec3d56aa55"
+      ],
+      "currentVersionId": "ver_03cc6bc1-6a8a-4ece-934c-3bec3d56aa55",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 9,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "问答阅读器如何实现上一轮和下一轮？",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "1c77d10937b290067f26ac694212197dc1f3897a4e9ec84afc8240ed4ff63190",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "a-4",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_a10a84d6-a707-4ba9-929e-e7198671008d"
+      ],
+      "currentVersionId": "ver_a10a84d6-a707-4ba9-929e-e7198671008d",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 10,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "问答阅读器完整正文、上一轮下一轮和原文定位。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "626948b6709efcb08e493e2cdc84057768d42d98e4058c85ab367970d0c2d521",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-5",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_1a27e3ab-1d62-43f0-8aed-597d9c2c9dcc"
+      ],
+      "currentVersionId": "ver_1a27e3ab-1d62-43f0-8aed-597d9c2c9dcc",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 11,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "问答阅读界面如何定位完整对话原文？",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "780b1b12dc76bd3807740131a91347d3a2472a680654a70d4f9c88bcc53a14ab",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "a-5",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_ea66d0c3-0b25-4fbc-aa23-883cd6db82d6"
+      ],
+      "currentVersionId": "ver_ea66d0c3-0b25-4fbc-aa23-883cd6db82d6",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 12,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "问答阅读器完整正文、上一轮下一轮和原文定位。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "626948b6709efcb08e493e2cdc84057768d42d98e4058c85ab367970d0c2d521",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "sourceMessageId": "q-6",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_a095ea1e-eeab-413b-a838-955fb487487e"
+      ],
+      "currentVersionId": "ver_a095ea1e-eeab-413b-a838-955fb487487e",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 13,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "这个问题目前还没有回答",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "d5662da8aea8bcdcf92bb7c80f4d617a88a86306d8925c29730c988d069e5f31",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "sourceMessageId": "other-q",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_d45d6a6f-97ab-4273-b349-babe087fb236"
+      ],
+      "currentVersionId": "ver_d45d6a6f-97ab-4273-b349-babe087fb236",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 0,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "跨对话搜索稳定引用",
+      "role": "user",
+      "originalRole": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "eb47dbd967ba3e96436ceee4cebc32adf1c7ee24d06c038756120e60c3ab70da",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_3b9f4803-f204-4ab4-a15e-a415081f4b7d",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    },
+    {
+      "id": "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "sourceMessageId": "other-a",
+      "sourceNodeId": null,
+      "versionIds": [
+        "ver_47ba2684-18e9-4e83-9426-5120db8634f2"
+      ],
+      "currentVersionId": "ver_47ba2684-18e9-4e83-9426-5120db8634f2",
+      "firstCapturedAt": "2026-10-02T16:12:16.827Z",
+      "firstSourceOrder": 1,
+      "identity": {
+        "basis": "generic.message.id",
+        "confidence": "provided"
+      },
+      "text": "搜索应定位真实 Q/A 和原文消息。",
+      "role": "assistant",
+      "originalRole": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "bodyHash": "c7a35fc8404db5055dc98f3c36528c01afa738d5e2a17a8b89005ed86e1b5a30",
+      "streaming": "unknown",
+      "sourceParentKey": null,
+      "rowHint": null,
+      "lastCapturedAt": "2026-10-02T16:12:16.827Z",
+      "lastSnapshotId": "cap_3b9f4803-f204-4ab4-a15e-a415081f4b7d",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "parentMessageId": null
+    }
+  ],
+  "versions": [
+    {
+      "id": "ver_28a1ef1a-c916-4fce-adbb-6c77ea6d7776",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "1aa07738626d30d001d6a41f6418cda415416e773b3582852f07f50ef2abe86f",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "ChatGPT 聊天采集如何读取 DOM 页面消息？",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-0",
+        "role": "user",
+        "text": "ChatGPT 聊天采集如何读取 DOM 页面消息？"
+      }
+    },
+    {
+      "id": "ver_c1c8a255-039f-407a-881a-9dafa02322c0",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_b637073f-c67d-43f6-b283-d825ac0be438",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "6a94473f134aa0e0be894256dae30b50e7ad189bfaf7184b4288fa6892178d41",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "a-0",
+        "role": "assistant",
+        "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。"
+      }
+    },
+    {
+      "id": "ver_d5346971-b450-46ee-812f-df09ba0a3447",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "764fd7f3027725f34a1a660d6522cf91776b83cea4b2a00dc6f5808ea3ea0c35",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "聊天采集 DOM 如何读取正文和附件？",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-1",
+        "role": "user",
+        "text": "聊天采集 DOM 如何读取正文和附件？"
+      }
+    },
+    {
+      "id": "ver_4ddf8608-98ab-4bfe-8d5b-bae906ef482d",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "1756b30aa56412615f2c91d1e39bb1dd39ca1549539f62937e5ccb1a28b5d535",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "工具观察：附件只有引用，未取得正文。",
+      "role": "tool",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "tool-1",
+        "role": "tool",
+        "text": "工具观察：附件只有引用，未取得正文。"
+      }
+    },
+    {
+      "id": "ver_a217c29d-d8af-4bcc-9ebd-63cc4a467749",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "6a94473f134aa0e0be894256dae30b50e7ad189bfaf7184b4288fa6892178d41",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "a-1",
+        "role": "assistant",
+        "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。"
+      }
+    },
+    {
+      "id": "ver_d74bb61d-9d25-4e07-b696-2c2d51d3ccb1",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "354d653d6aa7a25fc777bf50409681db2d0bb20c2141dd7030d93002b6db88c9",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "聊天采集 DOM 如何识别流式回答变化？",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-2",
+        "role": "user",
+        "text": "聊天采集 DOM 如何识别流式回答变化？"
+      }
+    },
+    {
+      "id": "ver_6821d319-5489-4227-b3c2-7d00d50df57a",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_6907d064-54b5-4753-9424-f010a31fe696",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "6a94473f134aa0e0be894256dae30b50e7ad189bfaf7184b4288fa6892178d41",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "a-2",
+        "role": "assistant",
+        "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。"
+      }
+    },
+    {
+      "id": "ver_5f9a79fd-24b6-4d2d-a813-8572aa706105",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "19029fac188856369ed06224f35880f343b35721e708f6614ddb2a7ab094f8c4",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "问答阅读器如何折叠和展开完整长回答？",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-3",
+        "role": "user",
+        "text": "问答阅读器如何折叠和展开完整长回答？"
+      }
+    },
+    {
+      "id": "ver_a4937356-274d-4e29-8e0a-2e459833f134",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "97c5455665c57de2f89f1838695b4a7d1128ddb27692b946718eed2d4165c29e",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "a-3",
+        "role": "assistant",
+        "text": "问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。"
+      }
+    },
+    {
+      "id": "ver_03cc6bc1-6a8a-4ece-934c-3bec3d56aa55",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "1c77d10937b290067f26ac694212197dc1f3897a4e9ec84afc8240ed4ff63190",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "问答阅读器如何实现上一轮和下一轮？",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-4",
+        "role": "user",
+        "text": "问答阅读器如何实现上一轮和下一轮？"
+      }
+    },
+    {
+      "id": "ver_a10a84d6-a707-4ba9-929e-e7198671008d",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "626948b6709efcb08e493e2cdc84057768d42d98e4058c85ab367970d0c2d521",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "问答阅读器完整正文、上一轮下一轮和原文定位。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "a-4",
+        "role": "assistant",
+        "text": "问答阅读器完整正文、上一轮下一轮和原文定位。"
+      }
+    },
+    {
+      "id": "ver_1a27e3ab-1d62-43f0-8aed-597d9c2c9dcc",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "780b1b12dc76bd3807740131a91347d3a2472a680654a70d4f9c88bcc53a14ab",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "问答阅读界面如何定位完整对话原文？",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-5",
+        "role": "user",
+        "text": "问答阅读界面如何定位完整对话原文？"
+      }
+    },
+    {
+      "id": "ver_ea66d0c3-0b25-4fbc-aa23-883cd6db82d6",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "626948b6709efcb08e493e2cdc84057768d42d98e4058c85ab367970d0c2d521",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "问答阅读器完整正文、上一轮下一轮和原文定位。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "a-5",
+        "role": "assistant",
+        "text": "问答阅读器完整正文、上一轮下一轮和原文定位。"
+      }
+    },
+    {
+      "id": "ver_a095ea1e-eeab-413b-a838-955fb487487e",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageId": "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e",
+      "previousVersionId": null,
+      "snapshotId": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "bodyHash": "d5662da8aea8bcdcf92bb7c80f4d617a88a86306d8925c29730c988d069e5f31",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "这个问题目前还没有回答",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "q-6",
+        "role": "user",
+        "text": "这个问题目前还没有回答"
+      }
+    },
+    {
+      "id": "ver_d45d6a6f-97ab-4273-b349-babe087fb236",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "messageId": "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+      "previousVersionId": null,
+      "snapshotId": "cap_3b9f4803-f204-4ab4-a15e-a415081f4b7d",
+      "bodyHash": "eb47dbd967ba3e96436ceee4cebc32adf1c7ee24d06c038756120e60c3ab70da",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "跨对话搜索稳定引用",
+      "role": "user",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "other-q",
+        "role": "user",
+        "text": "跨对话搜索稳定引用"
+      }
+    },
+    {
+      "id": "ver_47ba2684-18e9-4e83-9426-5120db8634f2",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "messageId": "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622",
+      "previousVersionId": null,
+      "snapshotId": "cap_3b9f4803-f204-4ab4-a15e-a415081f4b7d",
+      "bodyHash": "c7a35fc8404db5055dc98f3c36528c01afa738d5e2a17a8b89005ed86e1b5a30",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "text": "搜索应定位真实 Q/A 和原文消息。",
+      "role": "assistant",
+      "contentTypes": [
+        "text"
+      ],
+      "attachments": [],
+      "contentStatus": "available",
+      "raw": {
+        "id": "other-a",
+        "role": "assistant",
+        "text": "搜索应定位真实 Q/A 和原文消息。"
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "method": "generic-json-import",
+      "scope": {
+        "kind": "import_file",
+        "history": "file_contents_only",
+        "branches": "unknown",
+        "attachments": "references_only",
+        "description": "仅包含文件实际提供的消息；无法证明源平台完整历史范围。"
+      },
+      "sourceUrl": null,
+      "sourceConversationId": "fixture-primary",
+      "title": "验证样例 · 聊天采集与问答阅读",
+      "sourceTime": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "nativeProject": {
+        "id": null,
+        "name": null,
+        "basis": null,
+        "status": "unknown"
+      },
+      "fileSource": {
+        "name": "validation-example.json",
+        "sha256": "28f36812657b72afed14db5e8514ede843a8fd94e6914639b8f4091615d28a32",
+        "hashBasis": "UTF8-decoded-text"
+      },
+      "messageIds": [
+        "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+        "msg_b637073f-c67d-43f6-b283-d825ac0be438",
+        "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+        "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+        "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507",
+        "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+        "msg_6907d064-54b5-4753-9424-f010a31fe696",
+        "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+        "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5",
+        "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+        "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4",
+        "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+        "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439",
+        "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e"
+      ],
+      "messageVersionIds": {
+        "msg_343de650-fcaf-4a92-8806-034c5961bc7e": "ver_28a1ef1a-c916-4fce-adbb-6c77ea6d7776",
+        "msg_b637073f-c67d-43f6-b283-d825ac0be438": "ver_c1c8a255-039f-407a-881a-9dafa02322c0",
+        "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b": "ver_d5346971-b450-46ee-812f-df09ba0a3447",
+        "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5": "ver_4ddf8608-98ab-4bfe-8d5b-bae906ef482d",
+        "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507": "ver_a217c29d-d8af-4bcc-9ebd-63cc4a467749",
+        "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68": "ver_d74bb61d-9d25-4e07-b696-2c2d51d3ccb1",
+        "msg_6907d064-54b5-4753-9424-f010a31fe696": "ver_6821d319-5489-4227-b3c2-7d00d50df57a",
+        "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee": "ver_5f9a79fd-24b6-4d2d-a813-8572aa706105",
+        "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5": "ver_a4937356-274d-4e29-8e0a-2e459833f134",
+        "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112": "ver_03cc6bc1-6a8a-4ece-934c-3bec3d56aa55",
+        "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4": "ver_a10a84d6-a707-4ba9-929e-e7198671008d",
+        "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a": "ver_1a27e3ab-1d62-43f0-8aed-597d9c2c9dcc",
+        "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439": "ver_ea66d0c3-0b25-4fbc-aa23-883cd6db82d6",
+        "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e": "ver_a095ea1e-eeab-413b-a838-955fb487487e"
+      },
+      "observations": [
+        {
+          "messageId": "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+          "sourceKey": "q-0",
+          "sourceNodeId": null,
+          "position": 0,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_b637073f-c67d-43f6-b283-d825ac0be438",
+          "sourceKey": "a-0",
+          "sourceNodeId": null,
+          "position": 1,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+          "sourceKey": "q-1",
+          "sourceNodeId": null,
+          "position": 2,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+          "sourceKey": "tool-1",
+          "sourceNodeId": null,
+          "position": 3,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507",
+          "sourceKey": "a-1",
+          "sourceNodeId": null,
+          "position": 4,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+          "sourceKey": "q-2",
+          "sourceNodeId": null,
+          "position": 5,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_6907d064-54b5-4753-9424-f010a31fe696",
+          "sourceKey": "a-2",
+          "sourceNodeId": null,
+          "position": 6,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+          "sourceKey": "q-3",
+          "sourceNodeId": null,
+          "position": 7,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5",
+          "sourceKey": "a-3",
+          "sourceNodeId": null,
+          "position": 8,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+          "sourceKey": "q-4",
+          "sourceNodeId": null,
+          "position": 9,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4",
+          "sourceKey": "a-4",
+          "sourceNodeId": null,
+          "position": 10,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+          "sourceKey": "q-5",
+          "sourceNodeId": null,
+          "position": 11,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439",
+          "sourceKey": "a-5",
+          "sourceNodeId": null,
+          "position": 12,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e",
+          "sourceKey": "q-6",
+          "sourceNodeId": null,
+          "position": 13,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        }
+      ],
+      "graph": [],
+      "pathIds": [
+        "path_77d288b4-b3d9-4964-b76d-03ad16cca11a"
+      ],
+      "selectedPathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "warnings": [
+        "按文件给定顺序阅读；父子关系未知，未把前一条消息推测成父消息。"
+      ],
+      "rawSource": {
+        "id": "fixture-primary",
+        "title": "验证样例 · 聊天采集与问答阅读",
+        "messages": [
+          {
+            "id": "q-0",
+            "role": "user",
+            "text": "ChatGPT 聊天采集如何读取 DOM 页面消息？"
+          },
+          {
+            "id": "a-0",
+            "role": "assistant",
+            "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。"
+          },
+          {
+            "id": "q-1",
+            "role": "user",
+            "text": "聊天采集 DOM 如何读取正文和附件？"
+          },
+          {
+            "id": "tool-1",
+            "role": "tool",
+            "text": "工具观察：附件只有引用，未取得正文。"
+          },
+          {
+            "id": "a-1",
+            "role": "assistant",
+            "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。"
+          },
+          {
+            "id": "q-2",
+            "role": "user",
+            "text": "聊天采集 DOM 如何识别流式回答变化？"
+          },
+          {
+            "id": "a-2",
+            "role": "assistant",
+            "text": "聊天采集 DOM 页面实际消息；未知信息保持未知。"
+          },
+          {
+            "id": "q-3",
+            "role": "user",
+            "text": "问答阅读器如何折叠和展开完整长回答？"
+          },
+          {
+            "id": "a-3",
+            "role": "assistant",
+            "text": "问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。问答阅读器长回答原文。"
+          },
+          {
+            "id": "q-4",
+            "role": "user",
+            "text": "问答阅读器如何实现上一轮和下一轮？"
+          },
+          {
+            "id": "a-4",
+            "role": "assistant",
+            "text": "问答阅读器完整正文、上一轮下一轮和原文定位。"
+          },
+          {
+            "id": "q-5",
+            "role": "user",
+            "text": "问答阅读界面如何定位完整对话原文？"
+          },
+          {
+            "id": "a-5",
+            "role": "assistant",
+            "text": "问答阅读器完整正文、上一轮下一轮和原文定位。"
+          },
+          {
+            "id": "q-6",
+            "role": "user",
+            "text": "这个问题目前还没有回答"
+          }
+        ]
+      },
+      "contentHash": "0a3b486682478bca1eed6a879c9a9f70be511b2089ab86f1e2de3211dcaf2506",
+      "stats": {
+        "createdMessages": 14,
+        "reusedMessages": 0,
+        "changedMessages": 0,
+        "uncertainMatches": 0,
+        "newPaths": 1
+      }
+    },
+    {
+      "id": "cap_3b9f4803-f204-4ab4-a15e-a415081f4b7d",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "capturedAt": "2026-10-02T16:12:16.827Z",
+      "method": "generic-json-import",
+      "scope": {
+        "kind": "import_file",
+        "history": "file_contents_only",
+        "branches": "unknown",
+        "attachments": "references_only",
+        "description": "仅包含文件实际提供的消息；无法证明源平台完整历史范围。"
+      },
+      "sourceUrl": null,
+      "sourceConversationId": "fixture-secondary",
+      "title": "验证样例 · 项目中的第二条对话",
+      "sourceTime": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "nativeProject": {
+        "id": null,
+        "name": null,
+        "basis": null,
+        "status": "unknown"
+      },
+      "fileSource": {
+        "name": "validation-example.json",
+        "sha256": "28f36812657b72afed14db5e8514ede843a8fd94e6914639b8f4091615d28a32",
+        "hashBasis": "UTF8-decoded-text"
+      },
+      "messageIds": [
+        "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+        "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622"
+      ],
+      "messageVersionIds": {
+        "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6": "ver_d45d6a6f-97ab-4273-b349-babe087fb236",
+        "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622": "ver_47ba2684-18e9-4e83-9426-5120db8634f2"
+      },
+      "observations": [
+        {
+          "messageId": "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+          "sourceKey": "other-q",
+          "sourceNodeId": null,
+          "position": 0,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        },
+        {
+          "messageId": "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622",
+          "sourceKey": "other-a",
+          "sourceNodeId": null,
+          "position": 1,
+          "basis": "generic.message.id",
+          "confidence": "provided",
+          "sourceTime": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "streaming": "unknown",
+          "sourceParentKey": null
+        }
+      ],
+      "graph": [],
+      "pathIds": [
+        "path_a1020e71-4ec7-4418-8529-894520fa21e1"
+      ],
+      "selectedPathId": "path_a1020e71-4ec7-4418-8529-894520fa21e1",
+      "warnings": [
+        "按文件给定顺序阅读；父子关系未知，未把前一条消息推测成父消息。"
+      ],
+      "rawSource": {
+        "id": "fixture-secondary",
+        "title": "验证样例 · 项目中的第二条对话",
+        "messages": [
+          {
+            "id": "other-q",
+            "role": "user",
+            "text": "跨对话搜索稳定引用"
+          },
+          {
+            "id": "other-a",
+            "role": "assistant",
+            "text": "搜索应定位真实 Q/A 和原文消息。"
+          }
+        ]
+      },
+      "contentHash": "bcd354071f1031d7538b343309c84ce523d8c0ca6eae1105b0361e46c18a675c",
+      "stats": {
+        "createdMessages": 2,
+        "reusedMessages": 0,
+        "changedMessages": 0,
+        "uncertainMatches": 0,
+        "newPaths": 1
+      }
+    }
+  ],
+  "paths": [
+    {
+      "id": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "messageIds": [
+        "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+        "msg_b637073f-c67d-43f6-b283-d825ac0be438",
+        "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+        "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+        "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507",
+        "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+        "msg_6907d064-54b5-4753-9424-f010a31fe696",
+        "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+        "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5",
+        "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+        "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4",
+        "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+        "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439",
+        "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e"
+      ],
+      "sourcePathKeys": [
+        "file-order"
+      ],
+      "snapshotIds": [
+        "cap_6e18a5d6-f80d-4a23-8313-e6be018ae949"
+      ],
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "label": "文件中的消息顺序",
+      "status": "provided_order",
+      "scope": {
+        "kind": "import_file",
+        "history": "file_contents_only",
+        "branches": "unknown",
+        "attachments": "references_only",
+        "description": "仅包含文件实际提供的消息；无法证明源平台完整历史范围。"
+      },
+      "lastCapturedMessageIds": [
+        "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+        "msg_b637073f-c67d-43f6-b283-d825ac0be438",
+        "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+        "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+        "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507",
+        "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+        "msg_6907d064-54b5-4753-9424-f010a31fe696",
+        "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+        "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5",
+        "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+        "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4",
+        "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+        "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439",
+        "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e"
+      ],
+      "updatedAt": "2026-10-02T16:12:16.827Z"
+    },
+    {
+      "id": "path_a1020e71-4ec7-4418-8529-894520fa21e1",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "messageIds": [
+        "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+        "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622"
+      ],
+      "sourcePathKeys": [
+        "file-order"
+      ],
+      "snapshotIds": [
+        "cap_3b9f4803-f204-4ab4-a15e-a415081f4b7d"
+      ],
+      "createdAt": "2026-10-02T16:12:16.831Z",
+      "label": "文件中的消息顺序",
+      "status": "provided_order",
+      "scope": {
+        "kind": "import_file",
+        "history": "file_contents_only",
+        "branches": "unknown",
+        "attachments": "references_only",
+        "description": "仅包含文件实际提供的消息；无法证明源平台完整历史范围。"
+      },
+      "lastCapturedMessageIds": [
+        "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+        "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622"
+      ],
+      "updatedAt": "2026-10-02T16:12:16.827Z"
+    }
+  ],
+  "qas": [
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 1,
+      "userMessageId": "msg_343de650-fcaf-4a92-8806-034c5961bc7e",
+      "responseMessageIds": [
+        "msg_b637073f-c67d-43f6-b283-d825ac0be438"
+      ],
+      "assistantMessageIds": [
+        "msg_b637073f-c67d-43f6-b283-d825ac0be438"
+      ],
+      "toolMessageIds": [],
+      "preview": "ChatGPT 聊天采集如何读取 DOM 页面消息？",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 2,
+      "userMessageId": "msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b",
+      "responseMessageIds": [
+        "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5",
+        "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507"
+      ],
+      "assistantMessageIds": [
+        "msg_30f8b03a-3ea4-44f9-ac70-408ea3f0d507"
+      ],
+      "toolMessageIds": [
+        "msg_bef7bcc6-0a9b-4052-b11b-7ee9b5fe7db5"
+      ],
+      "preview": "聊天采集 DOM 如何读取正文和附件？",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 3,
+      "userMessageId": "msg_e8ea39ae-fde9-48be-8256-75cd559c9d68",
+      "responseMessageIds": [
+        "msg_6907d064-54b5-4753-9424-f010a31fe696"
+      ],
+      "assistantMessageIds": [
+        "msg_6907d064-54b5-4753-9424-f010a31fe696"
+      ],
+      "toolMessageIds": [],
+      "preview": "聊天采集 DOM 如何识别流式回答变化？",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 4,
+      "userMessageId": "msg_94c31aa0-a20f-4934-be8c-4a621334b3ee",
+      "responseMessageIds": [
+        "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5"
+      ],
+      "assistantMessageIds": [
+        "msg_bf7b1365-8f65-434b-8e61-5070775ebcd5"
+      ],
+      "toolMessageIds": [],
+      "preview": "问答阅读器如何折叠和展开完整长回答？",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 5,
+      "userMessageId": "msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112",
+      "responseMessageIds": [
+        "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4"
+      ],
+      "assistantMessageIds": [
+        "msg_a7fb643d-ee8a-46e5-8d33-1bf0cbd596a4"
+      ],
+      "toolMessageIds": [],
+      "preview": "问答阅读器如何实现上一轮和下一轮？",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 6,
+      "userMessageId": "msg_3e60d6f0-73fb-41ba-8ced-c65945de627a",
+      "responseMessageIds": [
+        "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439"
+      ],
+      "assistantMessageIds": [
+        "msg_1acf7bbd-36fc-433f-ba69-f1f4126c0439"
+      ],
+      "toolMessageIds": [],
+      "preview": "问答阅读界面如何定位完整对话原文？",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_8c7b846f-365e-4264-9c6e-a1beaac4691e",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "ordinal": 7,
+      "userMessageId": "msg_8c7b846f-365e-4264-9c6e-a1beaac4691e",
+      "responseMessageIds": [],
+      "assistantMessageIds": [],
+      "toolMessageIds": [],
+      "preview": "这个问题目前还没有回答",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "unanswered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    },
+    {
+      "id": "qa:path_a1020e71-4ec7-4418-8529-894520fa21e1:msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "pathId": "path_a1020e71-4ec7-4418-8529-894520fa21e1",
+      "ordinal": 1,
+      "userMessageId": "msg_08edf690-14e5-42a1-994d-33ef2b25f5d6",
+      "responseMessageIds": [
+        "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622"
+      ],
+      "assistantMessageIds": [
+        "msg_0d27391d-7446-4a5a-a0c1-f24ef451f622"
+      ],
+      "toolMessageIds": [],
+      "preview": "跨对话搜索稳定引用",
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "status": "answered",
+      "answerScope": "saved_path_only",
+      "notSeenInLatest": false
+    }
+  ],
+  "segments": [
+    {
+      "id": "seg_281b04c4-22f7-4c85-a1a4-36750ebad01b",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "V0.1 人工标题 · 必须保留",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_343de650-fcaf-4a92-8806-034c5961bc7e"
+      ],
+      "topicIds": [],
+      "manual": true,
+      "active": true,
+      "revision": 2,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 1,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      },
+      "updatedAt": "2026-10-02T16:12:16.831Z"
+    },
+    {
+      "id": "seg_ca8c295b-3507-431f-9983-7dec50bc742b",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "聊天采集 DOM 如何读取正文和附件？",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_aa7b0609-cbd8-48a5-bd8e-6c93b1762f4b"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 2,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    },
+    {
+      "id": "seg_402de4ec-7989-48e3-8ff2-06be67cf993a",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "聊天采集 DOM 如何识别流式回答变化？",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_e8ea39ae-fde9-48be-8256-75cd559c9d68"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 3,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    },
+    {
+      "id": "seg_fb80fb7d-4952-4ea7-9e2e-d123f5006570",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "问答阅读器如何折叠和展开完整长回答？",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_94c31aa0-a20f-4934-be8c-4a621334b3ee"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 4,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    },
+    {
+      "id": "seg_11412682-6734-40d5-a884-ae6fd3d2b1fb",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "问答阅读器如何实现上一轮和下一轮？",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_aac6e1f3-a19b-4cfc-9552-76c9b61d9112"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 5,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    },
+    {
+      "id": "seg_c5b064f8-2e0a-43f4-b28e-c3b70d85419c",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "问答阅读界面如何定位完整对话原文？",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_3e60d6f0-73fb-41ba-8ced-c65945de627a"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 6,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    },
+    {
+      "id": "seg_b68384ab-2e82-4d35-a121-a033b45804a9",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "title": "这个问题目前还没有回答",
+      "qaIds": [
+        "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_8c7b846f-365e-4264-9c6e-a1beaac4691e"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.830Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 7,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    },
+    {
+      "id": "seg_e6b947de-7399-4251-a662-72bfdc909387",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_0d14354d-98ca-42f9-8bee-0126bfe0790b",
+      "pathId": "path_a1020e71-4ec7-4418-8529-894520fa21e1",
+      "title": "跨对话搜索稳定引用",
+      "qaIds": [
+        "qa:path_a1020e71-4ec7-4418-8529-894520fa21e1:msg_08edf690-14e5-42a1-994d-33ef2b25f5d6"
+      ],
+      "topicIds": [],
+      "manual": false,
+      "active": true,
+      "revision": 1,
+      "createdAt": "2026-10-02T16:12:16.831Z",
+      "needsReview": false,
+      "replacementIds": [],
+      "ordinal": 1,
+      "time": {
+        "value": null,
+        "precision": "unknown",
+        "source": null
+      }
+    }
+  ],
+  "topics": [
+    {
+      "id": "top_b3f6f81d-e7f2-4eef-86e8-dc1afcc1ba64",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "产品",
+      "color": "#2563eb",
+      "aliases": []
+    },
+    {
+      "id": "top_4367ed01-e19c-4bb0-9a1f-577fed75f4b1",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "记忆",
+      "color": "#7c3aed",
+      "aliases": []
+    },
+    {
+      "id": "top_c3fe7fda-da02-4625-adb0-5b36225335e0",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "界面",
+      "color": "#0891b2",
+      "aliases": []
+    },
+    {
+      "id": "top_cf48c678-148c-4e90-85e1-959ad6b30b9d",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "工程",
+      "color": "#d97706",
+      "aliases": []
+    },
+    {
+      "id": "top_31a6d45a-5d0b-4e2c-830d-48121aaf1aa7",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "研究",
+      "color": "#15803d",
+      "aliases": []
+    },
+    {
+      "id": "top_ea583f7b-5a5c-4e81-b32d-13f0271f7873",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "name": "智能体",
+      "color": "#db2777",
+      "aliases": []
+    }
+  ],
+  "revisions": [
+    {
+      "id": "edit_8e176b71-3e3b-49db-ae46-c8e2adcc4c13",
+      "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+      "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+      "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+      "operation": "rename",
+      "actor": "user",
+      "createdAt": "2026-10-02T16:12:16.831Z",
+      "before": [
+        {
+          "id": "seg_281b04c4-22f7-4c85-a1a4-36750ebad01b",
+          "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+          "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+          "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+          "title": "ChatGPT 聊天采集如何读取 DOM 页面消息？",
+          "qaIds": [
+            "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_343de650-fcaf-4a92-8806-034c5961bc7e"
+          ],
+          "topicIds": [],
+          "manual": false,
+          "active": true,
+          "revision": 1,
+          "createdAt": "2026-10-02T16:12:16.830Z",
+          "needsReview": false,
+          "replacementIds": [],
+          "ordinal": 1,
+          "time": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          }
+        }
+      ],
+      "after": [
+        {
+          "id": "seg_281b04c4-22f7-4c85-a1a4-36750ebad01b",
+          "projectId": "prj_6c1de7bc-807b-4cb4-b05b-8fef801eec39",
+          "conversationId": "conv_003ae613-140f-4518-b9fb-eb63b6ca15d7",
+          "pathId": "path_77d288b4-b3d9-4964-b76d-03ad16cca11a",
+          "title": "V0.1 人工标题 · 必须保留",
+          "qaIds": [
+            "qa:path_77d288b4-b3d9-4964-b76d-03ad16cca11a:msg_343de650-fcaf-4a92-8806-034c5961bc7e"
+          ],
+          "topicIds": [],
+          "manual": true,
+          "active": true,
+          "revision": 2,
+          "createdAt": "2026-10-02T16:12:16.830Z",
+          "needsReview": false,
+          "replacementIds": [],
+          "ordinal": 1,
+          "time": {
+            "value": null,
+            "precision": "unknown",
+            "source": null
+          },
+          "updatedAt": "2026-10-02T16:12:16.831Z"
+        }
+      ],
+      "undoneBy": null
+    }
+  ],
+  "drafts": [],
+  "revision": 0
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/project-memory-extraction.v1.json",
+  "title": "ProjectMemoryExtraction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["problems", "claims", "decisions", "tasks", "relations"],
+  "properties": {
+    "problems": { "type": "array", "items": { "$ref": "#/$defs/problem" } },
+    "claims": { "type": "array", "items": { "$ref": "#/$defs/claim" } },
+    "decisions": { "type": "array", "items": { "$ref": "#/$defs/decision" } },
+    "tasks": { "type": "array", "items": { "$ref": "#/$defs/task" } },
+    "relations": { "type": "array", "items": { "$ref": "#/$defs/relation" } }
+  },
+  "$defs": {
+    "evidenceRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["message_id", "start", "end"],
+      "properties": {
+        "message_id": { "type": "string", "minLength": 1 },
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "problem": {
+      "type": "object", "additionalProperties": false,
+      "required": ["local_id", "statement", "status", "parent_local_id", "evidence"],
+      "properties": {
+        "local_id": { "type": "string" },
+        "statement": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["proposed", "active", "resolved", "blocked", "discarded"] },
+        "parent_local_id": { "type": ["string", "null"] },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "claim": {
+      "type": "object", "additionalProperties": false,
+      "required": ["local_id", "text", "confidence", "evidence"],
+      "properties": {
+        "local_id": { "type": "string" },
+        "text": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "decision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["local_id", "title", "state", "rationale", "evidence"],
+      "properties": {
+        "local_id": { "type": "string" },
+        "title": { "type": "string" },
+        "state": { "enum": ["proposed", "accepted", "rejected", "superseded"] },
+        "rationale": { "type": "string" },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["local_id", "title", "status", "acceptance_criteria", "evidence"],
+      "properties": {
+        "local_id": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "enum": ["proposed", "todo", "doing", "blocked", "done", "cancelled"] },
+        "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceRef" } }
+      }
+    },
+    "relation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["from_local_id", "type", "to_local_id", "confidence"],
+      "properties": {
+        "from_local_id": { "type": "string" },
+        "type": { "enum": ["supports", "contradicts", "refines", "supersedes", "depends_on", "implements", "mentions"] },
+        "to_local_id": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

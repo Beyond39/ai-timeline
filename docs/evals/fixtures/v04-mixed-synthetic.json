@@ -1,0 +1,25 @@
+{
+  "provider": "synthetic-test",
+  "project_id": "v04-mixed-synthetic",
+  "project_title": "V0.4 合成混合项目",
+  "conversations": [
+    {
+      "id": "mixed-conversation",
+      "title": "混合对话",
+      "messages": [
+        {"id": "u1", "role": "user", "text": "如何安排英语复习计划？"},
+        {"id": "a1", "role": "assistant", "text": "每周安排单词与阅读复习。"},
+        {"id": "u2", "role": "user", "text": "高等数学错题如何重新推导？"},
+        {"id": "a2", "role": "assistant", "text": "记录错题原因并重新推导。"}
+      ]
+    },
+    {
+      "id": "planning-conversation",
+      "title": "学习规划",
+      "messages": [
+        {"id": "u3", "role": "user", "text": "怎样制定每周复习计划？"},
+        {"id": "a3", "role": "assistant", "text": "按目标和进度安排每天练习。"}
+      ]
+    }
+  ]
+}

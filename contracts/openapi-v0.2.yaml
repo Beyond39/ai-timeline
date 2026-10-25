@@ -1,0 +1,112 @@
+openapi: 3.1.0
+info:
+  title: AI Project Memory API
+  version: 0.2.0
+  description: Local read API for traceable multi-LLM projects and compiled knowledge.
+servers:
+  - url: http://127.0.0.1:8765
+paths:
+  /health:
+    get:
+      summary: Check service health and version
+      responses:
+        "200": {description: Service is available}
+  /v0/projects:
+    get:
+      summary: List imported projects
+      responses:
+        "200": {description: Project list}
+  /v0/projects/{project_id}/conversations:
+    get:
+      summary: List conversations in a project
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200": {description: Conversation list}
+  /v0/projects/{project_id}/questions:
+    get:
+      summary: List questions in a project
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200": {description: Question list}
+  /v0/questions:
+    get:
+      summary: List questions across projects
+      parameters:
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200": {description: Question list}
+  /v0/search:
+    get:
+      summary: Search traceable sentence evidence
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: {type: string}
+        - name: project_id
+          in: query
+          schema: {type: string}
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200": {description: Search results with evidence coordinates}
+        "400": {description: Missing search term}
+  /v0/messages/{message_id}:
+    get:
+      summary: Retrieve one source message
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Source message}
+        "404": {description: Message not found}
+  /v0/topics:
+    get:
+      summary: List compiled topics with evidence counts
+      responses:
+        "200": {description: Topic list}
+  /v0/topics/{topic_id_or_slug}:
+    get:
+      summary: Retrieve a topic, document metadata and all evidence
+      parameters:
+        - name: topic_id_or_slug
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Topic and evidence}
+        "404": {description: Topic not found}
+  /v0/knowledge-documents:
+    get:
+      summary: List generated knowledge documents and review status
+      responses:
+        "200": {description: Knowledge document list}
+  /v0/knowledge-documents/{document_id}/revisions:
+    get:
+      summary: List immutable content revisions for one document
+      parameters:
+        - name: document_id
+          in: path
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Revision metadata list}
+components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      schema: {type: string}
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+        default: 50

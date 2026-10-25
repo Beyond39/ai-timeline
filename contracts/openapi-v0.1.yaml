@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: AI Project Memory API
+  version: 0.1.0
+  description: Read-only local API for imported, traceable multi-LLM project memory.
+servers:
+  - url: http://127.0.0.1:8765
+paths:
+  /health:
+    get:
+      summary: Check service health
+      responses:
+        "200":
+          description: Service is available
+  /v0/projects:
+    get:
+      summary: List imported AI projects
+      responses:
+        "200":
+          description: Project list
+  /v0/projects/{project_id}/conversations:
+    get:
+      summary: List conversations in a project
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Conversation list
+  /v0/projects/{project_id}/questions:
+    get:
+      summary: List extracted questions in a project
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Question list with directly linked answers when available
+  /v0/questions:
+    get:
+      summary: List questions across projects
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 100
+      responses:
+        "200":
+          description: Cross-project question list
+  /v0/search:
+    get:
+      summary: Search sentence segments across projects
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: project_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 50
+      responses:
+        "200":
+          description: Traceable sentence-level results
+        "400":
+          description: Missing search term
+  /v0/messages/{message_id}:
+    get:
+      summary: Retrieve one source message and its location
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Source message
+        "404":
+          description: Message not found
+components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      schema:
+        type: string

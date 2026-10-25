@@ -1,0 +1,48 @@
+{
+  "provider": "generic-llm",
+  "project_id": "learning-demo",
+  "project_title": "学习",
+  "conversations": [
+    {
+      "id": "learning-methods",
+      "title": "学习方法",
+      "created_at": 1789232400,
+      "messages": [
+        {
+          "id": "lm-1",
+          "role": "user",
+          "created_at": 1789232401,
+          "text": "怎样提高复习效率？高等数学的错题应该怎样复习？"
+        },
+        {
+          "id": "lm-2",
+          "parent_id": "lm-1",
+          "role": "assistant",
+          "created_at": 1789232402,
+          "text": "可以使用主动回忆，并按照错误原因整理高等数学错题。先遮住答案重新推导，再记录失败环节。"
+        }
+      ]
+    },
+    {
+      "id": "study-plan",
+      "title": "学习规划",
+      "created_at": 1789232500,
+      "messages": [
+        {
+          "id": "sp-1",
+          "role": "user",
+          "created_at": 1789232501,
+          "text": "如何安排每周复习计划？我希望兼顾专业课和英语。"
+        },
+        {
+          "id": "sp-2",
+          "parent_id": "sp-1",
+          "role": "assistant",
+          "created_at": 1789232502,
+          "text": "先确定固定学习时段，再根据回忆表现动态安排复习。每周末检查专业课和英语的完成情况。"
+        }
+      ]
+    }
+  ]
+}
+

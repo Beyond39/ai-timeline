@@ -1,0 +1,35 @@
+name: extension checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  extension:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: apps/navigator-extension
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm test
+      - run: python ../../tools/verify-public-repository.py
+      - run: npm run build
+      - run: npm run verify:package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: opc-timeline-${{ matrix.os }}
+          path: |
+            apps/navigator-extension/dist/ai-conversation-visual-navigator-v*.zip
+            apps/navigator-extension/dist/SHA256SUMS.txt
+            apps/navigator-extension/dist/PACKAGE_CHECK_REPORT.json
+# Native MV3 suites need an installed compatible browser + Playwright and remain
+# separately documented local acceptance. No publishing or upload job is run.

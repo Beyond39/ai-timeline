@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-25",
+  "scope": "Working files (including ignored data/output), root ZIP contents, all refs and reflog-reachable Git blobs. No network or credential validation.",
+  "limitations": "Heuristic candidates only; no OCR/PDF text extraction, encrypted-archive inspection, arbitrary binary parsing or unreachable-object guarantee. Generated dist/tmp and browser profiles excluded.",
+  "scanned": {
+    "working-tree": 693,
+    "archive": 584,
+    "git-history": 529
+  },
+  "skipped": {
+    "archive:binary": 21,
+    "archive-entry-size": 1,
+    "generated-output": 10729,
+    "working-tree:binary": 26,
+    "git-history:binary": 9
+  },
+  "candidateCounts": {
+    "archive:chat-url-candidate": 82,
+    "archive:literal-secret-candidate": 2,
+    "archive:email-candidate": 1,
+    "working-tree:chat-url-candidate": 82,
+    "working-tree:literal-secret-candidate": 3,
+    "working-tree:email-candidate": 1,
+    "git-history:chat-url-candidate": 82,
+    "git-history:literal-secret-candidate": 2,
+    "git-history:email-candidate": 1
+  },
+  "assessment": "Common key/private-key/JWT/credential-URL patterns not found; literal-secret candidates are synthetic test values; chat URL candidates are in test fixtures. No proof of absence of private content. PDF/media privacy and asset ownership require manual review.",
+  "valuesIncluded": false,
+  "gitMetadata": "Two unique author email identities and two committer identities; addresses withheld, owner review pending."
+}

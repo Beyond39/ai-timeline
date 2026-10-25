@@ -1,0 +1,483 @@
+{
+  "date": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "version": "1.7.1-beta.1",
+  "nodeVersion": "v24.22.1",
+  "node": {
+    "version": "1.7.1",
+    "ok": true,
+    "suites": [
+      {
+        "suite": "core",
+        "passed": true,
+        "reportedChecks": 17
+      },
+      {
+        "suite": "regressions",
+        "passed": true,
+        "reportedChecks": 16
+      },
+      {
+        "suite": "v03",
+        "passed": true,
+        "reportedChecks": 5
+      },
+      {
+        "suite": "adapter",
+        "passed": true,
+        "reportedChecks": 118
+      },
+      {
+        "suite": "full-conversation",
+        "passed": true,
+        "reportedChecks": 14
+      },
+      {
+        "suite": "reader",
+        "passed": true,
+        "reportedChecks": 15
+      },
+      {
+        "suite": "navigation",
+        "passed": true,
+        "reportedChecks": 12
+      },
+      {
+        "suite": "document-sources",
+        "passed": true,
+        "reportedChecks": 16
+      },
+      {
+        "suite": "document-formats",
+        "passed": true,
+        "reportedChecks": 0
+      },
+      {
+        "suite": "conversation-outline",
+        "passed": true,
+        "reportedChecks": 12
+      },
+      {
+        "suite": "document-recipes",
+        "passed": true,
+        "reportedChecks": 14
+      },
+      {
+        "suite": "v1-links",
+        "passed": true,
+        "reportedChecks": 7
+      },
+      {
+        "suite": "opc",
+        "passed": true,
+        "reportedChecks": 5
+      },
+      {
+        "suite": "opc-improvements",
+        "passed": true,
+        "reportedChecks": 5
+      },
+      {
+        "suite": "qa-p0",
+        "passed": true,
+        "reportedChecks": 16
+      },
+      {
+        "suite": "v14",
+        "passed": true,
+        "reportedChecks": 11
+      },
+      {
+        "suite": "release",
+        "passed": true,
+        "reportedChecks": 12
+      },
+      {
+        "suite": "search-management",
+        "passed": true,
+        "reportedChecks": 8
+      },
+      {
+        "suite": "project-workspace",
+        "passed": true,
+        "reportedChecks": 11
+      },
+      {
+        "suite": "interactions",
+        "passed": true,
+        "reportedChecks": 9
+      },
+      {
+        "suite": "timeline-stability",
+        "passed": true,
+        "reportedChecks": 4
+      },
+      {
+        "suite": "tag-suggestions",
+        "passed": true,
+        "reportedChecks": 4
+      },
+      {
+        "suite": "project-deletion",
+        "passed": true,
+        "reportedChecks": 2
+      },
+      {
+        "suite": "knowledge",
+        "passed": true,
+        "reportedChecks": 5
+      },
+      {
+        "suite": "hybrid",
+        "passed": true,
+        "reportedChecks": 40
+      },
+      {
+        "suite": "static",
+        "passed": true
+      }
+    ],
+    "checkedAt": "2026-10-25T07:57:48.883Z",
+    "scope": "Node domain/renderer/adapter regression and static checks. Browser/IndexedDB tests have a separate report. No live ChatGPT account or installed MV3 assertion."
+  },
+  "browser": {
+    "actual": {
+      "lifecycleSyncRuntime": "Chrome 155.0.8059.85",
+      "hybrid": "Edge Chromium 156.0.4314.42"
+    },
+    "isolated": true,
+    "syntheticData": true,
+    "suites": {
+      "lifecycle": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "one Project, default zoom, ordinary mouse clicks",
+            "passed": true
+          },
+          {
+            "name": "an empty second independent Project does not break A interactions",
+            "passed": true
+          },
+          {
+            "name": "same Workspace creates second independent Project, default zoom without closing navigation",
+            "passed": true
+          },
+          {
+            "name": "native project select popup switches B to A, then ordinary zoom and node clicks",
+            "passed": true
+          },
+          {
+            "name": "visible Project A remains interactive while Project B is loading",
+            "passed": true
+          },
+          {
+            "name": "failed target read preserves the visible Project and its handlers",
+            "passed": true
+          },
+          {
+            "name": "a source-selection dialog keeps its Project until saving and closing during target loading",
+            "passed": true
+          },
+          {
+            "name": "a Canvas edit completed during target loading is saved only to the source Project",
+            "passed": true
+          },
+          {
+            "name": "refresh and reopen Workspace with two independent Projects preserve working default controls",
+            "passed": true
+          },
+          {
+            "name": "three independent Projects, third with one Q/A, default zoom and Reader",
+            "passed": true
+          },
+          {
+            "name": "native A/B/C/A switches keep correct ownership without Fit",
+            "passed": true
+          },
+          {
+            "name": "a newer native Project choice during a pending read is never discarded",
+            "passed": true
+          },
+          {
+            "name": "a failed native Project selection restores selector, title and active scope together",
+            "passed": true
+          },
+          {
+            "name": "delete synthetic B, then A/C continue working and A source data survives",
+            "passed": true
+          },
+          {
+            "name": "browser process restart preserves independent Projects and their working controls",
+            "passed": true
+          }
+        ]
+      },
+      "sync": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "Workspace + changes scale and rendered coordinates on every one of five clicks",
+            "passed": true
+          },
+          {
+            "name": "Same-project data refresh preserves Workspace local zoom",
+            "passed": true
+          },
+          {
+            "name": "Changes received during an open dialog are applied after it closes",
+            "passed": true
+          },
+          {
+            "name": "A: one Project / one Conversation, Workspace five + and five −",
+            "passed": true
+          },
+          {
+            "name": "A: one Project / one Conversation, native Side Panel five + and five −",
+            "passed": true
+          },
+          {
+            "name": "Workspace correct Q/A ownership and hit test after zoom",
+            "passed": true
+          },
+          {
+            "name": "Workspace Fit All and Locate Latest use actual rendered geometry",
+            "passed": true
+          },
+          {
+            "name": "Side Panel correct Q/A ownership and hit test after zoom",
+            "passed": true
+          },
+          {
+            "name": "Side Panel Fit All and Locate Latest use actual rendered geometry",
+            "passed": true
+          },
+          {
+            "name": "Existing Conversation management writes complete while its dialog remains open",
+            "passed": true
+          },
+          {
+            "name": "Updates received while refresh is busy are drained after it completes",
+            "passed": true
+          },
+          {
+            "name": "C: second Conversation appears in both views, each zoom remains local",
+            "passed": true
+          },
+          {
+            "name": "B: create second independent Project while Workspace + is pressed",
+            "passed": true
+          },
+          {
+            "name": "B/E: repeated A/B switches restore each local viewport and correct Q/A",
+            "passed": true
+          },
+          {
+            "name": "D: same-project metadata edit in Side Panel updates Workspace Reader",
+            "passed": true
+          },
+          {
+            "name": "D: Workspace edit updates Side Panel, independent simultaneous zoom does not write",
+            "passed": true
+          },
+          {
+            "name": "D: real concurrent metadata writes reject one stale edit without overwrite",
+            "passed": true
+          },
+          {
+            "name": "D: same-project data save while + / − / Q/A is pressed preserves native clicks",
+            "passed": true
+          },
+          {
+            "name": "Late Timeline read cannot reset zoom made after request began",
+            "passed": true
+          },
+          {
+            "name": "A read already in flight cannot detach a pressed Workspace +",
+            "passed": true
+          },
+          {
+            "name": "E: different Projects edit and zoom independently",
+            "passed": true
+          },
+          {
+            "name": "Late response from a previous Project cannot overwrite the active Project",
+            "passed": true
+          },
+          {
+            "name": "Source identities, Q/A, original text, versions, relations, Canvas and stored viewport hashes unchanged",
+            "passed": true
+          }
+        ]
+      },
+      "runtime": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "loaded Workspace JavaScript is the disk source, worker ID/version agree",
+            "passed": true
+          },
+          {
+            "name": "single Project: ten physical +/− clicks change span and actual node positions",
+            "passed": true
+          },
+          {
+            "name": "wide Workspace reader is docked and both panels remain usable",
+            "passed": true
+          },
+          {
+            "name": "ResizeObserver between 时间放大 pointerdown/up preserves the native click",
+            "passed": true
+          },
+          {
+            "name": "ResizeObserver between 时间缩小 pointerdown/up preserves the native click",
+            "passed": true
+          },
+          {
+            "name": "ResizeObserver between Q/A pointerdown/up keeps the node and opens its actual Reader",
+            "passed": true
+          },
+          {
+            "name": "a lost terminal pointer event is reconciled by the next real unpressed mouse move",
+            "passed": true
+          },
+          {
+            "name": "cancelled data navigation releases its interaction waiter while the real mouse is still held",
+            "passed": true
+          },
+          {
+            "name": "three independent Projects: native selection, zoom and scope after A/B/C/A",
+            "passed": true
+          },
+          {
+            "name": "separate Workspace tabs retain their own selected Project across refresh",
+            "passed": true
+          },
+          {
+            "name": "Side Panel has independent restore state from Workspace",
+            "passed": true
+          },
+          {
+            "name": "separate Chrome windows preserve different Projects through refresh and new Workspace entry",
+            "passed": true
+          },
+          {
+            "name": "original-page diagnostic probe collects +/−/Q/A events and modal hit testing without Q/A text",
+            "passed": true
+          }
+        ]
+      },
+      "hybrid": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "real HTTP proxy rejects wrong pairing credentials and unapproved origins",
+            "passed": true
+          },
+          {
+            "name": "offline auto analysis is source-preserving and creates chronological stages in real IndexedDB",
+            "passed": true
+          },
+          {
+            "name": "field edits automatically protected; rerun updates other fields and saves a new version",
+            "passed": true
+          },
+          {
+            "name": "stage navigation locates real Timeline and reader shows owning stage",
+            "passed": true
+          },
+          {
+            "name": "evidence opens exact original message substring with highlight",
+            "passed": true
+          },
+          {
+            "name": "real loopback pairing, model choice and explicit cost/upload confirmation",
+            "passed": true
+          },
+          {
+            "name": "same request reuses cached AI result and records cache hit",
+            "passed": true
+          },
+          {
+            "name": "editing while AI pending keeps current human fields when completion arrives",
+            "passed": true
+          },
+          {
+            "name": "cancelled API leaves previous version intact and next task works",
+            "passed": true
+          },
+          {
+            "name": "proxy failure preserves offline and historical versions",
+            "passed": true
+          },
+          {
+            "name": "historical restore keeps latest human title, overview edits and revision log",
+            "passed": true
+          },
+          {
+            "name": "atomic competing analysis commits reject stale completion",
+            "passed": true
+          },
+          {
+            "name": "analysis in A then switching to independent B cannot write across project boundary",
+            "passed": true
+          },
+          {
+            "name": "refresh/reload persists B analysis and keeps Timeline and reader usable",
+            "passed": true
+          },
+          {
+            "name": "knowledge archive export/import is additive and cannot overwrite latest manual edits",
+            "passed": true
+          },
+          {
+            "name": "source update while AI pending rejects stale result and invalidates old message-version evidence",
+            "passed": true
+          },
+          {
+            "name": "refresh during an active analysis preserves committed data and never automatically retries",
+            "passed": true
+          },
+          {
+            "name": "shared Side Panel entry opens saved knowledge at narrow width without horizontal overflow",
+            "passed": true
+          }
+        ]
+      }
+    }
+  },
+  "python": {
+    "tests": 39,
+    "passed": true
+  },
+  "package": {
+    "version": "1.7.1",
+    "checkedAt": "2026-10-25T08:10:24.221Z",
+    "passed": true,
+    "files": 143,
+    "archive": "ai-conversation-visual-navigator-v1.7.1.zip",
+    "bytes": 6370543,
+    "sha256": "4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a",
+    "checks": [
+      "Version metadata consistent",
+      "Source/install directory byte equality",
+      "All ZIP entries decompressed and compared to install directory",
+      "ZIP structure and SHA256 consistent",
+      "Validation fixtures and runners excluded; only the opt-in live probe is shipped"
+    ],
+    "scope": "Artifact integrity only; does not execute the installed extension"
+  },
+  "cleanClone": {
+    "status": "pending"
+  },
+  "remote": {
+    "status": "pending"
+  },
+  "limits": [
+    "No signed-in live capture",
+    "No paid AI upstream",
+    "No private original profile inspection or upgrade acceptance",
+    "No Word/WPS acceptance",
+    "No complete binary/PDF semantic privacy guarantee"
+  ]
+}

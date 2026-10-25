@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.ai-project-memory/schemas/generic-import.v0.1.schema.json",
+  "title": "Generic AI Conversation Import v0.1",
+  "type": "object",
+  "required": ["provider", "project_title", "conversations"],
+  "properties": {
+    "provider": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string"},
+    "project_title": {"type": "string", "minLength": 1},
+    "conversations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "messages"],
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string", "minLength": 1},
+          "created_at": {"type": ["string", "number", "null"]},
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["role"],
+              "anyOf": [
+                {"required": ["text"]},
+                {"required": ["content"]}
+              ],
+              "properties": {
+                "id": {"type": "string"},
+                "parent_id": {"type": ["string", "null"]},
+                "role": {"enum": ["user", "assistant", "system", "tool", "unknown"]},
+                "text": {"type": "string"},
+                "content": {"type": "string"},
+                "created_at": {"type": ["string", "number", "null"]},
+                "metadata": {"type": "object"}
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

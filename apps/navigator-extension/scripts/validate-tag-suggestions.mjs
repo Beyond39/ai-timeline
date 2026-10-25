@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {suggestTags,featureText,featureSourceKey,reviewSuggestion,FEATURE_VERSION} from '../domain/tag-suggestions.js';
+import {cardPresentation} from '../domain/card-presentation.js';
+const cards=[{id:'a',conversationId:'c1',sourceKey:'v1',question:'请帮我解释 React 状态闭包和 Timeline 缩放。清理 ResizeObserver，保持 React 状态同步。',answer:'React state cleanup',tags:[]},{id:'b',conversationId:'c2',sourceKey:'v2',question:'PostgreSQL 索引优化与数据库事务并发控制。',answer:'数据库索引，事务控制',tags:['数据库优化']},{id:'empty',question:'请帮我一下，谢谢！',answer:'你好！',tags:[]}];
+const original=JSON.stringify(cards),suggestions=suggestTags(cards);
+assert.equal(JSON.stringify(cards),original);assert(suggestions[0].tags.includes('react'));assert(suggestions[0].tags.length>=2&&suggestions[0].tags.length<=5);assert(!suggestions[0].title.includes('请帮我'));assert(suggestions[1].tags.includes('数据库优化'));assert.equal(suggestions[2].title,'待命名');assert.deepEqual(suggestions[2].tags,[]);assert.deepEqual(suggestTags(cards),suggestions);
+console.log('PASS local bilingual TF-IDF ranks readable terms, prioritizes human tags, deterministic insufficient-info fallback');
+const marked=suggestTags([{id:'m',question:'$app React C++ TensorFlow $x^2$ and $price = 10',answer:'',tags:[]}])[0];assert(marked.sourceMarkers.includes('source_contains_$app'));assert(!marked.tags.includes('app'));assert(marked.tags.includes('c++'));assert(featureText('$x^2$ and $price').includes('$price'));
+console.log('PASS source marker diagnostic excludes only known marker from features, preserves dollar formulas/code');
+const m={title:'人工标题',tags:['人工标签'],topic:'人工主题',notes:'原始批注',revision:3,localSuggestion:structuredClone(suggestions[0])};
+reviewSuggestion(m,{operation:'accept',sourceKey:'v1',title:'React · Timeline',tags:['react','timeline']});assert.equal(m.title,'人工标题');assert.deepEqual(m.tags,['人工标签']);assert.equal(m.topic,'人工主题');assert.equal(m.notes,'原始批注');assert.deepEqual(m.autoTags,['react','timeline']);assert.equal(cardPresentation({questionPreview:'原问题',metadata:m}).title,'人工标题');assert.equal(cardPresentation({questionPreview:'原问题',metadata:{...m,title:''}}).title,'React · Timeline');
+assert.throws(()=>reviewSuggestion(m,{operation:'accept',sourceKey:'new-source'}));assert.throws(()=>reviewSuggestion({...m,localSuggestion:{...m.localSuggestion,version:FEATURE_VERSION+1}},{operation:'edit',sourceKey:'v1'}));
+reviewSuggestion(m,{operation:'clear',sourceKey:'v1'});assert.deepEqual(m.autoTags,[]);assert.equal(m.title,'人工标题');assert.deepEqual(m.tags,['人工标签']);
+console.log('PASS accept/edit/reject/clear preserve manual metadata and reject outdated source/algorithm');
+assert.notEqual(featureSourceKey({questionVersionId:'v1'}),featureSourceKey({questionVersionId:'v2'}));
+console.log('PASS source-version cache invalidation changes key');

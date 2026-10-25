@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/schemas/qa-unit.v0.2.1.schema.json",
+  "title": "Traceable Q/A unit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question_id", "answer_message_id", "question_text", "answer_text", "summary", "content_sha256", "tags", "evidence"],
+  "properties": {
+    "question_id": {"type": "string"},
+    "answer_message_id": {"type": "string"},
+    "question_text": {"type": "string", "minLength": 1},
+    "answer_text": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "tags": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question", "answer"],
+      "properties": {
+        "question": {"type": "array", "items": {"type": "string"}},
+        "answer": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

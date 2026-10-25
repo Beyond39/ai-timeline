@@ -1,0 +1,94 @@
+openapi: 3.1.0
+info:
+  title: Project Memory Engine API
+  version: 0.1.0
+servers:
+  - url: /v1
+paths:
+  /sources/imports:
+    post:
+      summary: Create an idempotent source import
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+      responses:
+        '201': { description: Upload session created }
+  /imports/{importId}/complete:
+    post:
+      summary: Seal uploaded evidence and enqueue normalization
+      parameters:
+        - in: path
+          name: importId
+          required: true
+          schema: { type: string }
+      responses:
+        '202': { description: Job accepted }
+  /projects/{projectId}/analysis-runs:
+    post:
+      summary: Run a versioned semantic analysis pipeline
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema: { type: string }
+      responses:
+        '202': { description: Analysis job accepted }
+  /projects/{projectId}/problem-tree:
+    get:
+      summary: Get recursive problem tree with evidence counts
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Problem tree }
+  /projects/{projectId}/timeline:
+    get:
+      summary: Query semantic timeline events
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema: { type: string }
+        - in: query
+          name: lane
+          schema: { type: string, enum: [conversation, problem, decision, task, artifact] }
+        - in: query
+          name: cursor
+          schema: { type: string }
+      responses:
+        '200': { description: Cursor-paginated events }
+  /projects/{projectId}/projections/file-tree:
+    post:
+      summary: Generate a non-destructive file-tree projection
+      parameters:
+        - in: path
+          name: projectId
+          required: true
+          schema: { type: string }
+      responses:
+        '202': { description: Projection job accepted }
+  /projections/{projectionId}/apply:
+    post:
+      summary: Apply an approved projection to an isolated branch/worktree
+      parameters:
+        - in: path
+          name: projectionId
+          required: true
+          schema: { type: string }
+      responses:
+        '202': { description: Apply job accepted }
+  /jobs/{jobId}:
+    get:
+      summary: Get asynchronous job state
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Job state and progress }
+

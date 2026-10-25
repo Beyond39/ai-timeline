@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Memory Engine</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">LOCAL ALPHA · V0.4.2</p>
+      <h1>Project Memory Engine</h1>
+      <p class="subtitle">从真实对话，回到有证据的项目知识。</p>
+    </div>
+    <div class="header-controls"><label>项目 <select id="project-select"></select></label><label>编译模式 <select id="extractor-select"><option value="heuristic">Offline</option><option value="openai">Semantic</option></select></label><input id="model-id" class="hidden" placeholder="OpenAI 模型 ID"><button id="refresh" class="primary">编译主题树</button></div>
+  </header>
+
+  <main>
+    <section id="stats" class="stats" aria-label="项目概览"></section>
+    <div id="notice" class="notice hidden" role="status"></div>
+    <section class="import-panel panel">
+      <div class="import-heading"><div><p class="section-label">ADD SOURCE</p><h2>让对话成为项目记忆</h2></div><p class="muted">预览后才会导入。支持 ChatGPT JSON 与普通文本。</p></div>
+      <div class="import-actions"><label class="file-action secondary">＋ 选择文件<input id="upload-file" type="file" accept=".json,.txt,.md" hidden></label><button id="paste-toggle" class="secondary">＋ 粘贴对话</button></div>
+      <div id="paste-panel" class="paste-panel hidden"><div class="paste-row"><input id="paste-title" placeholder="对话标题"><input id="new-project-title" placeholder="新项目名称（可选）"></div><textarea id="paste-text" placeholder="粘贴 User: / Assistant: 对话，或任意完整原文。无法识别角色时会保留原文。"></textarea><button id="preview-paste" class="primary">预览对话</button></div>
+      <div id="preview-result" class="hidden"></div><button id="confirm-staged" class="primary hidden">确认导入</button>
+      <details class="advanced-import"><summary>高级 · 本机路径导入</summary><input id="source-path" placeholder="本机 JSON 文件或文件夹路径"><button id="preview-import" class="secondary">扫描并预览</button><button id="confirm-import" class="secondary hidden">确认导入</button></details>
+      <div class="compile-status"><span id="compile-progress" class="muted"></span><div id="compile-meter" class="meter hidden"><span></span></div><p id="provider-help" class="muted hidden">Semantic 模式需要在启动服务前配置 OPENAI_API_KEY 与 AI_MEMORY_MODEL。也可以选 Offline。</p></div>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel topic-panel">
+        <div class="panel-title">
+          <div><span class="step">01</span><h2>Topic Tree</h2></div>
+          <input id="topic-search" type="search" placeholder="搜索主题">
+        </div>
+        <div id="topic-list" class="topic-list"></div>
+        <div class="tree-tools"><button id="new-topic" class="secondary">＋ 新建主题</button><button id="evaluate" class="secondary">抽查片段</button></div>
+        <div id="semantic-review-list" class="merge-review-list"></div>
+        <div id="merge-review-list" class="merge-review-list"></div>
+      </aside>
+
+      <article class="panel summary-panel">
+        <div id="empty-state" class="empty-state">
+          <span class="empty-mark">↳</span>
+          <h2>选择一个主题</h2>
+          <p>导入几段对话，编译后在左侧检查主题树。每条摘要都可以回到原文。</p>
+        </div>
+        <div id="topic-detail" class="hidden">
+          <div class="topic-heading">
+            <div><span class="step">02</span><p class="meta">TOPIC WORKSPACE</p><h2 id="detail-title"></h2></div>
+            <span id="detail-status" class="badge"></span>
+          </div>
+          <section class="summary-card">
+            <p class="section-label">AI SUMMARY · 请核对证据</p>
+            <p id="detail-summary" class="lead"></p>
+          </section>
+          <section>
+            <p class="section-label">AI 扩展 · 非原始证据</p>
+            <p id="detail-extension"></p>
+          </section>
+          <section><p class="section-label">相关片段</p><div id="fragment-list" class="fragment-list"></div></section>
+          <section><p class="section-label">相关 Q/A</p><div id="topic-qa-list" class="fragment-list"></div></section>
+          <section><p class="section-label">主张、决策与待解决问题</p><div id="insight-list" class="fragment-list"></div></section>
+          <div class="actions">
+            <button id="approve" class="primary">确认可用</button>
+            <button id="reject" class="secondary">退回复核</button>
+            <button id="context" class="secondary">生成上下文包</button>
+            <button id="rename-topic" class="secondary">重命名</button>
+            <button id="move-topic" class="secondary">移动</button>
+            <button id="merge-topic" class="secondary">合并</button>
+            <button id="report-issue" class="secondary">报告问题</button>
+          </div>
+          <pre id="context-output" class="context hidden"></pre>
+        </div>
+      </article>
+
+      <aside class="panel evidence-panel">
+        <div class="panel-title"><div><span class="step">03</span><h2>Evidence Inspector</h2></div></div>
+        <div id="evidence-list" class="evidence-list"><p class="muted">选择主题后查看每一句话来自哪里。</p></div>
+        <div id="evidence-detail" class="evidence-detail hidden"></div>
+      </aside>
+    </section>
+
+    <section class="lower-grid hidden">
+      <article class="panel">
+        <div class="panel-title"><div><span class="step">04</span><h2>Q/A 单元</h2></div></div>
+        <div id="qa-list" class="qa-list"></div>
+      </article>
+      <article class="panel">
+        <div class="panel-title"><div><span class="step">05</span><h2>时间线</h2></div></div>
+        <div id="timeline" class="timeline"></div>
+      </article>
+    </section>
+  </main>
+  <dialog id="topic-action-dialog" class="evaluation-dialog"><form method="dialog"><div class="dialog-head"><h2 id="topic-action-title"></h2><button aria-label="关闭">×</button></div><input id="topic-action-name" class="hidden" placeholder="新的主题名称"><select id="topic-action-target" class="hidden"></select><div class="actions"><button id="topic-action-save" type="button" class="primary">保存修改</button></div></form></dialog>
+  <dialog id="issue-dialog" class="evaluation-dialog"><form method="dialog"><div class="dialog-head"><h2>报告问题</h2><button aria-label="关闭">×</button></div><p class="muted">这条反馈会保存在本地，供后续质量评估。</p><select id="issue-type"><option value="wrong_fragment">片段边界错误</option><option value="wrong_topic">主题归属错误</option><option value="duplicate_topic">重复主题</option><option value="wrong_summary">摘要错误</option><option value="broken_evidence">证据断链</option><option value="other">其他</option></select><textarea id="issue-correction" placeholder="请写下你认为正确的内容或问题说明"></textarea><div class="actions"><button id="issue-save" type="button" class="primary">保存反馈</button></div></form></dialog>
+  <dialog id="evaluation-dialog" class="evaluation-dialog"><form method="dialog"><div class="dialog-head"><h2>人工抽查 · 20 个片段</h2><button aria-label="关闭">×</button></div><p id="evaluation-count" class="muted"></p><p id="evaluation-source" class="section-label"></p><pre id="evaluation-text"></pre><div id="evaluation-fields" class="evaluation-fields"></div><textarea id="evaluation-note" placeholder="纠正或备注（可选）"></textarea><div class="actions"><button id="evaluation-save" type="button" class="primary">保存并查看下一条</button></div></form></dialog>
+  <footer>数据默认保存在本机 · 页面仅供本地访问 · 每条总结都应回到证据核对</footer>
+  <script src="/app.js"></script>
+</body>
+</html>

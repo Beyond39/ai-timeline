@@ -1,0 +1,41 @@
+{
+  "provider": "demo-generic",
+  "project_id": "pme-semantic-demo",
+  "project_title": "Project Memory Engine",
+  "conversations": [
+    {
+      "id": "conversation-a",
+      "title": "GPT-SaaS early design",
+      "messages": [
+        {"id": "a-u1", "role": "user", "text": "GPT-SaaS should retain original AI conversations, because I need to check where each project decision came from."},
+        {"id": "a-a1", "role": "assistant", "text": "Store the source conversation and link every extracted statement to its original message and sentence."},
+        {"id": "a-u2", "role": "user", "text": "For the database, keep source versions so that reimporting an export does not erase old evidence."},
+        {"id": "a-a2", "role": "assistant", "text": "Use source fingerprints and retain prior versions while marking superseded conversations inactive."},
+        {"id": "a-u3", "role": "user", "text": "The interface should show a topic tree beside the selected topic and its evidence."},
+        {"id": "a-a3", "role": "assistant", "text": "A three-panel workspace can show the tree, topic details, and original evidence together."}
+      ]
+    },
+    {
+      "id": "conversation-b",
+      "title": "Conversation Manager workflow",
+      "messages": [
+        {"id": "b-u1", "role": "user", "text": "Conversation Manager needs to turn several chats about the same project into one editable knowledge structure."},
+        {"id": "b-a1", "role": "assistant", "text": "Extract fragments by subject and attach related fragments from different conversations to shared topics."},
+        {"id": "b-u2", "role": "user", "text": "If the model is unsure whether two topics match, what should happen?"},
+        {"id": "b-a2", "role": "assistant", "text": "Queue the topic match for human review instead of making a duplicate topic automatically."}
+      ]
+    },
+    {
+      "id": "conversation-c",
+      "title": "Project Memory Engine acceptance",
+      "messages": [
+        {"id": "c-u1", "role": "user", "text": "Project Memory Engine should let me paste three real conversations and compile a topic tree with evidence."},
+        {"id": "c-a1", "role": "assistant", "text": "The first release can combine semantic segmentation, topic extraction, cross-conversation matching, and evidence links."},
+        {"id": "c-u2", "role": "user", "text": "After I correct a fragment's topic, the correction must survive another compile."},
+        {"id": "c-a2", "role": "assistant", "text": "Persist the human assignment separately and apply it after each compilation."},
+        {"id": "c-u3", "role": "user", "text": "The database also needs evidence links for manually moved fragments."},
+        {"id": "c-a3", "role": "assistant", "text": "Transfer the fragment's sentence evidence to the corrected topic and keep the original source text."}
+      ]
+    }
+  ]
+}

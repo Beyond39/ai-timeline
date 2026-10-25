@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>V0.7 隔离侧栏尺寸验证</title></head>
+<body style="font:14px sans-serif;margin:20px;background:#eef2f7">
+  <h1>合成资料 · 真实 DOM 的窄侧栏验证</h1>
+  <p>独立 iframe 提供确切的 390／260 像素应用视口；不是实际 Chrome 扩展安装验收。</p>
+  <div style="display:flex;gap:20px;align-items:flex-start">
+    <section><h2>390 × 720</h2><iframe id="panel-390" title="390像素隔离侧栏" width="390" height="720" src="/sidepanel.html?validationDb=v04-v07-frame-390&amp;captureFixture=reported-zero-markers" style="border:1px solid #cbd5e1;background:white"></iframe></section>
+    <section><h2>260 × 600</h2><iframe id="panel-260" title="260像素隔离侧栏" width="260" height="600" src="/sidepanel.html?validationDb=v04-v07-frame-260&amp;captureFixture=reported-zero-markers" style="border:1px solid #cbd5e1;background:white"></iframe></section>
+  </div>
+</body></html>

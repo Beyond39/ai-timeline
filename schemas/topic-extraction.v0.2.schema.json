@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.ai-project-memory/schemas/topic-extraction.v0.2.schema.json",
+  "title": "Knowledge topic candidates v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["topics"],
+  "properties": {
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "summary", "ai_extension", "evidence_ids", "keywords"],
+        "properties": {
+          "title": {"type": "string", "minLength": 1},
+          "summary": {"type": "string", "minLength": 1},
+          "ai_extension": {"type": "string"},
+          "evidence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string"}
+          },
+          "keywords": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

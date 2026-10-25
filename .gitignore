@@ -1,30 +1,51 @@
-
-# Generated browser profiles and build artifacts
-/apps/navigator-extension/dist/
-
-# Large generated performance fixture
-/apps/navigator-extension/validation/performance-v03-fixture.json
-
-# Python cache
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.venv/
+.env
+data/*.db
+data/*.sqlite*
+tmp/
+output/generated/knowledge/*
+!output/generated/knowledge/.gitkeep
+output/generated/context/*
+!output/generated/context/.gitkeep
 
-# Local source backups
-/GPT-SaaS-full-source-*.zip
-/GPT-SaaS-full-source-*.zip.sha256
+# Local extension builds and generated visual baseline (never source data)
+apps/navigator-extension/dist/
+apps/navigator-extension/validation/search-baseline/
+node_modules/
 
-# Release archives
-/OPC-Timeline-*.zip
+# User data and local deliverables are separate from source history.
+/data/
+/output/
+/*.zip
+*.crx
+.env.*
+!.env.example
 
-# Temporary development files
-/tmp/
+# Release output, archives, local browser profiles, credentials and private exports
+/dist/
+/*.zip.sha256
+*.pem
+*.key
+*.p12
+*.pfx
+*.har
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*-profile/
+*-profile-*/
+playwright-report/
+test-results/
+.DS_Store
+Thumbs.db
+# Keep generated/private reports locally; publish reviewed Markdown evidence instead.
+/docs/reports/*.pdf
 
-# Python cache
-__pycache__/
-*.pyc
-
-# Generated extension output
-/apps/navigator-extension/dist/
-
-# Large performance fixture
 /apps/navigator-extension/validation/performance-v03-fixture.json
+
+# Independent local website repository; not required by the extension.
+/apps/navigator-site/

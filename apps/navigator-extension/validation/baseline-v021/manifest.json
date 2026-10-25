@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "AI Conversation Visual Navigator",
+  "version": "0.2.1",
+  "description": "主动采集 ChatGPT 对话，预览并确认整理建议，在本地彩色地图中阅读完整问答与原文版本。",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "scripting", "sidePanel", "storage", "unlimitedStorage"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_title": "打开对话导航器", "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" } },
+  "icons": { "16": "icons/icon16.png", "32": "icons/icon32.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "side_panel": { "default_path": "sidepanel.html" },
+  "options_ui": { "page": "workspace.html", "open_in_tab": true },
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; base-uri 'none'" }
+}

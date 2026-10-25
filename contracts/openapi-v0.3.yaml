@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: AI Project Memory API
+  version: 0.3.0
+  description: Local-first API for traceable Q/A analysis, knowledge review, timeline and context packages.
+servers:
+  - url: http://127.0.0.1:8765
+paths:
+  /:
+    get:
+      summary: Open the local summary and review interface
+      responses: {"200": {description: HTML application}}
+  /health:
+    get:
+      summary: Check service health
+      responses: {"200": {description: Service version}}
+  /v0/dashboard:
+    get:
+      summary: Read local project, Q/A, topic and review counts
+      responses: {"200": {description: Dashboard read model}}
+  /v0/qa-units:
+    get:
+      summary: List derived Q/A units with topic labels
+      parameters:
+        - {name: project_id, in: query, schema: {type: string}}
+        - {$ref: "#/components/parameters/Limit"}
+      responses: {"200": {description: Q/A unit list}}
+  /v0/merge-reviews:
+    get:
+      summary: List label merges awaiting human judgment
+      parameters:
+        - {name: status, in: query, schema: {type: string, default: pending}}
+      responses: {"200": {description: Merge review list}}
+  /v0/merge-reviews/{review_id}:
+    post:
+      summary: Merge two labels or keep them separate
+      parameters:
+        - {name: review_id, in: path, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action: {type: string, enum: [merge, keep_separate]}
+                note: {type: string}
+      responses: {"200": {description: Resolution recorded}, "400": {description: Invalid request}}
+  /v0/timeline:
+    get:
+      summary: Read chronological message and review events
+      parameters:
+        - {name: project_id, in: query, schema: {type: string}}
+        - {$ref: "#/components/parameters/Limit"}
+      responses: {"200": {description: Timeline events}}
+  /v0/context/{topic_id_or_slug}:
+    get:
+      summary: Build an evidence-backed Markdown context package
+      parameters:
+        - {name: topic_id_or_slug, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: Context package}, "400": {description: Topic not found}}
+  /v0/refresh:
+    post:
+      summary: Run local Q/A analysis and heuristic knowledge compilation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force: {type: boolean, default: false}
+                output_dir: {type: string, default: output/knowledge}
+      responses: {"200": {description: Analysis and compilation result}}
+  /v0/review:
+    post:
+      summary: Approve, reject or reset one knowledge document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [document_or_topic, action]
+              properties:
+                document_or_topic: {type: string}
+                action: {type: string, enum: [approve, reject, reset]}
+                note: {type: string}
+      responses: {"200": {description: Review recorded}, "400": {description: Invalid request}}
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema: {type: integer, minimum: 1, maximum: 1000, default: 200}

@@ -1,0 +1,307 @@
+openapi: 3.1.0
+info:
+  title: AI Project Memory API
+  version: 0.4.2
+  description: Local API for source preview, semantic compilation, evidence and human review.
+servers:
+  - url: http://127.0.0.1:8765
+paths:
+  /:
+    get:
+      summary: Open the local summary and review interface
+      responses: {"200": {description: HTML application}}
+  /health:
+    get:
+      summary: Check service health
+      responses: {"200": {description: Service version}}
+  /v0/dashboard:
+    get:
+      summary: Read local project, Q/A, topic and review counts
+      responses: {"200": {description: Dashboard read model}}
+  /v0/qa-units:
+    get:
+      summary: List derived Q/A units with topic labels
+      parameters:
+        - {name: project_id, in: query, schema: {type: string}}
+        - {$ref: "#/components/parameters/Limit"}
+      responses: {"200": {description: Q/A unit list}}
+  /v0/merge-reviews:
+    get:
+      summary: List label merges awaiting human judgment
+      parameters:
+        - {name: status, in: query, schema: {type: string, default: pending}}
+      responses: {"200": {description: Merge review list}}
+  /v0/merge-reviews/{review_id}:
+    post:
+      summary: Merge two labels or keep them separate
+      parameters:
+        - {name: review_id, in: path, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action: {type: string, enum: [merge, keep_separate]}
+                note: {type: string}
+      responses: {"200": {description: Resolution recorded}, "400": {description: Invalid request}}
+  /v0/timeline:
+    get:
+      summary: Read chronological message and review events
+      parameters:
+        - {name: project_id, in: query, schema: {type: string}}
+        - {$ref: "#/components/parameters/Limit"}
+      responses: {"200": {description: Timeline events}}
+  /v0/context/{topic_id_or_slug}:
+    get:
+      summary: Build an evidence-backed Markdown context package
+      parameters:
+        - {name: topic_id_or_slug, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: Context package}, "400": {description: Topic not found}}
+  /v0/refresh:
+    post:
+      summary: Run local Q/A analysis and heuristic knowledge compilation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                force: {type: boolean, default: false}
+                output_dir: {type: string, default: output/knowledge}
+      responses: {"200": {description: Analysis and compilation result}}
+  /v0/review:
+    post:
+      summary: Approve, reject or reset one knowledge document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [document_or_topic, action]
+              properties:
+                document_or_topic: {type: string}
+                action: {type: string, enum: [approve, reject, reset]}
+                note: {type: string}
+      responses: {"200": {description: Review recorded}, "400": {description: Invalid request}}
+  /v0/import-preview:
+    post:
+      summary: Scan a local JSON file or folder without importing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/SourcePath"}
+      responses: {"200": {description: Source types, counts, duplicate state and warnings}}
+  /v0/upload-preview:
+    post:
+      summary: Stage a .json, .txt or .md file in the local process and preview it
+      parameters:
+        - {name: X-File-Name, in: header, required: true, schema: {type: string, description: Percent-encoded filename}}
+        - {name: X-Project-Title, in: header, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema: {type: string, format: binary}
+      responses: {"200": {description: Preview and opaque confirmation token}, "400": {description: Invalid source}}
+  /v0/paste-preview:
+    post:
+      summary: Stage a pasted conversation and preview parsed roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: {type: string}
+                title: {type: string}
+                project_title: {type: string}
+      responses: {"200": {description: Preview and opaque confirmation token}}
+  /v0/staged-import:
+    post:
+      summary: Confirm a staged preview and import into a new or existing project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token]
+              properties:
+                token: {type: string}
+                project_id: {type: string}
+      responses: {"200": {description: Import result}}
+  /v0/provider-status:
+    get:
+      summary: Read Semantic provider readiness without revealing the API key
+      responses: {"200": {description: Readiness and model name}}
+  /v0/import:
+    post:
+      summary: Import a previously previewed local file or folder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/SourcePath"}
+      responses: {"200": {description: Import result}}
+  /v0/remove-source:
+    post:
+      summary: Soft deactivate a previously imported source
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: "#/components/schemas/SourcePath"}
+      responses: {"200": {description: Removed source status}}
+  /v0/projects/{project_id}/compile:
+    post:
+      summary: Start fragment analysis and project topic tree compilation
+      parameters:
+        - {$ref: "#/components/parameters/ProjectId"}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                extractor: {type: string, enum: [heuristic, openai], default: heuristic}
+                model: {type: string, description: Required for OpenAI}
+                force: {type: boolean, default: false}
+                output_dir: {type: string, default: output/generated/knowledge}
+      responses: {"202": {description: Compile job ID and initial status}}
+  /v0/compile-jobs/{job_id}:
+    get:
+      summary: Poll compile phase and fragment progress
+      parameters:
+        - {name: job_id, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: Job status and result}}
+  /v0/projects/{project_id}/tree:
+    get:
+      summary: List project topic nodes with parent links and counts
+      parameters:
+        - {$ref: "#/components/parameters/ProjectId"}
+      responses: {"200": {description: Topic tree}}
+  /v0/projects/{project_id}/fragments:
+    get:
+      summary: List source-backed conversation fragments
+      parameters:
+        - {$ref: "#/components/parameters/ProjectId"}
+      responses: {"200": {description: Fragment list}}
+  /v0/projects/{project_id}/semantic-reviews:
+    get:
+      summary: List low-confidence topic matches requiring human review
+      parameters: [{$ref: "#/components/parameters/ProjectId"}]
+      responses: {"200": {description: Pending candidate list}}
+  /v0/semantic-reviews/{review_id}/resolve:
+    post:
+      summary: Attach a candidate to an existing topic, create a topic, or ignore it
+      parameters:
+        - {name: review_id, in: path, required: true, schema: {type: string}}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action: {type: string, enum: [attach_existing, create_new, ignore]}
+                topic_id: {type: string}
+      responses: {"200": {description: Saved decision}}
+  /v0/projects/{project_id}/topics:
+    post:
+      summary: Create a project topic manually
+      parameters: [{$ref: "#/components/parameters/ProjectId"}]
+      responses: {"200": {description: New topic}}
+  /v0/projects/{project_id}/assign-fragment:
+    post:
+      summary: Persist a human fragment topic correction
+      parameters: [{$ref: "#/components/parameters/ProjectId"}]
+      responses: {"200": {description: Saved assignment}}
+  /v0/projects/{project_id}/issues:
+    post:
+      summary: Report wrong fragment, topic, summary or broken evidence
+      parameters: [{$ref: "#/components/parameters/ProjectId"}]
+      responses: {"200": {description: Saved issue}}
+  /v0/projects/{project_id}/evaluation-queue:
+    get:
+      summary: Load up to 20 fragments for manual semantic evaluation
+      parameters: [{$ref: "#/components/parameters/ProjectId"}]
+      responses: {"200": {description: Fragment evaluation queue}}
+  /v0/projects/{project_id}/evaluate/{fragment_id}:
+    post:
+      summary: Save human semantic quality scores for one fragment
+      parameters:
+        - {$ref: "#/components/parameters/ProjectId"}
+        - {name: fragment_id, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: Saved evaluation}}
+  /v0/conversations/{conversation_id}/messages:
+    get:
+      summary: Read the full original message sequence of a conversation
+      parameters:
+        - {name: conversation_id, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: Original messages}}
+  /v0/projects/{project_id}/tree/topics/{topic_id}:
+    get:
+      summary: Read topic summary, Q/A, insights, fragments and original evidence
+      parameters:
+        - {$ref: "#/components/parameters/ProjectId"}
+        - {name: topic_id, in: path, required: true, schema: {type: string}}
+      responses: {"200": {description: Project topic detail}}
+  /v0/projects/{project_id}/tree/proposals:
+    post:
+      summary: Propose rename, move or merge of a topic
+      parameters:
+        - {$ref: "#/components/parameters/ProjectId"}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topic_id, action]
+              properties:
+                topic_id: {type: string}
+                action: {type: string, enum: [rename, move, merge]}
+                title: {type: string}
+                parent_topic_id: {type: [string, "null"]}
+                target_topic_id: {type: string}
+      responses: {"200": {description: Pending proposal}}
+  /v0/tree-proposals/{proposal_id}/resolve:
+    post:
+      summary: Accept or reject a tree change proposal
+      parameters:
+        - {name: proposal_id, in: path, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision]
+              properties:
+                decision: {type: string, enum: [accept, reject]}
+      responses: {"200": {description: Resolution and current tree}}
+components:
+  parameters:
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      schema: {type: string}
+    Limit:
+      name: limit
+      in: query
+      schema: {type: integer, minimum: 1, maximum: 1000, default: 200}
+  schemas:
+    SourcePath:
+      type: object
+      required: [path]
+      properties:
+        path: {type: string}
+        project_title: {type: string}

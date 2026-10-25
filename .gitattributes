@@ -1,0 +1,8 @@
+# Stable source line endings make clean Windows/Linux checkouts reproducible.
+* text=auto eol=lf
+# Preserve pinned upstream bytes exactly.
+apps/navigator-extension/vendor/** -text
+*.png -text
+*.wasm -text
+*.zip -text
+*.pdf -text
