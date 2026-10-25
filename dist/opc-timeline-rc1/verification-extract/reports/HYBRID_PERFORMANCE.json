@@ -1,0 +1,20 @@
+{
+  "scope": "Node synthetic offline Conversation engine only; not browser paint timings or independent semantic quality",
+  "node": "v24.19.0",
+  "results": [
+    {
+      "count": 1000,
+      "elapsedMs": 94,
+      "heapDeltaBytes": 9115712,
+      "stages": 1,
+      "items": 0
+    },
+    {
+      "count": 5000,
+      "elapsedMs": 448,
+      "heapDeltaBytes": 26274152,
+      "stages": 1,
+      "items": 0
+    }
+  ]
+}

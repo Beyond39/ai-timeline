@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-10-23T02:09:54.495Z",
+  "timezone": "Asia/Shanghai",
+  "build": "p0-interaction-lifecycle-20261023.1",
+  "manifestVersion": "1.6.3",
+  "actualUserInstance": "NOT TESTED — user reports +/− remain affected; live Chrome URL verification stopped Computer Use again, user currently cannot provide manual records.",
+  "browserVersion": "152.0.7977.65",
+  "syntheticOnly": true,
+  "reports": {
+    "before": {
+      "file": "RUNTIME_BEFORE_ACCEPTANCE.json",
+      "checks": 12,
+      "failed": 8
+    },
+    "after": {
+      "file": "RELEASE_RUNTIME_1.6.3.json",
+      "checks": 12,
+      "failed": 0
+    },
+    "nativeSidePanelSync": {
+      "file": "RELEASE_SYNC_1.6.3.json",
+      "checks": 23,
+      "failed": 0
+    },
+    "projectLifecycle": {
+      "file": "RELEASE_LIFECYCLE_1.6.3.json",
+      "checks": 15,
+      "failed": 0
+    },
+    "node": {
+      "file": "NODE_RELEASE_1.6.3.json",
+      "suites": 23,
+      "checks": 333,
+      "failed": 0
+    }
+  },
+  "package": {
+    "file": "RELEASE_PACKAGE_1.6.3.json",
+    "archive": "ai-conversation-visual-navigator-v1.6.3.zip",
+    "sha256": "7899497f932b9af0e9c0694d30744a5befaeb6c99ce49072694565cd9602e764",
+    "bytes": 702101,
+    "files": 153
+  },
+  "sourceHashesMatchRuntimeReports": true,
+  "finalSourceHashes": {
+    "background.js": "699cb3f761fc38d61ca9c69762fd784751f8a4515c5f585555774ec306785207",
+    "ui/app.js": "0e852a939c3dc3fdb3cc9f6705c68cce65854b10bf00c67e55910b85d3a2b32a",
+    "ui/opc.js": "33a6a6f87594fe98038f897b0dea0f4a477919250c2bddf73c1065435427922e",
+    "ui/horizontal-timeline.js": "791f62d902cfae74e5f4cc88761121c6eee8a8d7e8a30e5e2bdd611b23dcdab9",
+    "package.json": "1fd9df358eb44197c55c846851d248e108e7658580e253b1bd157769453e4ebb",
+    "manifest.json": "d20aaefda308dc02593272b7512a81df153c7252b21cf964b84e8ad9f8cdd91d",
+    "domain/common.js": "1a25f555d2dbdbcbb25f4225b461d039884d231a7f524b43d79dd08846ab15ae",
+    "workspace.html": "aea89e1c8db6e33df579309a82b4789c354593930a838d9b80a785f65feb44df",
+    "sidepanel.html": "2ea2065be5e48130c1f832b87c21aba7f62d13556ea84f574b86c564f6ee5ad0",
+    "scripts/build.mjs": "b65493543f1a94855e53edb15df3bba98db21b3c67c15070deedae21aacb6ef6",
+    "scripts/verify-package.mjs": "00efbe0fdbea205db4acacf208c196a54663d3b4464e7c201636d8c63ba57c8d",
+    "ui/selection-state.js": "40bdf2f0e578726aa5180a2f2db9bbc0bfdec3b826253267019911ff4e5a4d76",
+    "domain/runtime-build.js": "3ac5d26e29ec6ee29025aa1de75dbd1570d717df7939158989551e3eb8411c66",
+    "scripts/workspace-live-probe.js": "6ff3177e1c304610da1961a1d07f39eb824a80775a8b3c085e26748df7108c73",
+    "scripts/test-workspace-runtime-mv3.mjs": "71dd89f56bafd9762e1bef2e93eebf6e78f813d4fbc59da0227b2312bc4c65c2",
+    "scripts/test-workspace-sync-mv3.mjs": "cb1d94cb3a507978862273894f5985477403664b3307ae461965c373fe822900",
+    "scripts/inspect-loaded-extension.mjs": "b3b68d3095c405f0638b906f85b93d459a09514d8d52650fcd82c83a52deae17",
+    "docs/P0_SYSTEM_RUNTIME_AUDIT_2026-10-23.zh-CN.md": "a83b5ccf10c72a1fa92529f3b664787f96a5562c659b026349e2c0bcf2a3d55a"
+  },
+  "functionFingerprints": {
+    "before": {
+      "OPCTimeline.show": "f86b1ec21c848586eb775ef78d8e262e58f3ec5ba2a1c0a0f59ab5a0fb323eca",
+      "OPCTimeline.load": "cd147ef5c666da04ccbbd41c359c02993f3d2df75ab2e6a6d9ef1f37cfb70a8c",
+      "OPCTimeline.render": "9baa3662b90d448f77a74a7a01033c5a3dc7f4f4f78ae610b99e0c414adccd2f",
+      "OPCTimeline.openCard": "28c3123f395b1d3f0826ba9352e626dbaae91cd29baa2365c0c47a15f0537298",
+      "HorizontalTimeline.zoom": "10a575df497892e95f9cf6a746aeecb75fc739f4800409f8c59b57a0b0a399b7",
+      "HorizontalTimeline.render": "b68e3264763a07b73941bae510edee9afb8bda077de8f6b425f7aeef553c7727"
+    },
+    "after": {
+      "OPCTimeline.show": "3fb0d8d955e390ae064486cad46b92955721b1967d34b17c357e8afa2db3465d",
+      "OPCTimeline.load": "9896a776e3dff3254531f201728a51121b5c1eeb96e2996a7eddaf8312613e49",
+      "OPCTimeline.render": "9baa3662b90d448f77a74a7a01033c5a3dc7f4f4f78ae610b99e0c414adccd2f",
+      "OPCTimeline.openCard": "28c3123f395b1d3f0826ba9352e626dbaae91cd29baa2365c0c47a15f0537298",
+      "HorizontalTimeline.zoom": "10a575df497892e95f9cf6a746aeecb75fc739f4800409f8c59b57a0b0a399b7",
+      "HorizontalTimeline.render": "66cb6c1fccae2f98536563a5ab6b18582a40c1f63050a0d2d2a96a1a16f43fd4",
+      "HorizontalTimeline.resizeAfterInteraction": "de31cd7517a6775a9c85436b81c3d085d090cf56cd06a04267fea3604acc76c5"
+    }
+  },
+  "productionPatchScope": "Only this round: runtime interaction fixes, version coherence, build/verification support and opt-in live probe. Test runners, README and report are separate workspace files; prior uncommitted changes excluded.",
+  "dataProtection": "No live IndexedDB read/write, browser restart, schema migration, reset, commit or push. Only OPC registration metadata was read from daily profiles."
+}

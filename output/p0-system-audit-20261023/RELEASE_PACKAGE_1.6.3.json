@@ -1,0 +1,17 @@
+{
+  "version": "1.6.3",
+  "checkedAt": "2026-10-23T02:09:50.366Z",
+  "passed": true,
+  "files": 153,
+  "archive": "ai-conversation-visual-navigator-v1.6.3.zip",
+  "bytes": 702101,
+  "sha256": "7899497f932b9af0e9c0694d30744a5befaeb6c99ce49072694565cd9602e764",
+  "checks": [
+    "Version metadata consistent",
+    "Source/install directory byte equality",
+    "All ZIP entries decompressed and compared to install directory",
+    "ZIP structure and SHA256 consistent",
+    "Validation fixtures and runners excluded; only the opt-in live probe is shipped"
+  ],
+  "scope": "Artifact integrity only; does not execute the installed extension"
+}

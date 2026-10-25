@@ -1,0 +1,30 @@
+
+# Generated browser profiles and build artifacts
+/apps/navigator-extension/dist/
+
+# Large generated performance fixture
+/apps/navigator-extension/validation/performance-v03-fixture.json
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local source backups
+/GPT-SaaS-full-source-*.zip
+/GPT-SaaS-full-source-*.zip.sha256
+
+# Release archives
+/OPC-Timeline-*.zip
+
+# Temporary development files
+/tmp/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Generated extension output
+/apps/navigator-extension/dist/
+
+# Large performance fixture
+/apps/navigator-extension/validation/performance-v03-fixture.json

@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>对话资料打印版</title><link rel="stylesheet" href="ui/styles.css"></head>
+<body data-mode="print">
+<header class="print-toolbar"><div><strong>对话资料打印版</strong><p>点击打印，选择“另存为 PDF”；可关闭浏览器的页眉和页脚。</p></div><div class="actions"><button id="print-button" type="button" class="btn primary" disabled>打印 / 另存为 PDF</button><button id="print-retry" type="button" class="btn">重新读取快照</button></div></header>
+<p id="print-status" class="print-status" role="status">正在读取已保存的打印快照…</p>
+<main id="print-content" class="print-content" aria-label="选定版本的完整资料"></main>
+<script type="module" src="ui/print.js"></script>
+</body></html>

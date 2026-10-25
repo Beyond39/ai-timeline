@@ -1,0 +1,38 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "name": "press and subthreshold jitter preserve native click and never write coordinates",
+      "passed": true
+    },
+    {
+      "name": "capture begins only after screen-space threshold and release click is suppressed once",
+      "passed": true
+    },
+    {
+      "name": "release outside does not swallow next descendant/anchor activation",
+      "passed": true
+    },
+    {
+      "name": "keyboard click, pointer cancel, Escape, blur and dispose clean active listeners",
+      "passed": true
+    },
+    {
+      "name": "another pointer cannot move or stop the primary gesture",
+      "passed": true
+    },
+    {
+      "name": "preview placement is on screen and outside the card at all corners",
+      "passed": true
+    },
+    {
+      "name": "preview fallback keeps huge card unobstructed; narrow view can place below",
+      "passed": true
+    },
+    {
+      "name": "view preferences emit lightweight notification; source/metadata/relations still refresh",
+      "passed": true
+    }
+  ],
+  "scope": "Gesture lifecycle, placement and notification routing; real DOM tests are separate."
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OPC Timeline · 本地问答资料库</title>
+  <link rel="stylesheet" href="ui/styles.css"><link rel="stylesheet" href="ui/workspace.css"><link rel="stylesheet" href="ui/v07-workspace.css"><link rel="stylesheet" href="ui/v1-workspace.css"><link rel="stylesheet" href="ui/opc.css"><link rel="stylesheet" href="ui/release.css"><link rel="stylesheet" href="ui/workbench.css"><script type="module" src="ui/app.js"></script>
+</head>
+<body data-mode="panel">
+  <header class="app-header">
+    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.7.0</span></div></div>
+    <nav class="workbench-tabs" aria-label="主要工作入口"><button id="timeline-view-button" type="button" aria-pressed="true">Timeline</button><button id="canvas-view-button" type="button" aria-pressed="false">Canvas</button><button id="deploy-view-button" type="button" aria-pressed="false">Deploy</button></nav>
+    <div class="actions header-actions"><button id="capture-button" class="btn primary" type="button">导入当前对话</button><button id="settings-button" class="icon-button" type="button" aria-label="设置与导入选项" title="设置与导入选项">⚙</button><button id="open-workspace" class="btn header-workspace" type="button">工作台 ↗</button></div></header>
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+  <main class="shell">
+    <aside id="project-library" class="library" aria-label="项目管理">
+      <div class="library-section-heading"><span class="eyebrow">我的项目</span><button id="new-project" class="icon-button" type="button" aria-label="新建项目" title="新建项目">＋</button></div>
+      <label class="field"><span class="sr-only">项目</span><select id="project-select" aria-label="选择本地项目"></select></label>
+      <button id="project-workspace-button" type="button" class="btn">Project Workspace</button>
+      <p id="project-stats" class="muted"></p>
+      <details class="library-actions"><summary>项目管理</summary><div class="actions small"><button id="rename-project" class="btn" type="button">重命名</button><button id="export-button" class="btn" type="button">导出备份</button><button id="delete-project" class="btn danger" type="button">删除项目</button></div></details>
+      <div class="library-footer"><span class="local-indicator"><i></i> 此浏览器的本地资料</span><span>原文与历史版本可回溯</span></div>
+    </aside>
+    <section class="navigator" aria-label="OPC 工作台">
+      <nav id="breadcrumbs" class="breadcrumbs" aria-label="项目、conversation 与 Q/A 层级"></nav>
+      <h1 id="map-title" class="workbench-project">本地问答</h1><p id="map-subtitle" hidden></p><div id="project-metrics" class="project-metrics" aria-label="项目统计" hidden></div>
+      <section id="search-results" class="search-results" hidden></section>
+      <section id="conversation-map" class="conversation-map" aria-label="问答工作台"><div class="empty conversation-map-empty"><h2>选择一条 Conversation</h2><p>在下方选择已保存的对话，或先采集当前页面。</p></div></section>
+      </section>
+    <section id="reader-pane" class="reading-pane" aria-label="辅助详细原文"><div class="reader-chrome"><span><i></i> 详细原文</span><details class="reader-secondary-tools"><summary>阅读选项</summary><button id="reader-focus" class="btn quiet" type="button" aria-pressed="false">专注原文 ↗</button></details></div><section id="reader" class="reader" aria-label="详细原文与来源阅读器"><div class="empty"><span class="empty-symbol" aria-hidden="true">↗</span><h2>详细原文与来源</h2><p>这里辅助核对原文、来源和历史版本。主要 Q/A 在中部阅读。</p></div></section></section>
+  </main>
+  <dialog id="workspace-settings" class="workbench-settings"><div class="settings-heading"><h2>设置与导入选项</h2><button id="settings-close" class="btn">关闭</button></div><div class="settings-actions"><button id="import-button" class="btn">导入文件 / 恢复备份</button><button id="capture-source-button" class="btn">采集来源</button><button id="refresh-button" class="btn">刷新数据</button><button id="memory-button" class="btn">备份与恢复点</button><button id="connections-button" class="btn">来源引用</button><button id="saved-bundles-button" class="btn">已存资料包</button><button id="document-export-button" class="btn">导出文档</button><button id="document-bundle-button" class="btn">创建资料包</button><button id="organize-button" class="btn">整理对话</button></div><form id="search-form" class="search-bar"><input id="search-input" type="search" aria-label="搜索项目原文" placeholder="搜索来源原文"><button class="btn" type="submit">搜索</button><button id="clear-search" class="btn" type="button">清除</button></form><details class="workspace-tools"><summary>导入与整理选项</summary>
+        <label class="field"><span>读取范围</span><select id="capture-kind" aria-label="读取范围"><option value="full" selected>完整 Conversation（自动识别问答，包含分支）</option><option value="loaded">仅当前页面正文（兼容旧采集）</option></select></label>
+        <div class="map-actions"><button id="manage-topics" class="btn" type="button">管理主题</button><button id="undo-button" class="btn quiet" type="button">撤销最近修改</button></div>
+        <details class="path-options"><summary>阅读路径与采集范围</summary><label class="field"><span>当前 conversation 的阅读路径 / 分支</span><select id="path-select" aria-label="阅读路径 / 分支"></select></label><label class="check"><input id="all-paths" type="checkbox">包含其他已存路径</label><label class="check"><input id="capture-load-earlier" type="checkbox">采集前向上加载一屏（可选）</label><p class="footnote">采集当前已授权的 ChatGPT 标签；工作台使用最近选定的来源。一次加载不代表完整历史。连线表示浏览顺序。</p></details>
+      </details>
+      <details class="advanced-navigation"><summary>高级片段导航</summary>
+        <p class="view-explanation">查看已整理片段、主题与其他已存路径。完整 Q/A 在上方的 conversation 阅读区保留。</p>
+        <div class="view-switcher" role="group" aria-label="高级片段浏览方式"><button type="button" data-map-mode="overview" aria-pressed="true">对话总览</button><button type="button" data-map-mode="topics" aria-pressed="false">主题视图</button><button type="button" data-map-mode="qas" aria-pressed="false">问答列表</button></div>
+        <div class="map-toolbar"><div class="map-filters"><select id="topic-filter" aria-label="筛选主题"></select><select id="state-filter" aria-label="筛选整理状态"><option value="">全部整理状态</option><option value="unorganized">未整理</option><option value="pending">待确认</option><option value="confirmed">已确认</option><option value="needs_review">需要复核</option></select></div><span id="map-count" class="map-count"></span></div>
+        <div id="legend" class="legend" aria-label="主题图例"></div><div id="map" class="map"></div>
+      </details>
+      <section id="conversation-library" class="conversation-library" aria-label="同项目的 conversation">
+        <div class="conversation-library-heading"><div><h2>项目中的 Conversation</h2><p class="muted">切换对话，继续阅读。</p></div><span id="library-count" class="badge">0</span></div>
+        <input id="conversation-search" class="library-search" type="search" placeholder="搜索此项目的对话…" aria-label="查找 conversation 标题">
+        <select id="conversation-select" aria-label="筛选 conversation" hidden></select>
+        <div id="conversation-list" class="conversation-list"></div>
+      </section>
+    </dialog><div hidden><button id="project-overview"></button><button id="resume-reading"></button><button id="conversation-switch"></button><button id="reader-toggle"></button></div><input id="file-input" type="file" accept=".json,application/json" hidden><dialog id="preview-dialog" class="preview-dialog"></dialog><dialog id="edit-dialog"></dialog>
+</body></html>
+

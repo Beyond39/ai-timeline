@@ -1,0 +1,5137 @@
+{
+  "metadata": {
+    "checkedAt": "2026-10-23T02:05:55.967Z",
+    "extensionId": "kiimccbgiehbadodcfkgedoappcdkach",
+    "runtimeManifestVersion": "1.6.3",
+    "visibleVersion": "1.6.3",
+    "entry": "/workspace.html",
+    "functions": {
+      "OPCTimeline.show": "3fb0d8d955e390ae064486cad46b92955721b1967d34b17c357e8afa2db3465d",
+      "OPCTimeline.load": "9896a776e3dff3254531f201728a51121b5c1eeb96e2996a7eddaf8312613e49",
+      "OPCTimeline.render": "9baa3662b90d448f77a74a7a01033c5a3dc7f4f4f78ae610b99e0c414adccd2f",
+      "OPCTimeline.openCard": "28c3123f395b1d3f0826ba9352e626dbaae91cd29baa2365c0c47a15f0537298",
+      "HorizontalTimeline.zoom": "10a575df497892e95f9cf6a746aeecb75fc739f4800409f8c59b57a0b0a399b7",
+      "HorizontalTimeline.render": "66cb6c1fccae2f98536563a5ab6b18582a40c1f63050a0d2d2a96a1a16f43fd4",
+      "HorizontalTimeline.resizeAfterInteraction": "de31cd7517a6775a9c85436b81c3d085d090cf56cd06a04267fea3604acc76c5"
+    },
+    "styles": [
+      {
+        "path": "/ui/styles.css",
+        "parsedRulesSha256": "4034c1319dbccb902ecf47477bd064b8932c4f792b0a11a0f540e9c5465fa381"
+      },
+      {
+        "path": "/ui/workspace.css",
+        "parsedRulesSha256": "bb80c45122ec33389c935a5aba73883d4fa4337bdc62f904b9e81d456415c511"
+      },
+      {
+        "path": "/ui/v07-workspace.css",
+        "parsedRulesSha256": "393b598d687e66c0e9b8fa5fcbdcc9a8b11b42ad3a7c1f00f9e59896fac69c8b"
+      },
+      {
+        "path": "/ui/v1-workspace.css",
+        "parsedRulesSha256": "0719ae1a791b03c8b1141dfc9cc9c6ef65734f558c880ac2b26fb5a74a11600a"
+      },
+      {
+        "path": "/ui/opc.css",
+        "parsedRulesSha256": "ad95f216023d1628feee79c3c05f993d1cbc83141b7479e33dca2c25e748f759"
+      },
+      {
+        "path": "/ui/release.css",
+        "parsedRulesSha256": "3af5bdf181ddef8b57e13319c7beda53da08c4085c7a2d54fc320bc09d02d6f1"
+      },
+      {
+        "path": "/ui/workbench.css",
+        "parsedRulesSha256": "2324f15e3bc45a6a3428b551c124fc4fa617f9a7ae703d3b5f53865c5a704dc5"
+      }
+    ],
+    "scope": "Original in-memory module fingerprints and passive event/state trace. Parsed CSS rule hashes are not raw file hashes. No Q/A bodies, history or storage contents.",
+    "worker": {
+      "build": "p0-interaction-lifecycle-20261023.1",
+      "extensionId": "kiimccbgiehbadodcfkgedoappcdkach",
+      "version": "1.6.3"
+    }
+  },
+  "initial": {
+    "time": 1187.7999999523163,
+    "page": "/workspace.html",
+    "entry": "workspace",
+    "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+    "renderedProjectId": null,
+    "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+    "scaleSource": "derived-from-rendered-evidence-dots",
+    "pxPerMs": 0.0000015439016203703703,
+    "visibleSpan": 483839119.1148568,
+    "axisSpanMs": null,
+    "axisFit": null,
+    "renderCount": null,
+    "controls": {
+      "时间放大": {
+        "connected": true,
+        "disabled": false,
+        "inertAncestor": null,
+        "blockedByModal": false,
+        "pointerEvents": "auto",
+        "zIndex": "auto",
+        "hover": false,
+        "box": {
+          "x": 332.34375,
+          "y": 166.5,
+          "width": 32,
+          "height": 30
+        },
+        "hit": {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        "hitsButton": true
+      },
+      "时间缩小": {
+        "connected": true,
+        "disabled": false,
+        "inertAncestor": null,
+        "blockedByModal": false,
+        "pointerEvents": "auto",
+        "zIndex": "auto",
+        "hover": false,
+        "box": {
+          "x": 298,
+          "y": 166.5,
+          "width": 28.34375,
+          "height": 30
+        },
+        "hit": {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        "hitsButton": true
+      }
+    },
+    "app": {
+      "build": "p0-interaction-lifecycle-20261023.1",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "pendingProjectId": null,
+      "reloadEpoch": 1,
+      "busy": 0,
+      "pendingRefresh": false,
+      "pressedPointers": [],
+      "waitingViewReads": 0
+    },
+    "dialogs": [],
+    "inertElements": [],
+    "nodes": [
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+        "left": 64.0179,
+        "box": {
+          "x": 277.015625,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+        "left": 197.411,
+        "box": {
+          "x": 410.40625,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+        "left": 330.804,
+        "box": {
+          "x": 543.796875,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+        "left": 464.196,
+        "box": {
+          "x": 677.1875,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+        "left": 597.589,
+        "box": {
+          "x": 810.578125,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+        "left": 730.982,
+        "box": {
+          "x": 943.96875,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      }
+    ]
+  },
+  "current": {
+    "time": 8199,
+    "page": "/workspace.html",
+    "entry": "workspace",
+    "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+    "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+    "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+    "scaleSource": "controller",
+    "pxPerMs": 0.0000015438988095238096,
+    "visibleSpan": 483840000,
+    "axisSpanMs": 483840000,
+    "axisFit": false,
+    "renderCount": 3,
+    "controls": {
+      "时间放大": {
+        "connected": true,
+        "disabled": false,
+        "inertAncestor": null,
+        "blockedByModal": false,
+        "pointerEvents": "auto",
+        "zIndex": "auto",
+        "hover": false,
+        "box": {
+          "x": 332.34375,
+          "y": 166.5,
+          "width": 32,
+          "height": 30
+        },
+        "hit": {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        "hitsButton": true
+      },
+      "时间缩小": {
+        "connected": true,
+        "disabled": false,
+        "inertAncestor": null,
+        "blockedByModal": false,
+        "pointerEvents": "auto",
+        "zIndex": "auto",
+        "hover": false,
+        "box": {
+          "x": 298,
+          "y": 166.5,
+          "width": 28.34375,
+          "height": 30
+        },
+        "hit": {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        "hitsButton": true
+      }
+    },
+    "app": {
+      "build": "p0-interaction-lifecycle-20261023.1",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "pendingProjectId": null,
+      "reloadEpoch": 1,
+      "busy": 0,
+      "pendingRefresh": false,
+      "pressedPointers": [],
+      "waitingViewReads": 0
+    },
+    "dialogs": [],
+    "inertElements": [],
+    "nodes": [
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+        "left": 64.0179,
+        "box": {
+          "x": 277.015625,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+        "left": 197.411,
+        "box": {
+          "x": 410.40625,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+        "left": 330.804,
+        "box": {
+          "x": 543.796875,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+        "left": 464.196,
+        "box": {
+          "x": 677.1875,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+        "left": 597.589,
+        "box": {
+          "x": 810.578125,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+        "left": 730.982,
+        "box": {
+          "x": 943.96875,
+          "y": 374.5,
+          "width": 24,
+          "height": 24
+        }
+      }
+    ]
+  },
+  "samples": [
+    {
+      "trigger": "pointerover",
+      "originalTargetConnected": false,
+      "time": 2174,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000023158482142857145,
+      "visibleSpan": 322560000,
+      "axisSpanMs": 322560000,
+      "axisFit": false,
+      "renderCount": 2,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 84.0268,
+          "box": {
+            "x": 110.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 284.116,
+          "box": {
+            "x": 310.109375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 484.205,
+          "box": {
+            "x": 510.203125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 684.295,
+          "box": {
+            "x": 710.28125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 884.384,
+          "box": {
+            "x": 910.375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 1084.47,
+          "box": {
+            "x": 1110.46875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerdown",
+      "originalTargetConnected": false,
+      "time": 2174.100000023842,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000023158482142857145,
+      "visibleSpan": 322560000,
+      "axisSpanMs": 322560000,
+      "axisFit": false,
+      "renderCount": 2,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 84.0268,
+          "box": {
+            "x": 110.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 284.116,
+          "box": {
+            "x": 310.109375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 484.205,
+          "box": {
+            "x": 510.203125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 684.295,
+          "box": {
+            "x": 710.28125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 884.384,
+          "box": {
+            "x": 910.375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 1084.47,
+          "box": {
+            "x": 1110.46875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerup",
+      "originalTargetConnected": false,
+      "time": 2174.2000000476837,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000023158482142857145,
+      "visibleSpan": 322560000,
+      "axisSpanMs": 322560000,
+      "axisFit": false,
+      "renderCount": 2,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 84.0268,
+          "box": {
+            "x": 110.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 284.116,
+          "box": {
+            "x": 310.109375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 484.205,
+          "box": {
+            "x": 510.203125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 684.295,
+          "box": {
+            "x": 710.28125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 884.384,
+          "box": {
+            "x": 910.375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 1084.47,
+          "box": {
+            "x": 1110.46875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "click",
+      "originalTargetConnected": false,
+      "time": 2174.2999999523163,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000023158482142857145,
+      "visibleSpan": 322560000,
+      "axisSpanMs": 322560000,
+      "axisFit": false,
+      "renderCount": 2,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 84.0268,
+          "box": {
+            "x": 110.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 284.116,
+          "box": {
+            "x": 310.109375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 484.205,
+          "box": {
+            "x": 510.203125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 684.295,
+          "box": {
+            "x": 710.28125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 884.384,
+          "box": {
+            "x": 910.375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 1084.47,
+          "box": {
+            "x": 1110.46875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerover",
+      "originalTargetConnected": true,
+      "time": 2174.600000023842,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000023158482142857145,
+      "visibleSpan": 322560000,
+      "axisSpanMs": 322560000,
+      "axisFit": false,
+      "renderCount": 2,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 84.0268,
+          "box": {
+            "x": 110.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 284.116,
+          "box": {
+            "x": 310.109375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 484.205,
+          "box": {
+            "x": 510.203125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 684.295,
+          "box": {
+            "x": 710.28125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 884.384,
+          "box": {
+            "x": 910.375,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 1084.47,
+          "box": {
+            "x": 1110.46875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerover",
+      "originalTargetConnected": false,
+      "time": 3177.2999999523163,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerdown",
+      "originalTargetConnected": false,
+      "time": 3177.5,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerup",
+      "originalTargetConnected": false,
+      "time": 3177.5,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "click",
+      "originalTargetConnected": false,
+      "time": 3177.600000023842,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerover",
+      "originalTargetConnected": true,
+      "time": 3177.7999999523163,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerover",
+      "originalTargetConnected": true,
+      "time": 8197,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerdown",
+      "originalTargetConnected": true,
+      "time": 8197.100000023842,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "pointerup",
+      "originalTargetConnected": true,
+      "time": 8197.100000023842,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    },
+    {
+      "trigger": "click",
+      "originalTargetConnected": true,
+      "time": 8197.200000047684,
+      "page": "/workspace.html",
+      "entry": "workspace",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "scaleSource": "controller",
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisSpanMs": 483840000,
+      "axisFit": false,
+      "renderCount": 3,
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": null,
+          "blockedByModal": false,
+          "pointerEvents": "auto",
+          "zIndex": "auto",
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          },
+          "hit": {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "btn",
+            "cardId": null
+          },
+          "hitsButton": true
+        }
+      },
+      "app": {
+        "build": "p0-interaction-lifecycle-20261023.1",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "pendingProjectId": null,
+        "reloadEpoch": 1,
+        "busy": 0,
+        "pendingRefresh": false,
+        "pressedPointers": [],
+        "waitingViewReads": 0
+      },
+      "dialogs": [],
+      "inertElements": [],
+      "nodes": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+          "left": 64.0179,
+          "box": {
+            "x": 277.015625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+          "left": 197.411,
+          "box": {
+            "x": 410.40625,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+          "left": 330.804,
+          "box": {
+            "x": 543.796875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+          "left": 464.196,
+          "box": {
+            "x": 677.1875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+          "left": 597.589,
+          "box": {
+            "x": 810.578125,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+          "left": 730.982,
+          "box": {
+            "x": 943.96875,
+            "y": 374.5,
+            "width": 24,
+            "height": 24
+          }
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "type": "pointerover",
+      "time": 1219.6000000238419,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": null,
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerdown",
+      "time": 1220.1000000238419,
+      "pointerId": 1,
+      "buttons": 1,
+      "trusted": true,
+      "projectId": null,
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerup",
+      "time": 1220.5,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": null,
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "click",
+      "time": 1220.5,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": null,
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerover",
+      "time": 2172.7000000476837,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerover",
+      "time": 2184.600000023842,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerdown",
+      "time": 2185,
+      "pointerId": 1,
+      "buttons": 1,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerup",
+      "time": 2185.399999976158,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "click",
+      "time": 2185.5,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerover",
+      "time": 3177.100000023842,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "btn",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-controls",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        },
+        {
+          "tag": "MAIN",
+          "id": null,
+          "class": "shell",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "btn",
+        "cardId": null
+      }
+    },
+    {
+      "type": "pointerover",
+      "time": 7200.5,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-board",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-scroll",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      }
+    },
+    {
+      "type": "pointerdown",
+      "time": 7200.899999976158,
+      "pointerId": 1,
+      "buttons": 1,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-board",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-scroll",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      }
+    },
+    {
+      "type": "pointerup",
+      "time": 7201.299999952316,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-board",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-scroll",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      }
+    },
+    {
+      "type": "click",
+      "time": 7201.299999952316,
+      "pointerId": 1,
+      "buttons": 0,
+      "trusted": true,
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "target": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      },
+      "connected": true,
+      "path": [
+        {
+          "tag": "BUTTON",
+          "id": null,
+          "class": "ht-point  ",
+          "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-board",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "ht-scroll",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-list",
+          "cardId": null
+        },
+        {
+          "tag": "DIV",
+          "id": null,
+          "class": "opc-layout opc-stable-workspace",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "opc-root",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": "conversation-map",
+          "class": "conversation-map",
+          "cardId": null
+        },
+        {
+          "tag": "SECTION",
+          "id": null,
+          "class": "navigator",
+          "cardId": null
+        }
+      ],
+      "hit": {
+        "tag": "BUTTON",
+        "id": null,
+        "class": "ht-point  ",
+        "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc"
+      }
+    }
+  ],
+  "calls": [
+    {
+      "method": "zoom",
+      "phase": "before",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 1220.7999999523163,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000015438988095238096,
+        "visibleSpan": 483840000,
+        "axisSpanMs": 483840000,
+        "axisFit": true,
+        "renderCount": 1,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": true,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 64.0179,
+            "box": {
+              "x": 277.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 197.411,
+            "box": {
+              "x": 410.40625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 330.804,
+            "box": {
+              "x": 543.796875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 464.196,
+            "box": {
+              "x": 677.1875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 597.589,
+            "box": {
+              "x": 810.578125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 730.982,
+            "box": {
+              "x": 943.96875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "render",
+      "phase": "before",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 1221.2999999523163,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000015438988095238096,
+        "visibleSpan": 483840000,
+        "axisSpanMs": 322560000,
+        "axisFit": false,
+        "renderCount": 1,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": true,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 64.0179,
+            "box": {
+              "x": 277.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 197.411,
+            "box": {
+              "x": 410.40625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 330.804,
+            "box": {
+              "x": 543.796875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 464.196,
+            "box": {
+              "x": 677.1875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 597.589,
+            "box": {
+              "x": 810.578125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 730.982,
+            "box": {
+              "x": 943.96875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "render",
+      "phase": "after",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 1225.7000000476837,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000023158482142857145,
+        "visibleSpan": 322560000,
+        "axisSpanMs": 322560000,
+        "axisFit": false,
+        "renderCount": 2,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 84.0268,
+            "box": {
+              "x": 110.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 284.116,
+            "box": {
+              "x": 310.109375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 484.205,
+            "box": {
+              "x": 510.203125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 684.295,
+            "box": {
+              "x": 710.28125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 884.384,
+            "box": {
+              "x": 910.375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 1084.47,
+            "box": {
+              "x": 1110.46875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "zoom",
+      "phase": "after",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 1225.8999999761581,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000023158482142857145,
+        "visibleSpan": 322560000,
+        "axisSpanMs": 322560000,
+        "axisFit": false,
+        "renderCount": 2,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 84.0268,
+            "box": {
+              "x": 110.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 284.116,
+            "box": {
+              "x": 310.109375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 484.205,
+            "box": {
+              "x": 510.203125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 684.295,
+            "box": {
+              "x": 710.28125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 884.384,
+            "box": {
+              "x": 910.375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 1084.47,
+            "box": {
+              "x": 1110.46875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "zoom",
+      "phase": "before",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 2185.600000023842,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000023158482142857145,
+        "visibleSpan": 322560000,
+        "axisSpanMs": 322560000,
+        "axisFit": false,
+        "renderCount": 2,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": true,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 84.0268,
+            "box": {
+              "x": 110.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 284.116,
+            "box": {
+              "x": 310.109375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 484.205,
+            "box": {
+              "x": 510.203125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 684.295,
+            "box": {
+              "x": 710.28125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 884.384,
+            "box": {
+              "x": 910.375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 1084.47,
+            "box": {
+              "x": 1110.46875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "render",
+      "phase": "before",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 2185.899999976158,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000023158482142857145,
+        "visibleSpan": 322560000,
+        "axisSpanMs": 483840000,
+        "axisFit": false,
+        "renderCount": 2,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": true,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 84.0268,
+            "box": {
+              "x": 110.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 284.116,
+            "box": {
+              "x": 310.109375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 484.205,
+            "box": {
+              "x": 510.203125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 684.295,
+            "box": {
+              "x": 710.28125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 884.384,
+            "box": {
+              "x": 910.375,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 1084.47,
+            "box": {
+              "x": 1110.46875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "render",
+      "phase": "after",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 2190.100000023842,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000015438988095238096,
+        "visibleSpan": 483840000,
+        "axisSpanMs": 483840000,
+        "axisFit": false,
+        "renderCount": 3,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 64.0179,
+            "box": {
+              "x": 277.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 197.411,
+            "box": {
+              "x": 410.40625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 330.804,
+            "box": {
+              "x": 543.796875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 464.196,
+            "box": {
+              "x": 677.1875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 597.589,
+            "box": {
+              "x": 810.578125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 730.982,
+            "box": {
+              "x": 943.96875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "zoom",
+      "phase": "after",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 2190.2999999523163,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000015438988095238096,
+        "visibleSpan": 483840000,
+        "axisSpanMs": 483840000,
+        "axisFit": false,
+        "renderCount": 3,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 64.0179,
+            "box": {
+              "x": 277.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 197.411,
+            "box": {
+              "x": 410.40625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 330.804,
+            "box": {
+              "x": 543.796875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 464.196,
+            "box": {
+              "x": 677.1875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 597.589,
+            "box": {
+              "x": 810.578125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 730.982,
+            "box": {
+              "x": 943.96875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "openCard",
+      "phase": "before",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 7201.5,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000015438988095238096,
+        "visibleSpan": 483840000,
+        "axisSpanMs": 483840000,
+        "axisFit": false,
+        "renderCount": 3,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 64.0179,
+            "box": {
+              "x": 277.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 197.411,
+            "box": {
+              "x": 410.40625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 330.804,
+            "box": {
+              "x": 543.796875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 464.196,
+            "box": {
+              "x": 677.1875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 597.589,
+            "box": {
+              "x": 810.578125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 730.982,
+            "box": {
+              "x": 943.96875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "openCard",
+      "phase": "after",
+      "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+      "state": {
+        "time": 7209.700000047684,
+        "page": "/workspace.html",
+        "entry": "workspace",
+        "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "renderedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "selectedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+        "scaleSource": "controller",
+        "pxPerMs": 0.0000015438988095238096,
+        "visibleSpan": 483840000,
+        "axisSpanMs": 483840000,
+        "axisFit": false,
+        "renderCount": 3,
+        "controls": {
+          "时间放大": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 332.34375,
+              "y": 166.5,
+              "width": 32,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          },
+          "时间缩小": {
+            "connected": true,
+            "disabled": false,
+            "inertAncestor": null,
+            "blockedByModal": false,
+            "pointerEvents": "auto",
+            "zIndex": "auto",
+            "hover": false,
+            "box": {
+              "x": 298,
+              "y": 166.5,
+              "width": 28.34375,
+              "height": 30
+            },
+            "hit": {
+              "tag": "BUTTON",
+              "id": null,
+              "class": "btn",
+              "cardId": null
+            },
+            "hitsButton": true
+          }
+        },
+        "app": {
+          "build": "p0-interaction-lifecycle-20261023.1",
+          "entry": "workspace",
+          "projectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "displayedProjectId": "prj_ac1b951d-df4e-4c04-b214-3023003fefe2",
+          "pendingProjectId": null,
+          "reloadEpoch": 1,
+          "busy": 0,
+          "pendingRefresh": false,
+          "pressedPointers": [],
+          "waitingViewReads": 0
+        },
+        "dialogs": [],
+        "inertElements": [],
+        "nodes": [
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point selected",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_7059a2a2-9bf5-471d-b60c-fa52a2f389cc",
+            "left": 64.0179,
+            "box": {
+              "x": 277.015625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_380195b9-9a8e-4f55-b7f0-9fcd0e766a8c",
+            "left": 197.411,
+            "box": {
+              "x": 410.40625,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_68885ef4-28fb-4b8f-9749-06e615e12f81",
+            "left": 330.804,
+            "box": {
+              "x": 543.796875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_d50f886b-0365-4c30-b367-816ae3c52803",
+            "left": 464.196,
+            "box": {
+              "x": 677.1875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_dd9dd5da-3fb9-42d5-9d46-33ddc8fc640b",
+            "left": 597.589,
+            "box": {
+              "x": 810.578125,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          },
+          {
+            "tag": "BUTTON",
+            "id": null,
+            "class": "ht-point  ",
+            "cardId": "card:conv_f0ad7905-f168-4e94-997b-9fd14681b154:msg_84f9c50e-ae90-40b5-aaaa-dd0f1ce9702b",
+            "left": 730.982,
+            "box": {
+              "x": 943.96875,
+              "y": 374.5,
+              "width": 24,
+              "height": 24
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,1470 @@
+diff --git a/apps/navigator-extension/README.md b/apps/navigator-extension/README.md
+index 065948e..40003f4 100644
+--- a/apps/navigator-extension/README.md
++++ b/apps/navigator-extension/README.md
+@@ -1,3 +1,15 @@
++## 1.6.2：多 Project 切换与跨窗口同步修复
++
++项目读取成功后才一起切换 Timeline 的数据、事件作用域和视口；保留忙碌期间最后一次项目选择，读取失败时恢复原项目界面。切换等待旧项目弹窗结束及标注、画布和来源选择保存完成。保留窗口内独立缩放、可靠通知补收和真正并发写入的冲突保护。
++
++本轮新增真实 Chrome MV3 生命周期回归，覆盖左侧“我的项目”旁的 ＋ 创建独立项目、空第二项目、三个项目、连续切换、失败读取、弹窗与画布晚保存、刷新、重新打开及浏览器进程重启。根因证据、修复细节和现场未验证范围见 [1.6.2 调查报告](docs/P0_ATOMIC_PROJECT_NAVIGATION.zh-CN.md)。安装包为 `dist/ai-conversation-visual-navigator-v1.6.2.zip`；已安装用户保持原扩展条目和加载路径，用新文件更新后重新加载，保留原扩展 origin 下的数据。
++
++以下为历史交付记录。
++
++## 1.6.1：第二个独立 Project 的点击取消修复
++
++仅修复跨 Workspace 新建 / 保存另一 Project 时重建当前 Timeline、取消正在进行的点击。真实扩展回归、修复前失败证据、仍未复现的持续失效情况及加载核对，见 [P0 审计报告](docs/P0_SECOND_PROJECT_AUDIT.zh-CN.md)。当前安装包为 `dist/ai-conversation-visual-navigator-v1.6.1.zip`。
++
+ ## 1.6.0 Alpha 1：搜索、对话管理、相关讨论
+ 
+ 本轮保留现有工作台视觉和 Timeline / Canvas / Deploy；增加全局本地全文索引、对话名称／描述／收藏／置顶／隐藏及项目集合，并在 Q/A 阅读面板底部推荐最多3条历史讨论。重新同步保留用户编辑，不修改 ChatGPT 来源。
+diff --git a/apps/navigator-extension/background.js b/apps/navigator-extension/background.js
+index ea8d59f..be6b4ec 100644
+--- a/apps/navigator-extension/background.js
++++ b/apps/navigator-extension/background.js
+@@ -121,7 +121,7 @@ async function dispatch(type, args) {
+   if (type === 'capture') {try{return await capture(args);}catch(error){try{await recordImportFailure({sourceUrl:args.expectedSourceUrl,projectId:args.projectId,code:error.errorCode??error.code});}catch{/* A logging failure must never replace the original capture diagnostic. */}throw error;}}
+   if (type === 'importPreview') return createDraft(await parseImport(args.text, String(args.filename ?? 'import.json')));
+   if (type === 'saveDraft') {
+-    const result = await saveDraft(args, data => broadcast('progress', data)); broadcast('changed'); return result;
++    const result = await saveDraft(args, data => broadcast('progress', data)); broadcast('changed', { projectId: result.projectId ?? null, action: 'saveDraft' }); return result;
+   }
+   if (type === 'openWorkspace') {
+     const parameters = new URLSearchParams();
+@@ -131,7 +131,7 @@ async function dispatch(type, args) {
+     const tab = await chrome.tabs.create({ url: chrome.runtime.getURL(`workspace.html?${parameters}`) }); return { tabId: tab.id };
+   }
+   const result = await command(type, args);
+-  if (writes.has(type)) { const { event, ...data } = changeNotification(type,args); broadcast(event,data); }
++  if (writes.has(type)) { const { event, ...data } = changeNotification(type,args,result); broadcast(event,data); }
+   return result;
+ }
+ chrome.runtime.onMessage.addListener((message, sender, reply) => {
+diff --git a/apps/navigator-extension/docs/DELIVERY_TIMELINE_LANES_TAGS.zh-CN.md b/apps/navigator-extension/docs/DELIVERY_TIMELINE_LANES_TAGS.zh-CN.md
+index 24a67a6..eefbc97 100644
+--- a/apps/navigator-extension/docs/DELIVERY_TIMELINE_LANES_TAGS.zh-CN.md
++++ b/apps/navigator-extension/docs/DELIVERY_TIMELINE_LANES_TAGS.zh-CN.md
+@@ -1,5 +1,7 @@
+ # OPC Timeline：缩放稳定性、多会话轨道与本地 Q/A 候选
+ 
++> 后续追加的统一关闭与 Project 安全删除交付见 [DELIVERY_UNIFIED_CLOSE_PROJECT_DELETE.zh-CN.md](DELIVERY_UNIFIED_CLOSE_PROJECT_DELETE.zh-CN.md)。按钮的当前统一 aria-label 为「关闭」；本文件保留此前分阶段实现与测试记录。
++
+ 日期：2026-10-21（Asia/Shanghai）。本轮直接修改现有原生 JavaScript / Chrome MV3 扩展，没有引入 UI 框架、模型运行时或扩展权限。
+ 
+ ## 1. 使用入口与交付边界
+diff --git a/apps/navigator-extension/domain/change-notification.js b/apps/navigator-extension/domain/change-notification.js
+index 1188df7..96a6d24 100644
+--- a/apps/navigator-extension/domain/change-notification.js
++++ b/apps/navigator-extension/domain/change-notification.js
+@@ -1,6 +1,10 @@
+ // View preferences are durable, but must not trigger a full workbench rebuild
+ // in the middle of a pointer gesture. Source/annotation writes still refresh.
+-export function changeNotification(type, args = {}) {
++export function changeNotification(type, args = {}, result = null) {
+   const viewOnly = type === 'releaseWrite' && args.action === 'timelinePreferences' || type === 'opcWrite' && args.action === 'layout';
+-  return { event: viewOnly ? 'viewChanged' : 'changed', projectId: args.projectId ?? null, action: args.action ?? type };
++  // Creation has no projectId in its request. Scope its completed notification
++  // to the newly created identity, rather than invalidating every open page.
++  // Moving a Conversation changes both projects, so keep that notification global.
++  const projectId = type === 'createProject' ? result?.id ?? null : type === 'moveConversation' ? null : args.projectId ?? null;
++  return { event: viewOnly ? 'viewChanged' : 'changed', projectId, action: args.action ?? type };
+ }
+diff --git a/apps/navigator-extension/domain/common.js b/apps/navigator-extension/domain/common.js
+index 249abb3..52347a3 100644
+--- a/apps/navigator-extension/domain/common.js
++++ b/apps/navigator-extension/domain/common.js
+@@ -1,5 +1,5 @@
+ export const SCHEMA_VERSION = 3;
+-export const EXTENSION_VERSION = '1.6.0';
++export const EXTENSION_VERSION = '1.6.2';
+ export const CAPTURE_ADAPTER_VERSION = 'chatgpt-dom-v7';
+ export const now = () => new Date().toISOString();
+ export const id = prefix => `${prefix}_${crypto.randomUUID()}`;
+diff --git a/apps/navigator-extension/manifest.json b/apps/navigator-extension/manifest.json
+index 8a5d27b..adb0464 100644
+--- a/apps/navigator-extension/manifest.json
++++ b/apps/navigator-extension/manifest.json
+@@ -1,8 +1,8 @@
+ {
+   "manifest_version": 3,
+   "name": "OPC Timeline",
+-  "version": "1.6.0",
+-  "version_name": "1.6.0 Alpha 1 · Search & Conversation Management",
++  "version": "1.6.2",
++  "version_name": "1.6.2 Alpha · Atomic Project navigation",
+   "description": "本地导入 ChatGPT 完整问答，在时间线和关系画布中浏览、标注与连接。",
+   "minimum_chrome_version": "116",
+   "permissions": [
+diff --git a/apps/navigator-extension/package.json b/apps/navigator-extension/package.json
+index 3e3840b..b8e6e5c 100644
+--- a/apps/navigator-extension/package.json
++++ b/apps/navigator-extension/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "ai-conversation-visual-navigator",
+-  "version": "1.6.0",
++  "version": "1.6.2",
+   "private": true,
+   "type": "module",
+   "scripts": {
+@@ -36,6 +36,12 @@
+     "test:timeline-stability": "node scripts/validate-timeline-stability.mjs",
+     "test:timeline-project-browser": "node scripts/test-timeline-project-browser.mjs",
+     "test:tag-suggestions": "node scripts/validate-tag-suggestions.mjs",
+-    "test:qa-tags-browser": "node scripts/test-qa-tags-browser.mjs"
++    "test:qa-tags-browser": "node scripts/test-qa-tags-browser.mjs",
++    "test:panel-close-browser": "node scripts/test-panel-close-browser.mjs",
++    "test:project-deletion": "node scripts/validate-project-deletion.mjs",
++    "test:project-delete-browser": "node scripts/test-project-delete-browser.mjs",
++    "test:second-project-browser": "node scripts/diagnose-second-project.mjs --expect-fixed",
++    "test:workspace-sync-mv3": "node scripts/test-workspace-sync-mv3.mjs",
++    "test:project-lifecycle-mv3": "node scripts/diagnose-project-lifecycle-mv3.mjs --navigation-races"
+   }
+ }
+diff --git a/apps/navigator-extension/scripts/test-interactions-browser.mjs b/apps/navigator-extension/scripts/test-interactions-browser.mjs
+index d999064..d3535c5 100644
+--- a/apps/navigator-extension/scripts/test-interactions-browser.mjs
++++ b/apps/navigator-extension/scripts/test-interactions-browser.mjs
+@@ -13,7 +13,7 @@ const report={phase,baseline,checks:[],errors,browser:'Isolated Edge/Chromium; s
+ const check=async(name,run)=>{try{const actual=await run();report.checks.push({name,passed:true,actual});console.log('PASS '+name);}catch(e){report.checks.push({name,passed:false,error:e.message});console.log('FAIL '+name+' '+e.message);await page.screenshot({path:'dist/INTERACTION_FAILURE.png'}).catch(()=>{});if(!baseline)throw e;}};
+ const snapshot=()=>page.evaluate(()=>{const t=interactionTest.timeline,h=t.horizontal;return {span:h.layout.visibleSpan,width:h.scroll.clientWidth,board:h.scroll.scrollWidth,left:h.scroll.scrollLeft,preference:h.preferences.axisSpanMs};});
+ const drag=async(x,y,dx,dy)=>{await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+dx,y+dy,{steps:8});await page.mouse.up();};
+-const closeReader=async()=>{const button=page.getByRole('button',{name:'关闭详情',exact:true});if(await button.isVisible())await button.click();};
++const closeReader=async()=>{const button=page.locator('.opc-detail').getByRole('button',{name:'关闭',exact:true});if(await button.isVisible())await button.click();};
+ try{
+  await page.goto(`http://127.0.0.1:8953/validation/interaction-browser.html?validationDb=v04-interaction-${Date.now()}`);await page.waitForFunction(()=>globalThis.interactionTest);const seed=await page.evaluate(()=>interactionTest.seed());
+  if(['all','timeline'].includes(phase)){
+@@ -78,7 +78,7 @@ try{
+   await check('two associated Conversations / Workspace close / single source return preserve Timeline interactions',async()=>{
+    await closeReader();await page.evaluate(async id=>{await interactionTest.timeline.show({projectId:interactionTest.timeline.projectId,mode:'timeline'});await interactionTest.timeline.workspace.open(id);},seed.workspaceId);
+    if(await page.locator('[data-workspace-card]').count()!==12)throw new Error('Workspace lost associated cards');
+-   const target=seed.cards.find(c=>c.sourceTitle==='来源 Conversation 1');await page.locator(`[data-workspace-card="${target.id}"] .workspace-question-title`).click();await page.waitForFunction(id=>document.querySelector('.opc-detail')?.dataset.cardId===id,target.id);if(!(await page.locator('.opc-detail>p.muted').first().textContent()).includes(target.sourceTitle))throw new Error('wrong source Conversation');await closeReader();
++   const target=seed.cards.find(c=>c.sourceTitle==='来源 Conversation 1');await page.locator(`[data-workspace-card="${target.id}"] .workspace-question-title`).click();await page.waitForFunction(id=>document.querySelector('.opc-detail')?.dataset.cardId===id,target.id);if(!(await page.locator('.opc-detail-content>p.muted').first().textContent()).includes(target.sourceTitle))throw new Error('wrong source Conversation');await closeReader();
+    if(await page.locator('dialog[open]').count())throw new Error('Workspace left modal overlay');
+    await page.getByRole('button',{name:'选择来源',exact:true}).click();for(const option of await page.locator('#track-dialog input').all())await option.check();await page.getByRole('button',{name:'保存选择',exact:true}).click();
+    const before=await snapshot();await page.getByRole('button',{name:'时间放大',exact:true}).click();if((await snapshot()).span>=before.span)throw new Error('multi Conversation zoom failed');
+diff --git a/apps/navigator-extension/scripts/test-interactions-mv3.mjs b/apps/navigator-extension/scripts/test-interactions-mv3.mjs
+index 0c13684..ff4e75d 100644
+--- a/apps/navigator-extension/scripts/test-interactions-mv3.mjs
++++ b/apps/navigator-extension/scripts/test-interactions-mv3.mjs
+@@ -14,18 +14,22 @@ try{
+  const before=await page.locator('.ht-scroll').evaluate(e=>e.scrollWidth);await page.getByRole('button',{name:'时间放大',exact:true}).click();const scroll=await page.locator('.ht-scroll').elementHandle();await page.waitForTimeout(650);
+  if(!await scroll.evaluate(e=>e.isConnected&&e.scrollWidth>e.clientWidth)||await scroll.evaluate(e=>e.scrollWidth)<=before){report.diagnostics={before,old:await scroll.evaluate(e=>({connected:e.isConnected,width:e.clientWidth,board:e.scrollWidth})),current:await page.locator('.ht-scroll').evaluate(e=>({width:e.clientWidth,board:e.scrollWidth})),messages:await page.evaluate(()=>window.nativeChanges),body:(await page.locator('body').innerText()).slice(-1500)};await page.screenshot({path:'dist/INTERACTION_MV3_FAILURE.png'});throw new Error('native view-save rebuilt or failed zoom');}report.checks.push({name:'real service-worker view-save does not rebuild Timeline',passed:true});
+  const point=page.locator('.ht-point').first();await point.scrollIntoViewIfNeeded();await page.waitForTimeout(450);const pointBox=await point.boundingBox(),pointHandle=await point.elementHandle();await page.mouse.move(pointBox.x+12,pointBox.y+12);await page.mouse.down();
+- await page.evaluate(async projectId=>{const {command}=await import('./storage/repository.js'),data=await command('opcTimeline',{projectId});const response=await chrome.runtime.sendMessage({type:'releaseWrite',args:{projectId,action:'timelinePreferences',...data.preferences,expectedRevision:data.preferences.revision}});if(!response.ok)throw new Error(response.error);},seed.projectIds[0]);await page.waitForTimeout(100);
++ await page.evaluate(async projectId=>{const {command}=await import('./storage/repository.js'),{defaultTrackPreferences}=await import('./domain/timeline-tracks.js'),data=await command('opcTimeline',{projectId}),preferences=defaultTrackPreferences(data);const response=await chrome.runtime.sendMessage({type:'releaseWrite',args:{...preferences,projectId,action:'timelinePreferences',expectedRevision:preferences.revision}});if(!response.ok)throw new Error(response.error);},seed.projectIds[0]);await page.waitForTimeout(100);
+  if(!await pointHandle.evaluate(e=>e.isConnected))throw new Error('native preference message detached pressed point');await page.mouse.up();await page.getByText('Q · 原始用户提问',{exact:true}).waitFor();report.checks.push({name:'native pointer click survives view-save broadcast and opens Reader',passed:true});
+- await page.getByRole('button',{name:'关闭详情',exact:true}).click();await page.getByRole('button',{name:'Canvas',exact:true}).click();await page.locator('.compact-node-open').first().click();await page.getByText('Q · 原始用户提问',{exact:true}).waitFor();await page.getByRole('button',{name:'关闭详情',exact:true}).click();await page.mouse.move(5,5);await page.waitForTimeout(400);await page.locator('.opc-canvas-node').first().hover();await page.locator('.card-hover-preview').waitFor({state:'visible'});report.checks.push({name:'unpacked MV3 Canvas click, local hover read and Reader work',passed:true});
++ await page.locator('.opc-detail').getByRole('button',{name:'关闭',exact:true}).click();await page.getByRole('button',{name:'Canvas',exact:true}).click();await page.locator('.compact-node-open').first().click();await page.getByText('Q · 原始用户提问',{exact:true}).waitFor();await page.locator('.opc-detail').getByRole('button',{name:'关闭',exact:true}).click();await page.mouse.move(5,5);await page.waitForTimeout(400);await page.locator('.opc-canvas-node').first().hover();await page.locator('.card-hover-preview').waitFor({state:'visible'});report.checks.push({name:'unpacked MV3 Canvas click, local hover read and Reader work',passed:true});
+  await page.locator('.opc-filters').getByRole('button',{name:'Project Workspace',exact:true}).click();await page.getByLabel('选择 Workspace',{exact:true}).selectOption(seed.workspaceId);await page.getByRole('button',{name:'打开项目时间线',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelectorAll('[data-lane-id]').length===2);const fitWidth=await page.locator('.ht-scroll').evaluate(e=>e.scrollWidth);await page.getByRole('button',{name:'时间放大',exact:true}).click();await page.waitForFunction(width=>document.querySelector('.ht-scroll').scrollWidth>width,fitWidth);await page.reload();await page.waitForFunction(()=>document.querySelectorAll('[data-lane-id]').length===2);
+  report.checks.push({name:'real Workspace Timeline entry, native preference write and page reload retain two lanes',passed:true});
+- await page.locator('.opc-actions-menu>summary').click();await page.getByRole('button',{name:'本地候选标签',exact:true}).click();await page.waitForTimeout(400);await page.locator('.ht-point').first().click();await page.getByLabel('候选标签',{exact:true}).fill('原生回归标签');await page.getByRole('button',{name:'采用候选',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.qa-local-suggestions')?.textContent.includes('已采用'));await page.getByRole('button',{name:'关闭详情',exact:true}).click();if(await page.locator('[data-lane-id]').count()!==2)throw new Error('native review lost Workspace scope');
++ await page.locator('.opc-actions-menu>summary').click();await page.getByRole('button',{name:'本地候选标签',exact:true}).click();await page.waitForTimeout(400);await page.locator('.ht-point').first().click();await page.getByLabel('候选标签',{exact:true}).fill('原生回归标签');await page.getByRole('button',{name:'采用候选',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.qa-local-suggestions')?.textContent.includes('已采用'));await page.locator('.opc-detail').getByRole('button',{name:'关闭',exact:true}).click();if(await page.locator('[data-lane-id]').count()!==2)throw new Error('native review lost Workspace scope');
+  report.checks.push({name:'real service-worker local feature generation and review preserve Project scope',passed:true});
+  await page.screenshot({path:'dist/INTERACTION_MV3.png'});
+  const reloaded=context.waitForEvent('serviceworker',{timeout:15000});await page.evaluate(()=>chrome.runtime.reload()).catch(e=>{if(!/context|closed|destroyed/i.test(e.message))throw e;});await reloaded;
+  page=await context.newPage();page.setDefaultTimeout(12000);page.on('pageerror',e=>report.errors.push(e.message));await page.goto(origin+'/workspace.html?projectId='+seed.projectIds[0]);await page.waitForFunction(()=>document.querySelectorAll('[data-lane-id]').length===2);const beforeReloadZoom=await page.locator('.ht-scroll').evaluate(e=>e.scrollWidth);await page.getByRole('button',{name:'时间放大',exact:true}).click();await page.waitForFunction(width=>document.querySelector('.ht-scroll').scrollWidth>width,beforeReloadZoom);await page.getByRole('button',{name:'时间缩小',exact:true}).click();
+- report.checks.push({name:'actual extension runtime reload preserves linked sources and working + / −',passed:true});report.ok=!report.errors.length;
++ report.checks.push({name:'actual extension runtime reload preserves linked sources and working + / −',passed:true});
++ const projectCount=await page.evaluate(async()=>{const r=await chrome.runtime.sendMessage({type:'projects',args:{}});return r.data.length;});await page.locator('#library-toggle').click();await page.locator('.library-actions>summary').click();await page.locator('#delete-project').click();const deletion=page.locator('#edit-dialog');await deletion.getByRole('heading',{name:'删除本地项目及原始数据',exact:true}).waitFor();await deletion.locator('input').fill('未确认的名称');await deletion.locator(':scope > .panel-close-header .panel-close').click();await page.getByRole('dialog',{name:'未保存修改',exact:true}).waitFor();await page.getByRole('button',{name:'放弃修改并关闭',exact:true}).click();await deletion.waitFor({state:'hidden'});const remaining=await page.evaluate(async()=>{const r=await chrome.runtime.sendMessage({type:'projects',args:{}});return r.data.length;});if(remaining!==projectCount)throw new Error('closing deletion confirmation deleted a Project');
++ report.checks.push({name:'native Project deletion confirmation × guards input and never submits deletion',passed:true});
++ await page.setViewportSize({width:390,height:800});await page.locator('#library-toggle').click();await page.locator('#project-library').waitFor({state:'visible'});await page.locator('#project-library .panel-close').click();await page.locator('#project-library').waitFor({state:'hidden'});await page.getByRole('button',{name:'时间放大',exact:true}).click();await page.keyboard.press('Escape');
++ report.checks.push({name:'390px native navigation Drawer × closes without blocking Timeline controls',passed:true});report.ok=!report.errors.length;
+ }catch(error){const p=context?.pages().at(-1);if(p){await p.screenshot({path:'dist/INTERACTION_MV3_FAILURE.png'}).catch(()=>{});report.body=(await p.locator('body').innerText().catch(()=>'' )).slice(-1200);}report.error=error.stack;console.log(error.message);}
+ finally{await context?.close();fs.writeFileSync('dist/INTERACTION_MV3_REPORT.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));}
+ process.exitCode=report.ok?0:1;
+diff --git a/apps/navigator-extension/scripts/test-qa-tags-browser.mjs b/apps/navigator-extension/scripts/test-qa-tags-browser.mjs
+index 8ddfb5e..bf5462a 100644
+--- a/apps/navigator-extension/scripts/test-qa-tags-browser.mjs
++++ b/apps/navigator-extension/scripts/test-qa-tags-browser.mjs
+@@ -18,7 +18,7 @@ try{
+  });
+  await check('Workspace opens same Reader; edit then accept candidates, manual title remains',async()=>{
+   await page.locator(`[data-workspace-card="${cardId}"] .workspace-question-title`).click();await page.getByLabel('候选简洁标题',{exact:true}).fill('缩放 · 状态');await page.getByLabel('候选标签',{exact:true}).fill('视口回归，离线分析');await page.getByRole('button',{name:'保存候选编辑',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.qa-local-suggestions')?.textContent.includes('已编辑，待采用'));
+-  await page.getByRole('button',{name:'采用候选',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.qa-local-suggestions')?.textContent.includes('已采用'));if(await page.locator('.opc-detail>h2').textContent()!=='保留的自定义标题')throw new Error('human title replaced');await page.screenshot({path:'dist/QA_LOCAL_SUGGESTIONS.png'});
++  await page.getByRole('button',{name:'采用候选',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.qa-local-suggestions')?.textContent.includes('已采用'));if(await page.locator('.opc-detail-content>h2').textContent()!=='保留的自定义标题')throw new Error('human title replaced');await page.screenshot({path:'dist/QA_LOCAL_SUGGESTIONS.png'});
+  });
+  await check('repeat analysis uses version cache, accepted tags become searchable, conflicts reject',async()=>{
+   const result=await page.evaluate(projectId=>interactionTest.command('qaAnalyze',{projectId}),seed.workspaceId);if(result.generated!==0||result.cached!==12)throw new Error('cache/review reset '+JSON.stringify(result));
+@@ -31,7 +31,13 @@ try{
+   const state=await page.evaluate(()=>interactionTest.readState()),m=state.qaMetadata.find(m=>m.cardId===cardId),old=original.qaMetadata[0];if(m.autoTags.length||m.autoTitle||m.title!==old.title||JSON.stringify(m.tags)!==JSON.stringify(old.tags)||m.notes!==old.notes)throw new Error('clear altered manual');
+  });
+  await check('original sources/relations/Canvas survive; library backup preserves suggestions and Project preferences',async()=>{
+-  await page.evaluate(id=>interactionTest.timeline.show({projectId:id}),seed.workspaceId);await page.getByRole('button',{name:'时间放大',exact:true}).click();await page.evaluate(()=>interactionTest.timeline.horizontal.flush());
++  await page.evaluate(id=>interactionTest.timeline.show({projectId:id}),seed.workspaceId);
++  // Durable source choices are explicit; window-local zoom does not create a
++  // shared preference record. Save choices before testing their backup mapping.
++  await page.getByRole('button',{name:'选择来源',exact:true}).click();await page.getByRole('button',{name:'保存选择',exact:true}).click();await page.evaluate(()=>interactionTest.timeline.horizontal.flush());
++  report.preferencesBeforeBackup=await page.evaluate(id=>{return interactionTest.readState().then(s=>({workspaceId:id,total:s.timelinePreferences.length,workspacePreference:s.timelinePreferences.find(p=>p.projectId===id)??null}));},seed.workspaceId);
++  if(!report.preferencesBeforeBackup.workspacePreference?.selectedTimelineIds.length)throw new Error('explicit source choices were not persisted');
++  await page.getByRole('button',{name:'时间放大',exact:true}).click();
+   await page.evaluate(async original=>{const state=await interactionTest.readState();for(const k of ['messages','versions','qaCards','relationships','canvasLayouts'])if(JSON.stringify(original[k])!==JSON.stringify(state[k]))throw new Error('altered '+k);const backup=await interactionTest.command('memoryExport',{});if(!backup.projects?.length)throw new Error('backup unavailable');await interactionTest.command('memoryImportPreview',{text:JSON.stringify(backup)});const restored=await interactionTest.command('memoryImport',{text:JSON.stringify(backup)}),after=await interactionTest.readState(),w=after.projectWorkspaces.find(w=>w.name===state.projectWorkspaces[0].name&&w.id!==state.projectWorkspaces[0].id),pref=after.timelinePreferences.find(p=>p.projectId===w.id);if(!pref||pref.selectedTimelineIds.some(id=>!after.timelines.some(t=>t.id===id&&restored.projectIds.includes(t.projectId))))throw new Error('restored preference references old sources');if(after.qaMetadata.filter(m=>m.localSuggestion).length!==state.qaMetadata.filter(m=>m.localSuggestion).length*2)throw new Error('suggestions missing from restore');},original);
+  });
+  report.uiErrors=await page.evaluate(()=>interactionTest.errors);report.ok=!report.errors.length&&!report.uiErrors.length;
+diff --git a/apps/navigator-extension/scripts/test-search-browser.mjs b/apps/navigator-extension/scripts/test-search-browser.mjs
+index 632c4ad..816ed07 100644
+--- a/apps/navigator-extension/scripts/test-search-browser.mjs
++++ b/apps/navigator-extension/scripts/test-search-browser.mjs
+@@ -24,14 +24,14 @@ try{
+  report.coldIndex=await page.evaluate(async()=>{const {command}=await import('/storage/repository.js'),delays=[];let last=performance.now();const timer=setInterval(()=>{const t=performance.now();delays.push(t-last);last=t;},16),start=performance.now();await command('globalSearch',{query:'时间线缩放',type:'qa'});clearInterval(timer);return {cards:300,buildAndReadMs:performance.now()-start,timerSamples:delays.length,maxTimerGapMs:delays.length?Math.max(...delays):null};});
+  await check('真实UI搜索、高亮、精确ID与Esc',async()=>{await page.getByRole('button',{name:'⌕ 全局检索',exact:true}).click();await page.getByRole('searchbox',{name:'全局检索关键词'}).fill('深层关键词-299');await page.waitForFunction(()=>document.querySelector('[data-search-card]'));await page.locator('[data-search-card]').first().getByRole('button').first().click();await page.waitForFunction(()=>document.querySelector('[data-search-hit]'));const content=await page.locator('.opc-detail').textContent();if(!content.includes('吉普赛')||!content.includes('深层关键词-299'))throw new Error('wrong long-answer card');await page.getByRole('button',{name:'⌕ 全局检索',exact:true}).click();await page.locator('#track-dialog[open]').waitFor();await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.querySelector('dialog[open]'));if(await page.locator('dialog[open]').count())throw new Error('Escape failed');});
+  await check('快捷键限制编辑输入、工作台Ctrl+K',async()=>{await page.getByRole('textbox',{name:'卡片标题',exact:true}).focus();await page.keyboard.press('Control+k');if(await page.locator('dialog[open]').count())throw new Error('shortcut captured editing');await page.locator('#run').focus();await page.keyboard.press('Control+k');await page.locator('#track-dialog[open]').waitFor();await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.querySelector('dialog[open]'));});
+- await check('真实UI对话重命名与收藏',async()=>{await page.getByRole('button',{name:'对话管理',exact:true}).click();const row=page.locator('.opc-conversation-row').first();await row.getByRole('button',{name:'编辑',exact:true}).click();await page.getByRole('textbox',{name:'自定义标题（留空使用来源名称）'}).fill('界面编辑本地名称');await page.getByRole('button',{name:'确认',exact:true}).click();await page.getByRole('button',{name:'界面编辑本地名称',exact:true}).waitFor();await page.getByRole('button',{name:'收藏对话 界面编辑本地名称'}).click();await page.getByRole('button',{name:'取消收藏对话 界面编辑本地名称'}).waitFor();await page.locator('#track-dialog').screenshot({path:'dist/SEARCH_CONVERSATION_MANAGER.png'});await page.getByRole('button',{name:'关闭',exact:true}).click();});
++ await check('真实UI对话重命名与收藏',async()=>{await page.getByRole('button',{name:'对话管理',exact:true}).click();const row=page.locator('.opc-conversation-row').first();await row.getByRole('button',{name:'编辑',exact:true}).click();await page.getByRole('textbox',{name:'自定义标题（留空使用来源名称）'}).fill('界面编辑本地名称');await page.getByRole('button',{name:'确认',exact:true}).click();await page.getByRole('button',{name:'界面编辑本地名称',exact:true}).waitFor();await page.getByRole('button',{name:'收藏对话 界面编辑本地名称'}).click();await page.getByRole('button',{name:'取消收藏对话 界面编辑本地名称'}).waitFor();await page.locator('#track-dialog').screenshot({path:'dist/SEARCH_CONVERSATION_MANAGER.png'});await page.locator('#track-dialog>.panel-close-header .panel-close').click();});
+  await page.locator('#verify').click();await page.waitForFunction(()=>{try{const r=JSON.parse(document.querySelector('#results').textContent);return r.checks.length===5&&r.done}catch{return false}},{},{timeout:90000});report.database=await read();
+  await check('相关推荐点击与返回原卡片',async()=>{await page.locator('[data-related-card]').first().getByRole('button').click();await page.getByRole('button',{name:'返回上一张 Q/A',exact:true}).waitFor();await page.getByRole('button',{name:'返回上一张 Q/A',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.opc-detail input[aria-label="卡片标题"]')?.value==='缩放锚点人工标题');await page.locator('.opc-detail').screenshot({path:'dist/SEARCH_RELATED_READER.png'});});
+  await check('Timeline缩放平移、Canvas拖动连线保存、Deploy复用',async()=>{
+    await page.evaluate(async()=>{const {command}=await import('/storage/repository.js'),{readState}=await import('/storage/database.js'),s=await readState(),p=s.projects.find(p=>p.name==='搜索测试'),ids=(await command('opcPage',{projectId:p.id})).cards.slice(0,2).map(c=>c.id);await command('opcWrite',{projectId:p.id,action:'relationship',fromCardId:ids[0],toCardId:ids[1],type:'补充',directed:true,description:'人工回归连接'});await command('releaseWrite',{projectId:p.id,action:'tray',operation:'add',cardIds:ids});});
+    const timelineActions=await page.locator('button').allTextContents();report.timelineControls=timelineActions.filter(t=>/缩放|适应|放大|缩小/.test(t));
+    await page.getByRole('button',{name:'时间放大',exact:true}).click();await page.getByRole('button',{name:'适配全部',exact:true}).click();const timelineScroll=page.locator('.ht-scroll');if(await timelineScroll.count()){await timelineScroll.hover();await page.mouse.wheel(100,0);}
+-   await page.getByRole('button',{name:'关闭详情',exact:true}).click();
++   await page.locator('.opc-detail').getByRole('button',{name:'关闭',exact:true}).click();
+    await page.evaluate(async()=>{const {OPCTimeline}=await import('/ui/opc.js'),{command}=await import('/storage/repository.js'),{readState}=await import('/storage/database.js'),s=await readState(),p=s.projects.find(p=>p.name==='搜索测试');window.testCanvas=new OPCTimeline(document.querySelector('#app'),{api:command,onError:e=>{throw new Error(e)}});await window.testCanvas.show({projectId:p.id,mode:'canvas'});});
+    await page.evaluate(()=>{window.testCanvas.viewport={x:20,y:20,zoom:1};window.testCanvas.applyViewport();});
+    const node=page.locator('.opc-canvas [data-card-id]').first(),nodeId=await node.getAttribute('data-card-id'),oldPosition=await page.evaluate(id=>({...window.testCanvas.positions[id]}),nodeId),box=await node.boundingBox();if(!box)throw new Error('canvas node missing');await page.mouse.move(box.x+30,box.y+20);await page.mouse.down();await page.mouse.move(box.x+70,box.y+55,{steps:8});await page.mouse.up();await page.evaluate(async({nodeId,oldPosition})=>{await window.testCanvas.flushLayout();const position=window.testCanvas.positions[nodeId];if(position.x===oldPosition.x&&position.y===oldPosition.y)throw new Error('node drag did not move');const {readState}=await import('/storage/database.js');const s=await readState();if(!s.canvasLayouts.some(l=>Object.keys(l.positions??{}).length))throw new Error('layout not persisted');if(!document.querySelector('.opc-edge'))throw new Error('saved relationship not rendered');},{nodeId,oldPosition});
+diff --git a/apps/navigator-extension/scripts/test-timeline-project-browser.mjs b/apps/navigator-extension/scripts/test-timeline-project-browser.mjs
+index 2c71541..15d4d8b 100644
+--- a/apps/navigator-extension/scripts/test-timeline-project-browser.mjs
++++ b/apps/navigator-extension/scripts/test-timeline-project-browser.mjs
+@@ -20,24 +20,24 @@ try{
+  await check('C second local Project linked to another source',async()=>{await show(workspaces[1].id);await zoom();});
+  await check('D same Project two sources share X, independent lanes and density bins',async()=>{await page.evaluate(async w=>{const s=await interactionTest.readState();await interactionTest.command('workspaceWrite',{action:'conversations',workspaceId:w.id,expectedRevision:w.revision,conversationIds:s.conversations.map(c=>c.id)});},workspaces[0]);await show(workspaces[0].id);await zoom();if(await page.locator('[data-lane-id]').count()!==3)throw new Error('missing source lanes');const model=await page.evaluate(()=>{const h=interactionTest.timeline.horizontal;return h.layout.points.map(p=>({conversations:[...new Set(p.cards.map(c=>c.conversationId))],y:p.y}));});if(model.some(p=>p.conversations.length!==1)||new Set(model.map(p=>p.y)).size!==3)throw new Error('cross-lane aggregation');await page.screenshot({path:'dist/TIMELINE_PROJECT_LANES.png'});});
+  await check('Project Timeline full-answer search locates a card from a different source project',async()=>{await page.getByRole('searchbox',{name:'搜索 Q/A',exact:true}).fill('ANSWER-TAIL-2_5');await page.locator('.opc-filters').getByRole('button',{name:'搜索',exact:true}).click();await page.locator('.ht-results button').first().waitFor();await page.locator('.ht-results button').first().click();await page.locator('.opc-reading-body').waitFor();if(!(await page.locator('.opc-reading-body').textContent()).includes('ANSWER-TAIL-2_5'))throw new Error('wrong project search target');await page.locator('.close-detail').click();});
+- await check('E repeated Project switching preserves working zoom and owned preferences',async()=>{for(let i=0;i<4;i++){await show(workspaces[i%2].id);await zoom();}const prefs=await page.evaluate(async()=>{await interactionTest.timeline.horizontal.flush();return (await interactionTest.readState()).timelinePreferences;});for(const w of workspaces)if(!prefs.some(p=>p.projectId===w.id))throw new Error('preference scope lost');});
++ await check('E repeated Project switching preserves working zoom and local viewport ownership',async()=>{for(let i=0;i<4;i++){await show(workspaces[i%2].id);await zoom();}const views=await page.evaluate(()=>[...interactionTest.timeline.horizontal.views.keys()]);for(const w of workspaces)if(!views.includes(w.id))throw new Error('local viewport scope lost');});
+  await check('F return to original single Conversation',async()=>{await show(seed.projectIds[0]);await page.evaluate(()=>{const t=interactionTest.timeline;return t.horizontal.setTracks([t.data.timelines[0].id]);});await zoom();});
+  await check('G Reader close preserves timeline state',async()=>{await page.getByRole('button',{name:'时间放大',exact:true}).click();const span=await page.evaluate(()=>interactionTest.timeline.horizontal.layout.visibleSpan);await page.locator('.ht-point').first().click();await page.locator('.opc-reading-body').waitFor();await page.locator('.close-detail').click();if(span!==await page.evaluate(()=>interactionTest.timeline.horizontal.layout.visibleSpan))throw new Error('Reader reset zoom');await zoom();});
+  await check('H Canvas return preserves original annotations/layout',async()=>{await page.evaluate(id=>interactionTest.timeline.show({projectId:id,mode:'canvas'}),seed.projectIds[0]);await page.locator('.compact-node-open').first().click();await page.locator('.opc-reading-body').waitFor();await page.locator('.close-detail').click();await show(seed.projectIds[0]);await zoom();});
+  await check('I Workspace open/close and real button entry, lane visibility',async()=>{await page.evaluate(id=>interactionTest.timeline.workspace.open(id),workspaces[0].id);await page.getByRole('button',{name:'打开项目时间线',exact:true}).click();await zoom();const name=await page.getByRole('button',{name:/隐藏轨道/}).first().getAttribute('aria-label');await page.getByRole('button',{name,exact:true}).click();if(await page.locator('[data-lane-id]').count()!==2)throw new Error('hide ineffective');await page.getByRole('button',{name:'选择来源',exact:true}).click();await page.getByRole('button',{name:'显示全部来源',exact:true}).click();await page.getByRole('button',{name:'保存选择',exact:true}).click();if(await page.locator('[data-lane-id]').count()!==3)throw new Error('show all ineffective');await page.locator('.ht-point').last().click();await page.locator('.opc-reading-body').waitFor();await page.locator('.close-detail').click();await zoom();});
+- await check('J reload page retains persisted Project zoom and source data',async()=>{await page.evaluate(()=>interactionTest.timeline.horizontal.flush());await page.reload();await page.waitForFunction(()=>globalThis.interactionTest);await show(workspaces[0].id);await zoom();await page.evaluate(async original=>{const after=await interactionTest.readState();for(const k of ['messages','versions','qaCards','qaMetadata','relationships','canvasLayouts'])if(JSON.stringify(after[k])!==JSON.stringify(original[k]))throw new Error('changed original '+k);},original);});
++ await check('J reload page retains persisted source choices and source data; zoom remains usable',async()=>{await page.evaluate(()=>interactionTest.timeline.horizontal.flush());await page.reload();await page.waitForFunction(()=>globalThis.interactionTest);await show(workspaces[0].id);await zoom();await page.evaluate(async original=>{const after=await interactionTest.readState();for(const k of ['messages','versions','qaCards','qaMetadata','relationships','canvasLayouts'])if(JSON.stringify(after[k])!==JSON.stringify(original[k]))throw new Error('changed original '+k);},original);});
+  await check('Reader ×, nested-modal Escape priority, focus and narrow viewport state preservation',async()=>{
+-  await page.locator('.ht-point').first().click();await page.getByRole('button',{name:'关闭详情',exact:true}).waitFor();await page.locator('.opc-reading-body').waitFor();
++  await page.locator('.ht-point').first().click();await page.getByRole('button',{name:'关闭',exact:true}).waitFor();await page.locator('.opc-reading-body').waitFor();
+   await page.evaluate(()=>interactionTest.timeline.horizontal.trackDialog(interactionTest.timeline.data));await page.keyboard.press('Escape');await page.locator('#track-dialog').waitFor({state:'hidden'});if(!await page.locator('.opc-reading-body').isVisible())throw new Error('modal Escape also closed Reader');
+   const before=await page.evaluate(()=>{const h=interactionTest.timeline.horizontal;return {span:h.layout.visibleSpan,left:h.scroll.scrollLeft,top:h.scroll.scrollTop,projectId:interactionTest.timeline.projectId};});await page.keyboard.press('Escape');await page.locator('.opc-detail').waitFor({state:'hidden'});const after=await page.evaluate(()=>{const h=interactionTest.timeline.horizontal;return {span:h.layout.visibleSpan,left:h.scroll.scrollLeft,top:h.scroll.scrollTop,projectId:interactionTest.timeline.projectId};});if(JSON.stringify(before)!==JSON.stringify(after))throw new Error('Escape reset browsing state');
+-  await page.setViewportSize({width:390,height:850});await page.locator('.ht-point').first().click();await page.getByRole('button',{name:'关闭详情',exact:true}).waitFor();await page.locator('.opc-reading-body').waitFor();await page.locator('.opc-detail').evaluate(e=>e.scrollTop=e.scrollHeight);const close=page.getByRole('button',{name:'关闭详情',exact:true}),box=await close.boundingBox();if(!box||box.x<0||box.x+box.width>390||box.y<0||box.y+box.height>850)throw new Error('narrow close outside viewport');await page.screenshot({path:'dist/READER_CLOSE_NARROW.png'});await close.click();await page.locator('.opc-detail').waitFor({state:'hidden'});if(!await page.evaluate(()=>Boolean(document.activeElement.closest('.ht-scroll'))))throw new Error('focus did not return to Timeline');await zoom();
++  await page.setViewportSize({width:390,height:850});await page.locator('.ht-point').first().click();await page.getByRole('button',{name:'关闭',exact:true}).waitFor();await page.locator('.opc-reading-body').waitFor();await page.locator('.opc-detail-content').evaluate(e=>e.scrollTop=e.scrollHeight);const close=page.getByRole('button',{name:'关闭',exact:true}),box=await close.boundingBox();if(!box||box.x<0||box.x+box.width>390||box.y<0||box.y+box.height>850)throw new Error('narrow close outside viewport');await page.screenshot({path:'dist/READER_CLOSE_NARROW.png'});await close.click();await page.locator('.opc-detail').waitFor({state:'hidden'});if(!await page.evaluate(()=>Boolean(document.activeElement.closest('.ht-scroll'))))throw new Error('focus did not return to Timeline');await zoom();
+  });
+  await check('multi-lane vertical scroll and unknown timestamps remain honest',async()=>{
+   await page.setViewportSize({width:390,height:600});const scroll=page.locator('.ht-scroll');await scroll.focus();await page.keyboard.press('ArrowDown');if(await scroll.evaluate(e=>e.scrollTop)<=0)throw new Error('no vertical scrolling');await page.keyboard.down('Shift');await scroll.hover();await page.mouse.wheel(0,-80);await page.keyboard.up('Shift');await page.waitForFunction(()=>interactionTest.timeline.horizontal.scroll.scrollTop<100);
+   await page.evaluate(()=>{const t=interactionTest.timeline,data=structuredClone(t.data);for(const c of data.cards)c.questionTime={value:null,precision:'unknown',source:null};t.horizontal.render(t.list,data);});if(await page.locator('.ht-ticks time').count())throw new Error('invented ticks for unknown time');if(!await page.locator('.ht-unknown').isVisible())throw new Error('unknown cards inaccessible');await page.locator('.ht-unknown summary').click();await page.locator('.ht-unknown button').first().click();await page.locator('.opc-reading-body').waitFor();await page.locator('.close-detail').click();await page.evaluate(()=>interactionTest.timeline.load());
+  });
+  await check('Reader can close while local body read is pending; late response cannot reopen it',async()=>{
+-  await page.evaluate(()=>{const t=interactionTest.timeline,api=t.api;t.savedSlowApi=api;t.api=async(type,args)=>{const data=await api(type,args);if(type==='opcDetail')await new Promise(resolve=>t.finishSlowRead=resolve);return data;};t.pendingSlowReader=t.openCard(t.data.cards[0].id);});await page.waitForFunction(()=>Boolean(interactionTest.timeline.finishSlowRead));await page.getByRole('button',{name:'关闭详情',exact:true}).click();await page.evaluate(async()=>{const t=interactionTest.timeline;t.finishSlowRead();await t.pendingSlowReader;t.api=t.savedSlowApi;});await page.locator('.opc-detail').waitFor({state:'hidden'});if(await page.evaluate(()=>interactionTest.timeline.selected)!==null)throw new Error('late body reopened Reader');
++  await page.evaluate(()=>{const t=interactionTest.timeline,api=t.api;t.savedSlowApi=api;t.api=async(type,args)=>{const data=await api(type,args);if(type==='opcDetail')await new Promise(resolve=>t.finishSlowRead=resolve);return data;};t.pendingSlowReader=t.openCard(t.data.cards[0].id);});await page.waitForFunction(()=>Boolean(interactionTest.timeline.finishSlowRead));await page.getByRole('button',{name:'关闭',exact:true}).click();await page.evaluate(async()=>{const t=interactionTest.timeline;t.finishSlowRead();await t.pendingSlowReader;t.api=t.savedSlowApi;});await page.locator('.opc-detail').waitFor({state:'hidden'});if(await page.evaluate(()=>interactionTest.timeline.selected)!==null)throw new Error('late body reopened Reader');
+  });
+  report.uiErrors=await page.evaluate(()=>interactionTest.errors);report.ok=!report.errors.length&&!report.uiErrors.length;
+ }catch(error){report.ok=false;report.error=error.stack;console.error(error);}
+diff --git a/apps/navigator-extension/scripts/validate-all.mjs b/apps/navigator-extension/scripts/validate-all.mjs
+index 00d21d9..79c6aa7 100644
+--- a/apps/navigator-extension/scripts/validate-all.mjs
++++ b/apps/navigator-extension/scripts/validate-all.mjs
+@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
+ import { EXTENSION_VERSION } from '../domain/common.js';
+ 
+ const root = path.resolve(import.meta.dirname, '..'), directory = path.join(root, 'dist', 'opc-tests'); fs.mkdirSync(directory, { recursive: true });
+-const suites = ['core', 'regressions', 'v03', 'adapter', 'full-conversation', 'reader', 'navigation', 'document-sources', 'document-formats', 'conversation-outline', 'document-recipes', 'v1-links', 'opc', 'opc-improvements', 'qa-p0', 'v14', 'release', 'search-management', 'project-workspace', 'interactions', 'timeline-stability', 'tag-suggestions'];
++const suites = ['core', 'regressions', 'v03', 'adapter', 'full-conversation', 'reader', 'navigation', 'document-sources', 'document-formats', 'conversation-outline', 'document-recipes', 'v1-links', 'opc', 'opc-improvements', 'qa-p0', 'v14', 'release', 'search-management', 'project-workspace', 'interactions', 'timeline-stability', 'tag-suggestions', 'project-deletion'];
+ const results = [];
+ for (const suite of suites) {
+   const result = spawnSync(process.execPath, [...(suite==='search-management'?['--expose-gc']:[]),`scripts/validate-${suite}.mjs`], { cwd: root, encoding: 'utf8' });
+diff --git a/apps/navigator-extension/scripts/validate-interactions.mjs b/apps/navigator-extension/scripts/validate-interactions.mjs
+index 48baee3..96dac60 100644
+--- a/apps/navigator-extension/scripts/validate-interactions.mjs
++++ b/apps/navigator-extension/scripts/validate-interactions.mjs
+@@ -24,4 +24,5 @@ check('another pointer cannot move or stop the primary gesture',()=>{const f=fix
+ check('preview placement is on screen and outside the card at all corners',()=>{for(const anchor of [{left:10,right:280,top:20,bottom:250},{left:710,right:980,top:20,bottom:250},{left:10,right:280,top:570,bottom:800},{left:710,right:980,top:570,bottom:800}]){const size={width:340,height:250},p=previewPlacement(anchor,size,{width:1000,height:850});assert(p);assert(p.left>=8&&p.top>=8&&p.left+size.width<=992&&p.top+size.height<=842);assert(!(p.left<anchor.right&&p.left+size.width>anchor.left&&p.top<anchor.bottom&&p.top+size.height>anchor.top));}});
+ check('preview fallback keeps huge card unobstructed; narrow view can place below',()=>{assert.equal(previewPlacement({left:8,right:382,top:8,bottom:842},{width:340,height:250},{width:390,height:850}),null);assert(previewPlacement({left:20,right:290,top:40,bottom:270},{width:340,height:250},{width:390,height:850}));const clear=previewPlacement({left:10,right:280,top:20,bottom:250},{width:340,height:250},{width:1000,height:850},12,8,[{left:292,right:632,top:20,bottom:270}]);assert(clear.left>=632);});
+ check('view preferences emit lightweight notification; source/metadata/relations still refresh',()=>{assert.equal(changeNotification('releaseWrite',{action:'timelinePreferences'}).event,'viewChanged');assert.equal(changeNotification('opcWrite',{action:'layout'}).event,'viewChanged');for(const args of [{action:'metadata'},{action:'relationship'},{action:'timeline'}])assert.equal(changeNotification('opcWrite',args).event,'changed');assert.equal(changeNotification('workspaceWrite',{action:'conversations'}).event,'changed');assert.equal(changeNotification('releaseWrite',{action:'pack'}).event,'changed');});
++check('new independent Project notification carries its saved ID; moving sources remains global',()=>{assert.deepEqual(changeNotification('createProject',{name:'B'},{id:'prj_B'}),{event:'changed',projectId:'prj_B',action:'createProject'});assert.equal(changeNotification('createProject',{name:'B'}).projectId,null);assert.equal(changeNotification('renameProject',{projectId:'prj_B'}).projectId,'prj_B');assert.equal(changeNotification('moveConversation',{projectId:'prj_B'}).projectId,null);});
+ fs.mkdirSync('dist',{recursive:true});fs.writeFileSync('dist/INTERACTION_NODE_REPORT.json',JSON.stringify({ok:true,checks,scope:'Gesture lifecycle, placement and notification routing; real DOM tests are separate.'},null,2));
+diff --git a/apps/navigator-extension/sidepanel.html b/apps/navigator-extension/sidepanel.html
+index 658aa8f..e1e2e64 100644
+--- a/apps/navigator-extension/sidepanel.html
++++ b/apps/navigator-extension/sidepanel.html
+@@ -7,7 +7,7 @@
+ </head>
+ <body data-mode="panel">
+   <header class="app-header">
+-    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.0</span></div></div>
++    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.2</span></div></div>
+     <nav class="workbench-tabs" aria-label="主要工作入口"><button id="timeline-view-button" type="button" aria-pressed="true">Timeline</button><button id="canvas-view-button" type="button" aria-pressed="false">Canvas</button><button id="deploy-view-button" type="button" aria-pressed="false">Deploy</button></nav>
+     <div class="actions header-actions"><button id="capture-button" class="btn primary" type="button">导入当前对话</button><button id="settings-button" class="icon-button" type="button" aria-label="设置与导入选项" title="设置与导入选项">⚙</button><button id="open-workspace" class="btn header-workspace" type="button">工作台 ↗</button></div></header>
+   <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+diff --git a/apps/navigator-extension/storage/repository.js b/apps/navigator-extension/storage/repository.js
+index b6d9b03..8568045 100644
+--- a/apps/navigator-extension/storage/repository.js
++++ b/apps/navigator-extension/storage/repository.js
+@@ -2,6 +2,7 @@ import { exportWorkspaceData, validateWorkspaceData, restoreWorkspaceData, libra
+ import { workspaceData, workspaceAnalysisCards } from './project-workspace.js';
+ import { workspaceById, workspaceMutation } from '../domain/project-workspace.js';
+ import { analyzeQA, reviewQA } from './tag-suggestions.js';
++import { projectDeletionPreview, deleteProjectData } from '../domain/project-deletion.js';
+ import { loadConversationLibrary, writeConversationManagement } from './conversation-management.js';
+ import { globalSearch, relatedDiscussions } from './search-index.js';
+ import { readState, commit, STORES, readSnapshot, withReadMetrics } from './database.js';
+@@ -231,6 +232,13 @@ async function readSuggestion(args) {
+   }));
+ }
+ export async function command(type, args) {
++  if(type==='projectDeletePreview')return projectDeletionPreview(await readState(),args);
++  if(type==='deleteProject')return auxiliary(async()=>{
++    const before=await readState(),state=copy(before),result=deleteProjectData(state,args,STORES);
++    const point=await makeRecoveryPoint({name:'删除「'+before.projects.find(p=>p.id===args.projectId).name+'」前的资料',reason:'project_delete'});
++    if(point.dataRevision!==before.revision)fail('删除前资料已变化，恢复点已保留，请重新确认；未删除数据。');
++    await commit(before,state);return {...result,recoveryPointId:point.id};
++  });
+   if(type==='qaAnalyze')return auxiliary(()=>analyzeQA(args));
+   if(type==='qaReview')return auxiliary(()=>reviewQA(args));
+   if(type==='workspaceData')return workspaceData(args);
+@@ -343,14 +351,6 @@ export async function command(type, args) {
+     if (type === 'editSegment') return editSegment(state, args);
+     if (type === 'undo') return undoLatest(state, args.projectId);
+     if (type === 'moveConversation') { const c = state.conversations.find(c => c.id === args.conversationId); if (!c) fail('对话不存在。'); moveConversation(state, c, args.projectId); return { projectId: args.projectId }; }
+-    if (type === 'deleteProject') {
+-      const p = state.projects.find(p => p.id === args.projectId); if (!p || p.name !== args.confirmName) fail('项目名确认不一致，未删除数据。');
+-      for (const name of STORES) {
+-        if (name === 'projects') state[name] = state[name].filter(r => r.id !== p.id);
+-        else if (name === 'drafts') state[name] = state[name].filter(d => !d.results.some(r => r.projectId === p.id));
+-        else state[name] = state[name].filter(r => r.projectId !== p.id);
+-      } return { deleted: true };
+-    }
+     if (type === 'discardDraft') { state.drafts = state.drafts.filter(d => d.id !== args.draftId); return { discarded: true }; }
+     fail('未知的数据操作。');
+   });
+diff --git a/apps/navigator-extension/ui/app.js b/apps/navigator-extension/ui/app.js
+index f031603..7617ee3 100644
+--- a/apps/navigator-extension/ui/app.js
++++ b/apps/navigator-extension/ui/app.js
+@@ -1,4 +1,4 @@
+-import { el, button, badge, ask, rpc, labelRole, labelStatus, savedTime, timeLabel, plainBody } from './dom.js';
++import { el, button, badge, ask, rpc, labelRole, labelStatus, savedTime, timeLabel, plainBody, showDialog } from './dom.js';
+ import { Reader } from './reader.js';
+ import { ProjectNavigator } from './navigator.js';
+ import { OrganizationPanel } from './organization.js';
+@@ -12,13 +12,40 @@ import { CaptureSourcePanel } from './capture-source.js';
+ import { ConnectionsPanel } from './connections.js';
+ import { visibleSegments as deriveVisibleSegments, resolveReadingPosition, qaNavigation } from '../domain/navigation.js';
+ import { normalizeForSearch } from '../domain/search.js';
++import { PanelCloseButton, registerClosablePanel, releaseClosablePanel, requestPanelClose } from './panel-close.js';
+ 
+ const $ = selector => document.querySelector(selector);
+ const panel = document.body.dataset.mode === 'panel';
+ const parameters = new URLSearchParams(location.search);
+ const sourceTabId = parameters.has('sourceTab') ? Number(parameters.get('sourceTab')) : null;
+ const conversationModes = [['#timeline-view-button', 'timeline'], ['#canvas-view-button', 'canvas'], ['#deploy-view-button','deploy']];
+-let projects = [], view = null, busy = 0, searchEpoch = 0, exportURL = null;
++let projects = [], view = null, committedView=null, busy = 0, searchEpoch = 0, exportURL = null;
++let reloadEpoch=0,pendingRefresh=false,pendingProjectId=null,refreshFrame=null;
++const pressedPointers=new Set();
++const waitingViewReads=new Set();
++function waitForViewInteraction({changingProject=false}={}){
++  const ready=()=>!pressedPointers.size&&(!changingProject||!document.querySelector('dialog[open]'));
++  if(ready())return;
++  return new Promise(resolve=>waitingViewReads.add({ready,resolve}));
++}
++function scheduleRefresh(){
++  if(refreshFrame!==null||!pendingRefresh&&pendingProjectId===null&&!waitingViewReads.size)return;
++  // Apply queued notifications at a paint boundary after the native click.
++  refreshFrame=requestAnimationFrame(()=>{
++    refreshFrame=null;
++    if(pressedPointers.size)return;
++    for(const read of waitingViewReads)if(read.ready()){waitingViewReads.delete(read);read.resolve();}
++    if(busy||document.querySelector('dialog[open]'))return;
++    if(pendingProjectId!==null){
++      const projectId=pendingProjectId;pendingProjectId=null;pendingRefresh=false;
++      guard(async()=>{resetProjectNavigation();selection.projectId=projectId;await reload();})();
++    }else if(pendingRefresh){pendingRefresh=false;guard(()=>reload(true))();}
++  });
++}
++document.addEventListener('pointerdown',event=>pressedPointers.add(event.pointerId),true);
++for(const type of ['pointerup','pointercancel'])document.addEventListener(type,event=>{pressedPointers.delete(event.pointerId);scheduleRefresh();},true);
++window.addEventListener('blur',()=>{pressedPointers.clear();scheduleRefresh();});
++document.addEventListener('close',scheduleRefresh,true);
+ let selection = { projectId: null, conversationId: null, filterConversationId: '', pathId: null, segmentId: null, qaId: null, topicId: '', stateFilter: '', allPaths: false, query: '', mapMode: panel ? 'qas' : 'overview', conversationMode: 'timeline', browseSegmentId: null };
+ let readingPositions = {}, layout = { libraryCollapsed: true }, readingFocused = false, positionWrite = Promise.resolve(), noticeTimer;
+ const notice = (text, error = false) => {
+@@ -26,7 +53,7 @@ const notice = (text, error = false) => {
+   if (routeDialogNotice(document.querySelector('dialog[open]'), text, error)) { $('#notice').hidden = true; return; }
+   const host = $('#notice'); host.hidden = !text; host.textContent = text; host.classList.toggle('error', error);
+   if (text) {
+-    const close = button('×', () => { host.hidden = true; clearTimeout(noticeTimer); }, 'notice-close'); close.setAttribute('aria-label', '关闭提示'); host.append(close);
++    host.append(PanelCloseButton(()=>{host.hidden=true;clearTimeout(noticeTimer);},{title:'关闭提示',className:'notice-close'}));
+     if (!error) noticeTimer = setTimeout(() => { host.hidden = true; }, 8000);
+   }
+ };
+@@ -34,7 +61,7 @@ const persist = () => chrome.storage.local.set({ navigatorSelection: { ...select
+ const guard = fn => async (...args) => {
+   if (busy) return; busy++;for(const [id] of conversationModes)$(id).disabled=true; $('#capture-button').disabled = true; $('#import-button').disabled = true;
+   try { await fn(...args); } catch (e) { notice(e.message, true); }
+-  finally { busy--;for(const [id] of conversationModes)$(id).disabled=false; $('#capture-button').disabled = false; $('#import-button').disabled = false; }
++  finally { busy--;for(const [id] of conversationModes)$(id).disabled=false; $('#capture-button').disabled = false; $('#import-button').disabled = false;scheduleRefresh(); }
+ };
+ const map = new ProjectNavigator($('#map'), {
+   onSegment: segment => guard(async () => { setDetailReader(true); await reader.showSegment(segment.id); await showCenter(); })(),
+@@ -84,10 +111,11 @@ const connectionsPanel = new ConnectionsPanel({ api: rpc, onError: message => no
+   await reader.showConversation(target.conversationId, selection.pathId, target.messageId, 0, '', target.versionId);
+   $('#reader-pane').scrollIntoView({ block: 'start', behavior: 'smooth' }); await persist();
+ } });
+-const opc = new OPCTimeline($('#conversation-map'), { api: rpc, onError: message => notice(message, true),onScopeChange:async(scope,mode)=>{selection.conversationMode=mode;if(scope.workspace){selection.timelineWorkspaceId=scope.projectId;selection.workspaceSourceProjectId=view?.project.id;}else if(mode==='timeline')selection.timelineWorkspaceId=null;await persist();},onOpenGlobalCard:async(row)=>{await opc.flushMetadata();resetProjectNavigation();selection.timelineWorkspaceId=null;selection.projectId=row.projectId;selection.conversationMode='timeline';await persist();await reload();await opc.openCard(row.cardId,{searchHit:row.snippet});},onModeChange:async(mode,targetCardId)=>{selection.conversationMode=mode;await persist();const scopeId=mode!=='canvas'&&selection.workspaceSourceProjectId===view.project.id&&selection.timelineWorkspaceId;await opc.show({projectId:scopeId||view.project.id,mode,targetCardId});for(const[selector,value]of conversationModes)$(selector).setAttribute('aria-pressed',String(value===mode));} });
++const opc = new OPCTimeline($('#conversation-map'), { api: rpc,beforeRender:waitForViewInteraction, onError: message => notice(message, true),onScopeChange:async(scope,mode)=>{selection.conversationMode=mode;if(scope.workspace){selection.timelineWorkspaceId=scope.projectId;selection.workspaceSourceProjectId=view?.project.id;}else if(mode==='timeline')selection.timelineWorkspaceId=null;await persist();},onOpenGlobalCard:async(row)=>{await opc.flushMetadata();resetProjectNavigation();selection.timelineWorkspaceId=null;selection.projectId=row.projectId;selection.conversationMode='timeline';await persist();await reload();await opc.openCard(row.cardId,{searchHit:row.snippet});},onModeChange:async(mode,targetCardId)=>{selection.conversationMode=mode;await persist();const scopeId=mode!=='canvas'&&selection.workspaceSourceProjectId===view.project.id&&selection.timelineWorkspaceId;await opc.show({projectId:scopeId||view.project.id,mode,targetCardId});for(const[selector,value]of conversationModes)$(selector).setAttribute('aria-pressed',String(value===mode));} });
+ window.addEventListener('pagehide', () => opc.flushLayout());
+ function setDetailReader(open) {
+   document.body.classList.toggle('detail-reader-open', open);
++  const pane=$('#reader-pane');if(open){const chrome=pane.querySelector('.reader-chrome');chrome.classList.add('panel-close-header');if(!chrome.querySelector('.panel-close'))chrome.append(PanelCloseButton(()=>void requestPanelClose(pane),{title:'关闭原文详情（Esc）'}));registerClosablePanel(pane,{guardEdits:false,isActive:()=>document.body.classList.contains('detail-reader-open'),onClose:()=>setDetailReader(false)});}else releaseClosablePanel(pane);
+   $('#reader-toggle').setAttribute('aria-expanded', String(open)); $('#reader-toggle').textContent = open ? '收起详细原文' : '展开详细原文';
+   if (!open) setReadingFocus(false);
+ }
+@@ -95,34 +123,36 @@ async function showCenter() {
+   if (!['timeline','canvas','deploy'].includes(selection.conversationMode)) selection.conversationMode='timeline';
+   for (const [id,mode] of conversationModes) $(id).setAttribute('aria-pressed',String(mode===selection.conversationMode));
+   if (!view) { opc.destroy(); $('#conversation-map').replaceChildren(el('div',{class:'capture-onboarding'},[el('h2',{text:'从历史对话开始'}),el('p',{text:'打开 ChatGPT 对话，点击“导入当前对话”。每轮有效问答成为一个时间点；点击阅读，再加入上下文。'})])); return; }
+-  $('#map-title').textContent=view.project.name;
+   let scopeId=selection.conversationMode!=='canvas'&&selection.workspaceSourceProjectId===view.project.id&&selection.timelineWorkspaceId;
+   if(scopeId){const data=await rpc('workspaceData',{});if(!data.workspaces.some(w=>w.id===scopeId)){selection.timelineWorkspaceId=null;scopeId=null;}}
+   if(scopeId)opc.sourceProjectId=view.project.id;
+   await opc.show({projectId:scopeId||view.project.id,mode:selection.conversationMode});
++  if(opc.projectId===(scopeId||view.project.id))$('#map-title').textContent=view.project.name;
+ }
+ function fillProjects() {
+   const control = $('#project-select'); control.replaceChildren(...projects.map(p => el('option', { value: p.id, text: `${p.name}（${p.conversationCount} 个 conversation）` })));
+   if (!projects.length) control.append(el('option', { value: '', text: '尚无项目 · 采集后创建' }));
+-  control.value = selection.projectId ?? '';
++  control.value = pendingProjectId ?? selection.projectId ?? '';
+   for (const selector of ['#rename-project', '#export-button', '#delete-project', '#manage-topics']) $(selector).disabled = !view;
+   $('#organize-button').disabled = !view?.conversations.length;
+   $('#document-export-button').disabled = !view?.conversations.length;
+   $('#document-bundle-button').disabled = !view?.conversations.length;
+ }
+ async function reload(restoreReader = false) {
++  const epoch=++reloadEpoch,requestedProjectId=selection.projectId;
++  try {
+   const previousProjectId = view?.project.id;
+-  projects = await rpc('projects');
+-  if (!projects.some(p => p.id === selection.projectId)) selection.projectId = projects[0]?.id ?? null;
+-  view = selection.projectId ? await rpc('view', { projectId: selection.projectId }) : null;
+-  if (view) {
+-    const key = `navigatorReadingPosition:${view.project.id}`, settings = await chrome.storage.local.get(key);
+-    if (settings[key]) readingPositions[view.project.id] = settings[key];
+-  }
++  const rows=await rpc('projects'),projectId=rows.some(p=>p.id===requestedProjectId)?requestedProjectId:rows[0]?.id??null;
++  const nextView=projectId?await rpc('view',{projectId}):null;
++  const key=nextView&&`navigatorReadingPosition:${projectId}`,settings=key?await chrome.storage.local.get(key):{};
++  if(epoch!==reloadEpoch||selection.projectId!==requestedProjectId)return;
++  if(pressedPointers.size||document.querySelector('dialog[open]')){pendingRefresh=true;scheduleRefresh();return;}
++  projects=rows;selection.projectId=projectId;view=nextView;
++  if(settings[key])readingPositions[projectId]=settings[key];
+   if (previousProjectId !== view?.project.id) { searchEpoch++; $('#search-results').hidden = true; $('#search-results').replaceChildren(); }
+   fillProjects();
+   if (!view) {
+-    setDetailReader(false); await showCenter();
++    setDetailReader(false); await showCenter();committedView=null;
+     setReadingFocus(false);
+     $('#map-title').textContent = '先保存一条真实对话'; $('#project-stats').textContent = '数据只保存在这个浏览器的插件内。';
+     $('#map-count').textContent = '0 轮'; $('#conversation-select').replaceChildren(el('option', { text: '暂无对话', value: '' }));
+@@ -143,7 +173,7 @@ async function reload(restoreReader = false) {
+   const pending = view.suggestions.filter(s => ['pending', 'needs_review'].includes(s.status));
+   $('#project-stats').textContent = `${view.conversations.length} 个 conversation${pending.length ? ` · ${pending.length} 条待处理建议` : ''}`;
+   $('#project-stats').title = '分支共享的问题按路径分别计数。';
+-  $('#map-title').textContent = view.project.name; $('#map-subtitle').textContent = '项目 › Conversation › Q/A。选择下方 Conversation，展开问题和完整回答。';
++  $('#map-subtitle').textContent = '项目 › Conversation › Q/A。选择下方 Conversation，展开问题和完整回答。';
+   renderMetrics(); renderResume(); $('#library-count').textContent = String(view.conversations.length);
+   const conversationSelect = $('#conversation-select');
+   conversationSelect.replaceChildren(el('option', { value: '', text: '全部对话 · 项目地图' }), ...view.conversations.map(c => el('option', { value: c.id, text: c.title })));
+@@ -153,6 +183,8 @@ async function reload(restoreReader = false) {
+   $('#topic-filter').value = selection.topicId; $('#all-paths').checked = selection.allPaths;
+   $('#undo-button').disabled = !view.undoAvailable; renderPathChoices(); renderMap();
+   await showCenter();
++  if(epoch!==reloadEpoch)return;
++  committedView=view;
+   if (restoreReader && document.body.classList.contains('detail-reader-open')) {
+     const existing = view.segments.find(s => s.id === selection.segmentId && s.active);
+     if (existing) await reader.showSegment(existing.id, selection.qaId);
+@@ -164,6 +196,20 @@ async function reload(restoreReader = false) {
+   }
+   if (!selection.conversationId) $('#reader').replaceChildren(el('div', { class: 'empty' }, [el('h2', { text: '选择项目中的讨论片段' }), el('p', { text: '每个节点均来自这个项目实际保存的 Q/A；空项目可通过采集或导入加入对话。' })]));
+   await persist();
++  } catch(error) {
++    if(epoch===reloadEpoch&&committedView&&(opc.projectId===committedView.project.id||opc.scope?.workspace&&opc.sourceProjectId===committedView.project.id)){
++      // A failed target read does not change the displayed controller. Restore
++      // its shell from the last committed snapshot without another data read.
++      view=committedView;resetProjectNavigation();selection.projectId=view.project.id;
++      const first=view.conversations[0];selection.conversationId=first?.id??null;selection.pathId=first?.currentPathId??null;
++      reader.setView(view);fillProjects();$('#map-title').textContent=view.project.name;
++      $('#project-stats').textContent=`${view.conversations.length} 个 conversation`;
++      $('#conversation-select').replaceChildren(el('option',{value:'',text:'全部对话 · 项目地图'}),...view.conversations.map(c=>el('option',{value:c.id,text:c.title})));
++      $('#topic-filter').replaceChildren(el('option',{value:'',text:'所有主题'}),el('option',{value:'__none',text:'未分类'}),...view.topics.map(t=>el('option',{value:t.id,text:t.name})));
++      renderMetrics();renderResume();renderConversationList();renderPathChoices();renderMap();renderBreadcrumbs();
++    }
++    throw error;
++  }
+ }
+ function renderPathChoices() {
+   if (!view) return;
+@@ -266,6 +312,8 @@ function renderLibraryToggle() {
+   document.body.style.setProperty('--workspace-header-bottom', `${document.querySelector('.app-header').getBoundingClientRect().bottom}px`);
+   const narrow = panel || matchMedia('(max-width:1050px)').matches;
+   const open = narrow ? document.body.classList.contains('library-open') : !layout.libraryCollapsed;
++  const library=$('#project-library'),heading=library.querySelector('.library-section-heading');let close=heading.querySelector('.panel-close');if(!close){close=PanelCloseButton(()=>void requestPanelClose(library),{title:'关闭项目导航（Esc）'});heading.append(close);}close.hidden=!narrow;
++  if(narrow&&open)registerClosablePanel(library,{guardEdits:false,isActive:()=>document.body.classList.contains('library-open'),onClose:()=>{closeLibraryDrawer();$('#library-toggle').focus({preventScroll:true});}});else releaseClosablePanel(library);
+   $('#library-toggle').setAttribute('aria-expanded', String(open)); $('#library-toggle').setAttribute('aria-label', open ? '收起项目导航' : '展开项目导航');
+ }
+ function resetProjectNavigation() {
+@@ -412,7 +460,7 @@ function showPreview(draft, { resumed = false } = {}) {
+     el('div', { class: 'actions' }, [button('丢弃此预览', guard(async () => { await rpc('discardDraft', { draftId: draft.id }); close(); })), button('稍后处理', close), save])]));
+   prepareDialogLayout(dialog);
+   if (resumed && draft.kind === 'capture') dialog.querySelector('.preview-footer .actions').prepend(button('重新采集', guard(async () => { close(); await performCapture(); })));
+-  if (!dialog.open) dialog.showModal();
++  if (!dialog.open) showDialog(dialog);
+ }
+ async function performCapture(explicitTabId = null, expectedSourceUrl = null) {
+   const captureMode = $('#capture-kind').value;
+@@ -426,12 +474,12 @@ async function performCapture(explicitTabId = null, expectedSourceUrl = null) {
+         el('div', { class: 'dialog-body' }, [el('p', { text: error.message }), diagnosticPanel(error.diagnostics)]));
+       if (captureMode === 'full' || ['source_changed', 'page_changed'].includes(error.code)) dialog.querySelector('.dialog-body').prepend(button(captureMode === 'full' ? '重新完整读取' : '采集当前对话', guard(async () => { dialog.close(); await performCapture(); }), 'btn primary'));
+       prepareDialogLayout(dialog);
+-      if (!dialog.open) dialog.showModal();
++      if (!dialog.open) showDialog(dialog);
+     }
+     throw error;
+   }
+ }
+-$('#settings-button').addEventListener('click', () => $('#workspace-settings').showModal());
++$('#settings-button').addEventListener('click', () => showDialog($('#workspace-settings')));
+ $('#settings-close').addEventListener('click', () => $('#workspace-settings').close());
+ $('#capture-button').addEventListener('click', guard(() => performCapture()));
+ $('#capture-source-button').addEventListener('click', () => { if (busy) { notice('请等待当前操作完成后再选择采集来源。', true); return; } captureSourcePanel.open({ fallbackSourceTabId: sourceTabId }); });
+@@ -462,10 +510,11 @@ $('#rename-project').addEventListener('click', guard(async () => {
+   const values = await ask('重命名本地项目', [{ name: 'name', label: '项目名称', value: view.project.name }]); if (!values) return;
+   await rpc('renameProject', { projectId: view.project.id, ...values }); await reload(true);
+ }));
+-$('#project-select').addEventListener('change', guard(async event => {
+-  resetProjectNavigation(); selection.projectId = event.target.value; await reload();
+-  $('#reader').replaceChildren(el('div', { class: 'empty' }, [el('h2', { text: '选择项目中的讨论片段' }), el('p', { text: '所有节点均来自这个项目实际保存的 Q/A。' })]));
+-}));
++$('#project-select').addEventListener('change', event => {
++  // A native select still changes while another read is busy. Retain the latest
++  // intent instead of silently dropping it and leaving the selector/plot split.
++  pendingProjectId=event.target.value;++reloadEpoch;opc.cancelNavigation();scheduleRefresh();
++});
+ $('#conversation-select').addEventListener('change', guard(event => chooseConversation(event.target.value)));
+ $('#path-select').addEventListener('change', guard(async event => {
+   selection.pathId = event.target.value; selection.segmentId = null; selection.qaId = null; selection.browseSegmentId = null; renderMap(); await showCenter();
+@@ -507,11 +556,13 @@ $('#export-button').addEventListener('click', guard(async () => {
+   $('#notice').append(document.createTextNode(' '), el('a', { href: url, download: link.download, text: '点击下载备份 JSON' }));
+ }));
+ $('#delete-project').addEventListener('click', guard(async () => {
+-  const name = view.project.name; const values = await ask('删除本地项目及原始数据', [{ name: 'confirmName', label: `输入项目名“${name}”确认` }], '这会删除该本地项目的对话、消息、版本、地图与修订。需要保留时先导出备份。'); if (!values) return;
+   const projectId = view.project.id;
+-  await rpc('deleteProject', { projectId, confirmName: values.confirmName }); resetProjectNavigation(); selection.projectId = null;
++  await opc.flushMetadata();await opc.horizontal.flush();await opc.flushLayout();await opc.deploy.flush();
++  const preview=await rpc('projectDeletePreview',{projectId}),name=preview.name;
++  const values=await ask('删除本地项目及原始数据',[{name:'confirmName',label:`输入项目名“${name}”确认`}],`将删除 ${preview.conversations} 个 Conversation、${preview.cards} 张 Q/A、${preview.messages} 条消息与 ${preview.versions} 个正文版本。涉及 ${preview.workspaces.length} 个 Workspace：只移除已删来源的关联，其余来源、人工主题和已保存的 Deploy 内容保留。删除前自动建立本地恢复点；关闭此确认窗不会删除数据。`,{confirmLabel:'删除此项目',danger:true});if(!values)return;
++  await rpc('deleteProject', { projectId, confirmName: values.confirmName,expectedRevision:preview.revision }); resetProjectNavigation();selection.timelineWorkspaceId=null; selection.projectId = null;
+   delete readingPositions[projectId]; await chrome.storage.local.set({ [`navigatorReadingPosition:${projectId}`]: null });
+-  await reload(); notice('本地项目及其已保存原始数据已删除。');
++  await reload(); notice('本地项目已删除；删除前的本地恢复点已保留，可从“备份与恢复点”恢复。');
+ }));
+ $('#conversation-search').addEventListener('input', renderConversationList);
+ $('#project-overview').addEventListener('click', showOverview);
+@@ -557,7 +608,15 @@ document.addEventListener('keydown', event => {
+ });
+ chrome.runtime.onMessage.addListener(message => {
+   if (message.event === 'progress') notice(`正在保存 ${message.processed} / ${message.total} 条对话${message.title ? ` · ${message.title}` : ''}。已完成条目会独立提交。`);
+-  if (message.event === 'changed' && !busy && !document.querySelector('dialog[open]')) guard(() => reload(true))();
++  if (message.event !== 'changed') return;
++  if (view && message.projectId && message.projectId !== view.project.id && !String(message.projectId).startsWith('workspace_') && !String(opc.projectId).startsWith('workspace_')) {
++    // A different independent Project cannot change this Timeline. Refresh only
++    // the library choices; replacing the Timeline here destroys a pressed node
++    // before pointerup, cancelling native clicks on +, − and Q/A alike.
++    rpc('projects').then(rows => { projects = rows; fillProjects(); }).catch(error => notice(error.message, true));
++    return;
++  }
++  pendingRefresh=true;scheduleRefresh();
+ });
+ async function initialize() {
+   try { await rpc('memoryInitialize'); } catch (error) { notice(`升级恢复点尚未建立：${error.message} 已保存的资料仍在，请打开“记忆”另存备份。`, true); }
+diff --git a/apps/navigator-extension/ui/capture-source.js b/apps/navigator-extension/ui/capture-source.js
+index b67583b..0d47630 100644
+--- a/apps/navigator-extension/ui/capture-source.js
++++ b/apps/navigator-extension/ui/capture-source.js
+@@ -1,4 +1,4 @@
+-import { el, button } from './dom.js';
++import { el, button, showDialog } from './dom.js';
+ import { prepareDialogLayout } from './dialog-layout.js';
+ 
+ export class CaptureSourcePanel {
+@@ -6,7 +6,7 @@ export class CaptureSourcePanel {
+   close() { this.epoch++; this.dialog?.close(); this.dialog?.remove(); this.dialog = null; }
+   async open(args = {}) {
+     this.close(); const epoch = this.epoch, dialog = this.dialog = el('dialog', { class: 'capture-source-dialog' }), body = el('div', { class: 'dialog-body' }, [el('p', { text: '正在核对来源…' })]);
+-    dialog.append(el('div', { class: 'dialog-header' }, [el('h2', { text: '采集来源' }), button('关闭', () => this.close())]), body); document.body.append(dialog); prepareDialogLayout(dialog); dialog.showModal();
++    dialog.append(el('div', { class: 'dialog-header' }, [el('h2', { text: '采集来源' }), button('关闭', () => this.close())]), body); document.body.append(dialog); prepareDialogLayout(dialog); showDialog(dialog);
+     dialog.addEventListener('cancel', event => { event.preventDefault(); this.close(); });
+     try {
+       const source = await this.api('captureSourceStatus', args); if (epoch !== this.epoch) return;
+diff --git a/apps/navigator-extension/ui/card-preview.js b/apps/navigator-extension/ui/card-preview.js
+index d7c3f10..0700ed8 100644
+--- a/apps/navigator-extension/ui/card-preview.js
++++ b/apps/navigator-extension/ui/card-preview.js
+@@ -1,5 +1,6 @@
+ import { el } from './dom.js';
+ import { previewPlacement } from '../domain/preview-placement.js';
++import { PanelCloseButton, registerClosablePanel, releaseClosablePanel, requestPanelClose } from './panel-close.js';
+ 
+ // Shared plain-text projection of existing source bodies. It never sends data,
+ // runs an organizer, parses partial Markdown, or edits a source record.
+@@ -17,17 +18,18 @@ export class CardHoverPreview {
+   constructor({load,allowed,onError,delay=300}) {
+     Object.assign(this,{load,allowed,onError,delay});this.sequence=0;this.cache=new Map();
+     this.portal=el('aside',{class:'card-hover-preview',role:'tooltip',id:'card-hover-preview-'+(++nextPreviewId),hidden:true});document.body.append(this.portal);
+-    this.onKey=event=>{if(event.key==='Escape')this.close();};this.onMotion=()=>this.moving();
+-    document.addEventListener('keydown',this.onKey);globalThis.addEventListener('scroll',this.onMotion,true);globalThis.addEventListener('resize',this.onMotion);
++    this.onMotion=()=>this.moving();
++    this.portal.addEventListener('pointerenter',()=>clearTimeout(this.leaveTimer));this.portal.addEventListener('pointerleave',()=>this.close());
++    globalThis.addEventListener('scroll',this.onMotion,true);globalThis.addEventListener('resize',this.onMotion);
+   }
+   bind(node,card,projectId) {
+     const enter=event=>{if(event.pointerType!=='touch')this.request(node,card,projectId);};
+     const focus=event=>{if(event.target===node||event.target.closest('.compact-node-open'))this.request(node,card,projectId);};
+-    const leave=()=>{if(this.anchor===node)this.close();};
++    const leave=event=>{if(this.anchor===node){if(event?.relatedTarget&&this.portal.contains(event.relatedTarget))return;if(this.portal.hidden){this.close();return;}this.sequence++;clearTimeout(this.leaveTimer);this.leaveTimer=setTimeout(()=>this.close(),100);}};
+     const blur=event=>{if(!node.contains(event.relatedTarget))leave();};
+     const press=()=>this.close();
+     for(const [event,fn]of [['pointerenter',enter],['pointerleave',leave],['focusin',focus],['focusout',blur],['pointerdown',press]])node.addEventListener(event,fn);
+-    return {dispose:()=>{leave();for(const [event,fn]of [['pointerenter',enter],['pointerleave',leave],['focusin',focus],['focusout',blur],['pointerdown',press]])node.removeEventListener(event,fn);}};
++    return {dispose:()=>{if(this.anchor===node)this.close();for(const [event,fn]of [['pointerenter',enter],['pointerleave',leave],['focusin',focus],['focusout',blur],['pointerdown',press]])node.removeEventListener(event,fn);}};
+   }
+   request(node,card,projectId) {
+     this.close();if(this.paused||Date.now()<(this.blockedUntil??0)||!this.allowed())return;
+@@ -39,9 +41,10 @@ export class CardHoverPreview {
+         let data=this.cache.get(key);
+         if(!data){const full=await this.load({projectId,cardId:card.id});data={card:{id:full.card.id,sourceTitle:full.card.sourceTitle,questionPreview:full.card.questionPreview},metadata:{title:full.metadata.title},questionBody:full.questionBody.slice(0,1000),answerBody:full.answerBody.slice(0,1500)};this.cache.set(key,data);if(this.cache.size>40)this.cache.delete(this.cache.keys().next().value);}
+         if(sequence!==this.sequence||!node.isConnected||this.paused||!this.allowed())return;
+-        this.portal.replaceChildren(...cardPreviewContent(data));this.portal.hidden=false;
++        this.portal.replaceChildren(el('div',{class:'panel-close-bar panel-close-header'},[PanelCloseButton(()=>void requestPanelClose(this.portal),{title:'关闭预览（Esc）'})]),...cardPreviewContent(data));this.portal.hidden=false;
++        registerClosablePanel(this.portal,{guardEdits:false,onClose:()=>this.close()});
+         const viewport={width:document.documentElement.clientWidth,height:document.documentElement.clientHeight},avoid=[...document.querySelectorAll('.opc-canvas-node,button,input,select,textarea,summary,.opc-detail:not([hidden])')]
+-          .filter(control=>control!==node&&!node.contains(control)).map(control=>control.getBoundingClientRect()).filter(rect=>rect.width>0&&rect.height>0);
++          .filter(control=>control!==node&&!node.contains(control)&&!this.portal.contains(control)).map(control=>control.getBoundingClientRect()).filter(rect=>rect.width>0&&rect.height>0);
+         let position;
+         for(const width of [340,280,220]){
+           this.portal.style.width=Math.min(width,viewport.width-16)+'px';
+@@ -54,9 +57,9 @@ export class CardHoverPreview {
+       }catch(error){if(sequence===this.sequence){this.close();this.onError?.(error.message);}}
+     },this.delay);
+   }
+-  close(){clearTimeout(this.timer);this.timer=null;this.sequence++;this.portal.hidden=true;this.anchor?.removeAttribute('aria-describedby');this.anchor=null;}
++  close(){clearTimeout(this.timer);clearTimeout(this.leaveTimer);this.timer=null;this.sequence++;const anchor=this.anchor,restore=this.portal.contains(document.activeElement);releaseClosablePanel(this.portal);this.portal.hidden=true;anchor?.removeAttribute('aria-describedby');this.anchor=null;if(restore&&anchor?.isConnected){this.blockedUntil=Date.now()+this.delay;anchor.focus({preventScroll:true});}}
+   pause(){this.paused=true;this.close();}
+   resume(){this.paused=false;this.moving();}
+   moving(){this.blockedUntil=Date.now()+this.delay;this.close();}
+-  dispose(){this.close();this.portal.remove();document.removeEventListener('keydown',this.onKey);globalThis.removeEventListener('scroll',this.onMotion,true);globalThis.removeEventListener('resize',this.onMotion);this.cache.clear();}
++  dispose(){this.close();this.portal.remove();globalThis.removeEventListener('scroll',this.onMotion,true);globalThis.removeEventListener('resize',this.onMotion);this.cache.clear();}
+ }
+diff --git a/apps/navigator-extension/ui/connections.js b/apps/navigator-extension/ui/connections.js
+index d9e8567..ef15471 100644
+--- a/apps/navigator-extension/ui/connections.js
++++ b/apps/navigator-extension/ui/connections.js
+@@ -1,4 +1,4 @@
+-import { el, button, labelRole } from './dom.js';
++import { el, button, labelRole, showDialog } from './dom.js';
+ import { prepareDialogLayout } from './dialog-layout.js';
+ import { LINK_TYPES } from '../domain/conversation-links.js';
+ 
+@@ -8,7 +8,7 @@ export class ConnectionsPanel {
+   async open(scope) {
+     this.close(); const epoch = this.epoch, dialog = this.dialog = el('dialog', { class: 'connections-dialog' }), body = el('div', { class: 'dialog-body' }, [el('p', { text: '正在读取关联…' })]);
+     dialog.append(el('div', { class: 'dialog-header' }, [el('div', {}, [el('span', { class: 'eyebrow', text: 'CONNECTED CONVERSATIONS' }), el('h2', { text: '关联讨论' })]), button('关闭', () => this.close())]), body);
+-    document.body.append(dialog); prepareDialogLayout(dialog); dialog.showModal(); dialog.addEventListener('cancel', event => { event.preventDefault(); this.close(); });
++    document.body.append(dialog); prepareDialogLayout(dialog); showDialog(dialog); dialog.addEventListener('cancel', event => { event.preventDefault(); this.close(); });
+     try {
+       const [sources, links] = await Promise.all([this.api('connectionSources', { projectId: scope.projectId }), this.api('connectionList', { projectId: scope.projectId, archived: this.archived })]);
+       if (epoch !== this.epoch) return;
+diff --git a/apps/navigator-extension/ui/context-deploy.js b/apps/navigator-extension/ui/context-deploy.js
+index 7034685..51afd1d 100644
+--- a/apps/navigator-extension/ui/context-deploy.js
++++ b/apps/navigator-extension/ui/context-deploy.js
+@@ -1,4 +1,4 @@
+-import { el, button } from './dom.js';
++import { el, button, showDialog } from './dom.js';
+ import { PACK_MODES } from '../domain/release-data.js';
+ import { DEFAULT_INCLUDES, estimateTokens, exportPack } from '../domain/context-pack.js';
+ 
+@@ -27,7 +27,7 @@ export class ContextDeploy {
+     if(!this.pack){main.append(el('div',{class:'deploy-next'},[el('h3',{text:'2 · 编辑上下文包'}),el('p',{text:'来源卡片已准备好。填写新任务，再预览、核对并复制上下文。'}),button('继续编辑',this.safe(()=>this.create()),'btn primary')]));return;}
+     this.editor(main,cards);
+   }
+-  async savedDialog(){const d=this.owner.horizontal.dialog();d.replaceChildren(el('h2',{text:'已保存上下文包'}));if(!this.info.packs.length)d.append(el('p',{text:'还没有保存的上下文包。先从时间线加入几张卡片。'}));for(const p of this.info.packs)d.append(button(p.title,this.safe(async()=>{d.close();await this.show(this.projectId,p.id);}),'saved-pack',{'data-pack-id':p.id}));d.append(button('关闭',()=>d.close()));d.showModal();}
++  async savedDialog(){const d=this.owner.horizontal.dialog();d.replaceChildren(el('h2',{text:'已保存上下文包'}));if(!this.info.packs.length)d.append(el('p',{text:'还没有保存的上下文包。先从时间线加入几张卡片。'}));for(const p of this.info.packs)d.append(button(p.title,this.safe(async()=>{d.close();await this.show(this.projectId,p.id);}),'saved-pack',{'data-pack-id':p.id}));d.append(button('关闭',()=>d.close()));showDialog(d);}
+   async create(){await this.flush();const pack=await this.write('pack',{title:this.info.project.name+' · 上下文',selectedCardIds:this.info.tray.cardIds,mode:'FULL',tokenBudget:8000});await this.show(this.projectId,pack.id);}
+   editor(main,cards){
+     const p=this.pack,draft=this.owner.drafts.get(this.projectId,'pack:'+p.id),baseRevision=draft?.baseRevision??p.revision;
+@@ -73,11 +73,11 @@ export class ContextDeploy {
+       if(JSON.stringify(pending.values)===JSON.stringify(this.values())){this.dirty=false;this.owner.drafts.remove(pending.projectId,'pack:'+pending.packId);this.status.textContent='已自动保存';}else{this.owner.drafts.set(pending.projectId,'pack:'+pending.packId,{values:this.values(),baseRevision:this.baseRevision});this.owner.drafts.flush();}
+     }catch(e){this.blocked=/另一窗口|来源正在更新|此内容已/.test(e.message);this.status.textContent='保存未完成，草稿保留：'+e.message;this.owner.onError?.(e.message);}});await this.queue;}
+   async compile(confirmed=false){await this.flush();if(this.blocked||this.dirty)throw new Error('请先完成并保存当前编辑，核对保存状态。');
+-    if(this.pack.editedContent!==this.pack.generatedContent&&!confirmed){const d=el('dialog',{class:'release-dialog'},[el('h2',{text:'保留手动编辑并重新编译'}),el('p',{text:'当前手动编辑将完整存入本地历史。新编译结果替换预览；来源 Q/A、批注和决定不改变。'}),button('保留旧编辑并生成新版',this.safe(async()=>{d.close();d.remove();await this.compile(true);}),'btn primary'),button('取消',()=>{d.close();d.remove();})]);document.body.append(d);d.showModal();return;}
++    if(this.pack.editedContent!==this.pack.generatedContent&&!confirmed){const d=el('dialog',{class:'release-dialog'},[el('h2',{text:'保留手动编辑并重新编译'}),el('p',{text:'当前手动编辑将完整存入本地历史。新编译结果替换预览；来源 Q/A、批注和决定不改变。'}),button('保留旧编辑并生成新版',this.safe(async()=>{d.close();d.remove();await this.compile(true);}),'btn primary'),button('取消',()=>{d.close();d.remove();})]);d.addEventListener('close',()=>d.remove(),{once:true});document.body.append(d);showDialog(d);return;}
+     this.loaded=await this.owner.api('contextCompile',{projectId:this.projectId,packId:this.pack.id,expectedRevision:this.pack.revision});this.pack=this.loaded.pack;this.owner.drafts.remove(this.projectId,'pack:'+this.pack.id);this.render();
+   }
+   updateSize(){if(!this.output||!this.size)return;const tokens=estimateTokens(this.output.value),budget=Number(this.controls.tokenBudget.value);this.size.textContent=`${this.output.value.length.toLocaleString()} 字符 · 约 ${tokens.value.toLocaleString()} tokens（估算，非真实 tokenizer）${tokens.value>budget?' · 超出预算 '+(tokens.value-budget)+'；内容未被静默截断':''}${this.output.value!==this.pack.generatedContent?' · 已手动编辑':''}`;}
+   async copy(format){await this.flush();if(this.blocked||this.dirty)throw new Error('草稿尚未完整保存，请完善输入或核对冲突。');if(!this.pack.compiledAt)throw new Error('请先编译预览，记录可追溯来源后再复制。');await navigator.clipboard.writeText(exportPack(this.pack,format));this.status.textContent=format==='prompt'?'已复制通用 Prompt，未自动发送到任何网站':'已复制完整 Markdown 上下文';}
+   async download(format){await this.flush();if(this.blocked||this.dirty||!this.pack.compiledAt)throw new Error('请先完成编译并核对保存状态。');const url=URL.createObjectURL(new Blob([exportPack(this.pack,format)],{type:format==='markdown'?'text/markdown;charset=utf-8':'text/plain;charset=utf-8'})),a=el('a',{href:url,download:(this.pack.title.replace(/[\\/:*?"<>|]/g,'-')||'context-pack')+(format==='markdown'?'.md':'.prompt.txt')});a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+-  async importDialog(){const data=await this.owner.api('releaseInfo',{projectId:this.projectId}),d=el('dialog',{class:'release-dialog'},[el('h2',{text:'最近同步记录'})]);for(const r of data.importRecords)d.append(el('p',{text:`${r.syncedAt} · 新增 ${r.newCardCount} · 更新 ${r.updatedCardCount} · 隐藏 ${r.hiddenCardCount} · 跳过过程消息 ${r.skippedMessageCount}${r.partial?' · 部分读取':''}${r.errors?.length?' · 读取失败':''}`}),el('small',{text:[...(r.warnings??[]),...(r.errors??[])].join('；')}));d.append(button('关闭',()=>{d.close();d.remove();}));document.body.append(d);d.showModal();}
++  async importDialog(){const data=await this.owner.api('releaseInfo',{projectId:this.projectId}),d=el('dialog',{class:'release-dialog'},[el('h2',{text:'最近同步记录'})]);for(const r of data.importRecords)d.append(el('p',{text:`${r.syncedAt} · 新增 ${r.newCardCount} · 更新 ${r.updatedCardCount} · 隐藏 ${r.hiddenCardCount} · 跳过过程消息 ${r.skippedMessageCount}${r.partial?' · 部分读取':''}${r.errors?.length?' · 读取失败':''}`}),el('small',{text:[...(r.warnings??[]),...(r.errors??[])].join('；')}));d.append(button('关闭',()=>{d.close();d.remove();}));document.body.append(d);showDialog(d);}
+ }
+diff --git a/apps/navigator-extension/ui/conversation-library.js b/apps/navigator-extension/ui/conversation-library.js
+index e28a9d3..df8abd6 100644
+--- a/apps/navigator-extension/ui/conversation-library.js
++++ b/apps/navigator-extension/ui/conversation-library.js
+@@ -1,4 +1,5 @@
+-import { el, button, ask, timeLabel, savedTime } from './dom.js';
++import { el, button, ask, timeLabel, savedTime, showDialog } from './dom.js';
++import { configurePanelClose } from './panel-close.js';
+ 
+ export class ConversationLibrary {
+   constructor(owner){this.owner=owner;this.checked=new Set();this.preferences={sort:'activity',favorite:false,hidden:'visible',group:'',query:''};}
+@@ -7,7 +8,7 @@ export class ConversationLibrary {
+   async write(args){await this.owner.api('conversationManage',{projectId:this.owner.projectId,...args});await this.owner.load();await this.render();}
+   async render(show=false){
+     const info=await this.owner.api('conversationLibrary',{projectId:this.owner.projectId});this.info=info;
+-    const d=this.owner.horizontal.dialog();d.classList.add('opc-library-dialog');d.replaceChildren(el('h2',{text:'对话管理'}),el('p',{class:'muted',text:'整理本地对话；保留原始 Q/A，不修改 ChatGPT 来源。项目集合可多选，不移动来源与已有引用。'}));
++    const d=this.owner.horizontal.dialog();configurePanelClose(d,{guardEdits:false});d.classList.add('opc-library-dialog');d.replaceChildren(el('h2',{text:'对话管理'}),el('p',{class:'muted',text:'整理本地对话；保留原始 Q/A，不修改 ChatGPT 来源。项目集合可多选，不移动来源与已有引用。'}));
+     const choose=(label,options)=>el('select',{'aria-label':label},options.map(([value,text])=>el('option',{value,text})));
+     const sort=choose('对话排序',[['activity','最近活动'],['created','来源创建时间'],['title','标题'],['count','Q/A 数量']]);sort.value=this.preferences.sort;
+     const group=choose('按项目集合筛选',[['','所有项目集合'],...info.groups.map(g=>[g,g])]);group.value=this.preferences.group;
+@@ -29,6 +30,6 @@ export class ConversationLibrary {
+       const edit=button('编辑',this.owner.safe(async()=>{const v=await ask('编辑本地对话',[{name:'customTitle',label:'自定义标题（留空使用来源名称）',value:c.customTitle??'',required:false},{name:'description',label:'描述',value:c.description??'',required:false},{name:'pinned',label:'置顶',value:String(Boolean(c.pinned)),options:[{value:'false',label:'未置顶'},{value:'true',label:'置顶'}]}],`来源原始标题：${c.originalTitle}`);if(v)await this.write({conversationIds:[c.id],values:{...v,pinned:v.pinned==='true'},expectedRevisions:{[c.id]:c.localRevision??0}});}));
+       const projects=el('details',{},[el('summary',{text:'项目归属'})]);for(const name of info.groups){const box=el('input',{type:'checkbox',checked:(c.groups??[]).includes(name),'aria-label':`${c.displayTitle} · ${name}`});box.addEventListener('change',this.owner.safe(()=>this.write({conversationIds:[c.id],[box.checked?'addGroup':'removeGroup']:name,expectedRevisions:{[c.id]:c.localRevision??0}})));projects.append(el('label',{},[box,name]));}
+       list.append(el('article',{class:'opc-conversation-row','data-conversation-id':c.id},[check,el('div',{},[button((c.pinned?'↑ ':'')+c.displayTitle,this.owner.safe(async()=>{d.close();if(this.owner.mode==='deploy')await this.owner.navigate('timeline');if(this.owner.mode==='timeline'){const source=this.owner.data.timelines.find(t=>t.conversationId===c.id);if(source&&this.owner.trackPreferences&&!this.owner.trackPreferences.selectedTimelineIds.includes(source.id)){this.owner.trackPreferences.selectedTimelineIds.push(source.id);this.owner.trackPreferences.trackOrder.push(source.id);this.owner.horizontal.preferences=this.owner.trackPreferences;await this.owner.horizontal.save();}}Object.assign(this.owner.filters,{conversationId:c.id,query:'',timelineIds:c.hidden?this.owner.data.timelines.filter(t=>t.conversationId===c.id).map(t=>t.id):[],includeHidden:Boolean(c.hidden),offset:0});await this.owner.load();}),'opc-result-open'),el('small',{text:`${(c.groups??[]).join('、')||'未分组'} · ${c.qaCount} Q/A · 最近活动 ${c.activityTime?savedTime(c.activityTime):'来源时间未知'}`}),el('small',{text:`创建：${timeLabel(c.sourceTime)} · 最近同步：${savedTime(c.lastCapturedAt)}`})]),button(c.favorite?'★':'☆',this.owner.safe(()=>this.write({conversationIds:[c.id],values:{favorite:!c.favorite},expectedRevisions:{[c.id]:c.localRevision??0}})),'btn',{'aria-label':`${c.favorite?'取消收藏':'收藏'}对话 ${c.displayTitle}`}),edit,projects,button(c.hidden?'恢复':'隐藏',this.owner.safe(()=>this.write({conversationIds:[c.id],values:{hidden:!c.hidden},expectedRevisions:{[c.id]:c.localRevision??0}})))]));}
+-    if(!rows.length)list.append(el('p',{class:'muted',text:'没有符合筛选条件的对话。'}));if(show)d.showModal();
++    if(!rows.length)list.append(el('p',{class:'muted',text:'没有符合筛选条件的对话。'}));if(show)showDialog(d);
+   }
+ }
+diff --git a/apps/navigator-extension/ui/dialog-layout.js b/apps/navigator-extension/ui/dialog-layout.js
+index 50c8212..ec24a82 100644
+--- a/apps/navigator-extension/ui/dialog-layout.js
++++ b/apps/navigator-extension/ui/dialog-layout.js
+@@ -1,3 +1,4 @@
++import { PanelCloseButton } from './panel-close.js';
+ /**
+  * Give a modal one scrolling content region while retaining its existing nodes
+  * and listeners. Call after building/rebuilding it, before showModal().
+@@ -58,12 +59,7 @@ export function routeDialogNotice(dialog, text, error = false) {
+   if (text) {
+     const copy = dialog.ownerDocument.createElement('span');
+     copy.textContent = text;
+-    const close = dialog.ownerDocument.createElement('button');
+-    close.type = 'button';
+-    close.className = 'notice-close';
+-    close.textContent = '×';
+-    close.setAttribute('aria-label', '关闭提示');
+-    close.addEventListener('click', () => { host.hidden = true; });
++    const close=PanelCloseButton(()=>{host.hidden=true;},{document:dialog.ownerDocument,title:'关闭提示',className:'notice-close'});
+     host.append(copy, close);
+     host.scrollTop = 0;
+   }
+diff --git a/apps/navigator-extension/ui/documents.js b/apps/navigator-extension/ui/documents.js
+index bdffa46..5ad8089 100644
+--- a/apps/navigator-extension/ui/documents.js
++++ b/apps/navigator-extension/ui/documents.js
+@@ -1,5 +1,6 @@
+-import { el, button, badge, labelRole } from './dom.js';
++import { el, button, badge, labelRole, showDialog } from './dom.js';
+ import { prepareDialogLayout, routeDialogNotice } from './dialog-layout.js';
++import { markPanelSaved } from './panel-close.js';
+ import { composeDocument } from '../domain/document-export.js';
+ import { createDocxBlob } from '../exports/docx.js';
+ import { documentToMarkdown, documentToPrintableHtml, renderDocument, DOCUMENT_STYLES } from '../exports/render.js';
+@@ -84,7 +85,7 @@ export class DocumentExportPanel {
+     this.includeArchived.addEventListener('change', () => this.run(() => this.refreshRecipes()));
+     this.recipeSelect.addEventListener('change', () => { this.openRecipeButton.disabled = !this.recipeSelect.value; });
+     this.titleDirty = false;
+-    prepareDialogLayout(this.dialog); if (!this.dialog.open) this.dialog.showModal();
++    prepareDialogLayout(this.dialog); if (!this.dialog.open) showDialog(this.dialog);
+     if (savedMode) this.content.querySelector('.document-recipes').open = true;
+     const openingSession = this.session;
+     await this.run(async () => {
+@@ -167,7 +168,7 @@ export class DocumentExportPanel {
+     const result = await this.api('documentRecipeSave', args); if (token !== this.epoch || !this.dialog.open) return;
+     const recipe = result.recipe ?? result; if (recipe.projectId !== this.context.projectId) throw new Error('保存返回了另一项目的方案。');
+     this.recipe = recipe; this.recipeName.value = recipe.name; await this.refreshRecipes(); this.recipeStatus.textContent = `已保存“${recipe.name}” · ${recipe.chapters.length} 章 · 选择顺序和确切正文版本已保留。`;
+-    routeDialogNotice(this.dialog, saveAs ? '已另存为新方案，原方案仍保留。' : '资料包方案已保存，可关闭后再次打开。');
++    markPanelSaved(this.dialog);routeDialogNotice(this.dialog, saveAs ? '已另存为新方案，原方案仍保留。' : '资料包方案已保存，可关闭后再次打开。');
+   }
+   async renameRecipe() {
+     if (!this.recipe) throw new Error('请先打开需要重命名的方案。');
+diff --git a/apps/navigator-extension/ui/dom.js b/apps/navigator-extension/ui/dom.js
+index 54a1025..65bcee4 100644
+--- a/apps/navigator-extension/ui/dom.js
++++ b/apps/navigator-extension/ui/dom.js
+@@ -1,4 +1,7 @@
+ import { findTextMatches } from '../domain/search.js';
++import { installCloseInteractions, resetDialogClose, showPanelDialog as showDialog } from './panel-close.js';
++export { showDialog };
++installCloseInteractions();
+ 
+ export function el(tag, attributes = {}, children = []) {
+   const node = document.createElement(tag);
+@@ -43,8 +46,8 @@ export function plainBody(text, query = '') {
+   }
+   body.append(document.createTextNode(text.slice(start))); return body;
+ }
+-export function ask(title, fields, explanation = '') {
+-  const dialog = document.querySelector('#edit-dialog'); dialog.replaceChildren();
++export function ask(title, fields, explanation = '', {confirmLabel='确认',danger=false} = {}) {
++  const dialog = document.querySelector('#edit-dialog'); resetDialogClose(dialog);dialog.replaceChildren();
+   const form = el('form', { class: 'dialog-body', method: 'dialog' });
+   form.append(el('h2', { text: title }), el('p', { class: 'muted', text: explanation }));
+   const inputs = fields.map(field => {
+@@ -55,9 +58,9 @@ export function ask(title, fields, explanation = '') {
+   let resolve;
+   const result = new Promise(r => { resolve = r; });
+   const cancel = () => { dialog.close(); resolve(null); };
+-  form.append(el('div', { class: 'actions' }, [button('取消', cancel), el('button', { type: 'submit', class: 'btn primary', text: '确认' })]));
++  form.append(el('div', { class: 'actions' }, [button('取消', cancel), el('button', { type: 'submit', class: danger?'btn danger':'btn primary', text: confirmLabel })]));
+   form.addEventListener('submit', event => { event.preventDefault(); const values = Object.fromEntries(inputs.map(input => [input.name, input.value])); dialog.close(); resolve(values); });
+-  dialog.oncancel = () => resolve(null); dialog.append(form); dialog.showModal(); inputs[0]?.focus(); return result;
++  dialog.oncancel = () => resolve(null); dialog.append(form); showDialog(dialog); inputs[0]?.focus(); return result;
+ }
+ export async function openSource(value) {
+   try { const url = new URL(value); if (!['https:', 'http:'].includes(url.protocol)) return; await chrome.tabs.create({ url: url.href }); } catch { /* Unknown or unavailable source remains local. */ }
+diff --git a/apps/navigator-extension/ui/global-search.js b/apps/navigator-extension/ui/global-search.js
+index 48a2697..d733439 100644
+--- a/apps/navigator-extension/ui/global-search.js
++++ b/apps/navigator-extension/ui/global-search.js
+@@ -1,4 +1,5 @@
+-import { el, button, timeLabel } from './dom.js';
++import { el, button, timeLabel, showDialog } from './dom.js';
++import { configurePanelClose } from './panel-close.js';
+ 
+ export function snippetBody(snippet) {
+   const node=el('p',{class:'opc-search-snippet'});let start=0;
+@@ -10,7 +11,7 @@ export class GlobalSearch {
+   open(initial=''){if(this.dialog?.open)return Promise.resolve();if(this.opening)return this.opening;this.opening=this.show(initial).finally(()=>{this.opening=null;});return this.opening;}
+   async show(initial='') {
+     await this.owner.flushMetadata();
+-    const d=this.owner.horizontal.dialog();d.onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();d.close();}};this.dialog=d;d.classList.add('opc-library-dialog');d.replaceChildren();
++    const d=this.owner.horizontal.dialog();configurePanelClose(d,{guardEdits:false});this.dialog=d;d.classList.add('opc-library-dialog');d.replaceChildren();
+     const query=el('input',{type:'search',value:initial,placeholder:'如：时间线缩放、IndexedDB、C++ 模板','aria-label':'全局检索关键词'});
+     const results=el('div',{class:'opc-search-results'}),status=el('p',{class:'muted',role:'status',text:'检索本地所有项目的有效 Q/A、对话名称、标签和批注。点击结果打开完整问答。'});
+     const info=await this.owner.api('conversationLibrary',{});
+@@ -33,6 +34,6 @@ export class GlobalSearch {
+     };
+     const schedule=()=>{++this.epoch;clearTimeout(this.timer);this.timer=setTimeout(this.owner.safe(()=>run()),180);};
+     query.addEventListener('input',schedule);for(const control of [type,source,project,group,from,to,favorite,sort])control.addEventListener('change',schedule);
+-    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();await run();}));d.onclose=()=>{++this.epoch;clearTimeout(this.timer);};d.showModal();query.focus();if(initial)await run();
++    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();await run();}));d.onclose=()=>{++this.epoch;clearTimeout(this.timer);};showDialog(d);query.focus();if(initial)await run();
+   }
+ }
+diff --git a/apps/navigator-extension/ui/horizontal-timeline.js b/apps/navigator-extension/ui/horizontal-timeline.js
+index fae6ed9..3a00687 100644
+--- a/apps/navigator-extension/ui/horizontal-timeline.js
++++ b/apps/navigator-extension/ui/horizontal-timeline.js
+@@ -1,11 +1,18 @@
+-import { el, button, timeLabel } from './dom.js';
++import { el, button, timeLabel, showDialog } from './dom.js';
+ import { defaultTrackPreferences, horizontalLayout } from '../domain/timeline-tracks.js';
+ import { zoomViewport } from '../domain/timeline-viewport.js';
++import { resetDialogClose } from './panel-close.js';
+ 
+ const palette=['#547899','#6b8d72','#a27855','#8b739c','#518b91','#9a6675'];
+ const name=c=>c.metadata.title||c.metadata.autoTitle||c.questionPreview;
+ export class HorizontalTimeline {
+-  constructor(owner){this.owner=owner;}
++  constructor(owner){this.owner=owner;this.views=new Map();}
++  // Seed once from legacy preferences, then keep each window/project's viewport.
++  preferencesFor(data,projectId){return Object.assign(defaultTrackPreferences(data),this.views.get(projectId));}
++  rememberView(){
++    if(!this.preferences||!this.projectId)return;
++    this.views.set(this.projectId,Object.fromEntries(['axisVersion','axisFit','axisSpanMs','scrollLeft','scrollTop'].map(key=>[key,this.preferences[key]])));
++  }
+   detach(){this.observer?.disconnect();globalThis.removeEventListener?.('resize',this.onWindowResize);this.stopPan?.();this.stopPan=null;}
+   render(host,data){
+     this.detach();this.host=host;this.data=data;this.projectId=this.owner.projectId;host.replaceChildren();
+@@ -49,13 +56,12 @@ export class HorizontalTimeline {
+     this.scroll.scrollLeft=pref.scrollLeft;
+     this.scroll.scrollTop=pref.scrollTop??0;
+     const update=()=>{const left=this.scroll.scrollLeft,maxLeft=this.scroll.scrollWidth-this.scroll.clientWidth;pref.scrollLeft=left;pref.scrollTop=this.scroll.scrollTop;this.navigator.disabled=maxLeft<1;this.navigator.value=maxLeft?left/maxLeft*1000:0;this.range.textContent=layout.latest?`${this.date(Math.max(layout.first,layout.min+(left-24)/layout.pxPerMs))} — ${this.date(Math.min(layout.last,layout.min+(left+this.scroll.clientWidth-24)/layout.pxPerMs))}`:'原始时间未知';};
+-    update();this.scroll.addEventListener('scroll',()=>{update();this.scheduleSave();},{passive:true});
++    update();this.rememberView();this.scroll.addEventListener('scroll',()=>{update();this.rememberView();},{passive:true});
+     this.navigator.addEventListener('input',()=>{this.scroll.scrollLeft=(this.scroll.scrollWidth-this.scroll.clientWidth)*Number(this.navigator.value)/1000;});
+     this.bindPan();
+     if(layout.unknown.length){const unknown=el('details',{class:'ht-unknown'},[el('summary',{text:`时间未知 · ${layout.unknown.length} 轮（不会用导入时间代替）`})]);for(const lane of layout.lanes)for(const c of layout.unknown.filter(c=>c.conversationId===lane.id))unknown.append(button(`${lane.name} · #${c.ordinal} ${name(c)}`,owner.safe(()=>owner.openCard(c.id))));host.append(unknown);}
+     if(owner.filters.query){const results=el('details',{open:true,class:'ht-results'},[el('summary',{text:`搜索结果 · ${data.total} 张（按相关性）`})]);for(const c of data.cards.slice(0,40))results.append(button(`${c.sourceTitle} · ${name(c)}`,owner.safe(()=>owner.locate(c.id))));host.prepend(results);}
+     this.observer=new ResizeObserver(()=>{if(!this.scroll?.isConnected)return;if(Math.abs(host.clientWidth-hostWidth)>2){this.capture();this.render(host,data);}else this.sizeScroll();});this.observer.observe(host);
+-    if(!data.preferences||data.preferences.axisVersion!==1)this.scheduleSave();
+   }
+   sizeScroll(){if(this.scroll?.isConnected)this.scroll.style.height=`${Math.max(230,document.documentElement.clientHeight-Math.max(140,this.scroll.getBoundingClientRect().top)-85)}px`;}
+   date(t,clock=true){return new Date(t).toLocaleString('zh-CN',{timeZone:this.owner.timeZone,year:'numeric',month:'2-digit',day:'2-digit',...(clock?{hour:'2-digit',minute:'2-digit'}:{})});}
+@@ -69,25 +75,35 @@ export class HorizontalTimeline {
+     },{passive:false});
+     scroll.addEventListener('pointerdown',e=>{
+       if(e.button!==0||e.target.closest('button'))return;this.stopPan?.();const x=e.clientX,left=scroll.scrollLeft;scroll.setPointerCapture(e.pointerId);scroll.classList.add('panning');
+-      const move=e=>{scroll.scrollLeft=left+x-e.clientX;},stop=()=>{scroll.classList.remove('panning');scroll.removeEventListener('pointermove',move);scroll.removeEventListener('pointerup',stop);scroll.removeEventListener('pointercancel',stop);scroll.removeEventListener('lostpointercapture',stop);if(scroll.hasPointerCapture(e.pointerId))scroll.releasePointerCapture(e.pointerId);this.stopPan=null;this.scheduleSave();};
++      const move=e=>{scroll.scrollLeft=left+x-e.clientX;},stop=()=>{scroll.classList.remove('panning');scroll.removeEventListener('pointermove',move);scroll.removeEventListener('pointerup',stop);scroll.removeEventListener('pointercancel',stop);scroll.removeEventListener('lostpointercapture',stop);if(scroll.hasPointerCapture(e.pointerId))scroll.releasePointerCapture(e.pointerId);this.stopPan=null;this.capture();};
+       this.stopPan=stop;scroll.addEventListener('pointermove',move);scroll.addEventListener('pointerup',stop);scroll.addEventListener('pointercancel',stop);scroll.addEventListener('lostpointercapture',stop);
+     });
+     scroll.addEventListener('keydown',e=>{if(e.target!==scroll||e.ctrlKey||e.metaKey)return;if(['ArrowUp','ArrowDown','PageUp','PageDown'].includes(e.key)){e.preventDefault();scroll.scrollTop+=(e.key==='ArrowUp'?-100:e.key==='ArrowDown'?100:e.key==='PageUp'?-scroll.clientHeight:scroll.clientHeight);return;}if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();scroll.scrollLeft=e.key==='Home'?0:e.key==='End'?scroll.scrollWidth:scroll.scrollLeft+(e.key==='ArrowLeft'?-120:120);}});
+   }
+   toggleChecked(id){const set=this.owner.checked;set.has(id)?set.delete(id):set.add(id);this.owner.bulkCount.textContent=`已选 ${set.size} 张`;this.owner.bulkCount.parentElement.hidden=!set.size;this.scroll.querySelector(`[data-card-id="${CSS.escape(id)}"]`)?.classList.toggle('checked',set.has(id));}
+-  async zoom(factor){const view=zoomViewport(this.layout,factor,this.scroll.scrollLeft,this.scroll.clientWidth);this.preferences.axisFit=false;this.preferences.axisSpanMs=view.visibleSpan;const next=horizontalLayout(this.data,this.preferences,this.scroll.clientWidth);this.preferences.scrollLeft=Math.max(0,next.position(view.centerTime)-this.scroll.clientWidth/2);this.render(this.host,this.data);await this.save();}
+-  async fit(){this.preferences.axisFit=true;this.preferences.scrollLeft=0;this.preferences.scrollTop=0;this.render(this.host,this.data);await this.save();}
++  async zoom(factor){const view=zoomViewport(this.layout,factor,this.scroll.scrollLeft,this.scroll.clientWidth);this.preferences.axisFit=false;this.preferences.axisSpanMs=view.visibleSpan;const next=horizontalLayout(this.data,this.preferences,this.scroll.clientWidth);this.preferences.scrollLeft=Math.max(0,next.position(view.centerTime)-this.scroll.clientWidth/2);this.render(this.host,this.data);}
++  async fit(){this.preferences.axisFit=true;this.preferences.scrollLeft=0;this.preferences.scrollTop=0;this.render(this.host,this.data);}
+   locate(id){const c=this.layout.known.find(c=>c.id===id);if(c){this.scroll.scrollLeft=this.layout.position(Date.parse(c.questionTime.value))-this.scroll.clientWidth/2;this.scroll.scrollTop=this.layout.yFor(c)-this.scroll.clientHeight/2;}this.owner.safe(()=>this.owner.openCard(id))();}
+-  dialog(){let d=document.querySelector('#track-dialog');if(!d){d=el('dialog',{id:'track-dialog',class:'release-dialog'});document.body.append(d);}return d;}
+-  async clusterDialog(cards){const d=this.dialog();d.replaceChildren(el('h2',{text:`密集时间段 · ${cards.length} 轮 Q/A`}),button('放大此时间段',this.owner.safe(async()=>{const times=cards.map(c=>Date.parse(c.questionTime.value)),span=Math.max(60000,Math.max(...times)-Math.min(...times));this.preferences.axisFit=false;this.preferences.axisSpanMs=span*1.3;const next=horizontalLayout(this.data,this.preferences,this.host.clientWidth-2);this.preferences.scrollLeft=next.position((Math.min(...times)+Math.max(...times))/2)-this.scroll.clientWidth/2;d.close();this.render(this.host,this.data);await this.save();})));
+-    for(const c of cards)d.append(el('div',{class:'ht-cluster-item'},[button(name(c),this.owner.safe(async()=>{d.close();await this.owner.openCard(c.id);})),el('small',{text:timeLabel(c.questionTime)}),button(this.owner.checked.has(c.id)?'取消选择':'选择',e=>{this.toggleChecked(c.id);e.target.textContent=this.owner.checked.has(c.id)?'取消选择':'选择';}),button('加入托盘',this.owner.safe(()=>this.owner.addToTray([c.id])))]));d.append(button('关闭',()=>d.close()));d.showModal();}
++  dialog(){let d=document.querySelector('#track-dialog');if(!d){d=el('dialog',{id:'track-dialog',class:'release-dialog'});document.body.append(d);}resetDialogClose(d);return d;}
++  async clusterDialog(cards){const d=this.dialog();d.replaceChildren(el('h2',{text:`密集时间段 · ${cards.length} 轮 Q/A`}),button('放大此时间段',this.owner.safe(async()=>{const times=cards.map(c=>Date.parse(c.questionTime.value)),span=Math.max(60000,Math.max(...times)-Math.min(...times));this.preferences.axisFit=false;this.preferences.axisSpanMs=span*1.3;const next=horizontalLayout(this.data,this.preferences,this.host.clientWidth-2);this.preferences.scrollLeft=next.position((Math.min(...times)+Math.max(...times))/2)-this.scroll.clientWidth/2;d.close();this.render(this.host,this.data);})));
++    for(const c of cards)d.append(el('div',{class:'ht-cluster-item'},[button(name(c),this.owner.safe(async()=>{d.close();await this.owner.openCard(c.id);})),el('small',{text:timeLabel(c.questionTime)}),button(this.owner.checked.has(c.id)?'取消选择':'选择',e=>{this.toggleChecked(c.id);e.target.textContent=this.owner.checked.has(c.id)?'取消选择':'选择';}),button('加入托盘',this.owner.safe(()=>this.owner.addToTray([c.id])))]));d.append(button('关闭',()=>d.close()));showDialog(d);}
+   async setTracks(ids){Object.assign(this.preferences,{initialNoActivity:false,selectedTimelineIds:[...ids],trackOrder:[...ids]});this.render(this.host,this.data);await this.save();}
+   async trackDialog(data){const d=this.dialog(),selected=new Set(this.preferences.selectedTimelineIds);d.replaceChildren(el('h2',{text:'选择来源或主题 · 共享时间坐标、按会话分轨'}));
+     d.append(button('显示全部来源',()=>{for(const input of d.querySelectorAll('input')){const t=data.timelines.find(t=>t.id===input.value);if(t?.kind==='source'){input.checked=true;selected.add(t.id);}}}));
+     for(const t of data.timelines.filter(t=>!t.hidden&&!t.archived)){const input=el('input',{type:'checkbox',value:t.id,checked:selected.has(t.id),'aria-label':`来源 ${t.name}`});input.addEventListener('change',()=>input.checked?selected.add(t.id):selected.delete(t.id));d.append(el('label',{class:'track-choice'},[input,`${t.kind==='source'?'来源':'主题'} · ${t.name}`]));}
+-    d.append(button('保存选择',this.owner.safe(async()=>{Object.assign(this.preferences,{initialNoActivity:false,selectedTimelineIds:[...selected],trackOrder:[...selected],axisFit:true,scrollLeft:0});d.close();this.render(this.host,data);await this.save();}),'btn primary'),button('取消',()=>d.close()));d.showModal();}
+-  capture(){if(this.skipCapture){this.skipCapture=false;return;}if(this.scroll?.isConnected){this.preferences.scrollLeft=this.scroll.scrollLeft;this.preferences.scrollTop=this.scroll.scrollTop;}}
+-  scheduleSave(){if(this.preferences.initialNoActivity)return;clearTimeout(this.timer);this.timer=setTimeout(()=>this.owner.safe(()=>this.save())(),350);}
+-  async save(){clearTimeout(this.timer);this.timer=null;if(!this.preferences)return;const value=structuredClone(this.preferences),projectId=this.projectId,preference=this.preferences;this.queue=(this.queue??Promise.resolve()).catch(()=>{}).then(async()=>{const saved=await this.owner.api('releaseWrite',{projectId,action:'timelinePreferences',...value,expectedRevision:preference.revision??0});preference.revision=saved.revision;});await this.queue;}
+-  async flush(){try{if(this.timer)await this.save();else await this.queue;}catch(e){this.owner.onError?.(e.message);}}
++    d.append(button('保存选择',this.owner.safe(async()=>{Object.assign(this.preferences,{initialNoActivity:false,selectedTimelineIds:[...selected],trackOrder:[...selected],axisFit:true,scrollLeft:0});d.close();this.render(this.host,data);await this.save();}),'btn primary'),button('取消',()=>d.close()));showDialog(d);}
++  capture(){if(this.skipCapture){this.skipCapture=false;return;}if(this.scroll?.isConnected){this.preferences.scrollLeft=this.scroll.scrollLeft;this.preferences.scrollTop=this.scroll.scrollTop;this.rememberView();}}
++  // Only explicit source choices are durable. Zoom/pan never write shared data
++  // or borrow another window's revision. Keep legacy persisted viewport fields.
++  async save(){
++    if(!this.preferences)return;
++    const preference=this.preferences,projectId=this.projectId,data=this.data,value={...structuredClone(data?.preferences??{})};
++    for(const key of ['selectedTimelineIds','trackOrder','collapsedTimelineIds','knownTimelineIds'])value[key]=structuredClone(preference[key]??[]);
++    this.queue=(this.queue??Promise.resolve()).catch(()=>{}).then(async()=>{
++      const saved=await this.owner.api('releaseWrite',{...value,projectId,action:'timelinePreferences',expectedRevision:preference.revision??0});
++      preference.revision=saved.revision;if(data)data.preferences=saved;
++    });
++    await this.queue;
++  }
++  async flush(){try{await this.queue;}catch(e){this.owner.onError?.(e.message);}}
+ }
+diff --git a/apps/navigator-extension/ui/memory.js b/apps/navigator-extension/ui/memory.js
+index 1e3636a..d173af8 100644
+--- a/apps/navigator-extension/ui/memory.js
++++ b/apps/navigator-extension/ui/memory.js
+@@ -1,4 +1,4 @@
+-import { el, button, savedTime } from './dom.js';
++import { el, button, savedTime, showDialog } from './dom.js';
+ import { prepareDialogLayout } from './dialog-layout.js';
+ 
+ export class MemoryPanel {
+@@ -9,7 +9,7 @@ export class MemoryPanel {
+     const dialog = this.dialog = el('dialog', { class: 'memory-dialog' });
+     const body = el('div', { class: 'dialog-body' }, [el('p', { text: '正在读取本地记忆…' })]);
+     dialog.append(el('div', { class: 'dialog-header' }, [el('div', {}, [el('span', { class: 'eyebrow', text: 'LOCAL MEMORY' }), el('h2', { text: '记忆与备份' })]), button('关闭', () => this.close())]), body);
+-    document.body.append(dialog); prepareDialogLayout(dialog); dialog.showModal();
++    document.body.append(dialog); prepareDialogLayout(dialog); showDialog(dialog);
+     dialog.addEventListener('cancel', event => { event.preventDefault(); this.close(); });
+     try {
+       const status = await this.api('memoryStatus'); if (epoch !== this.epoch) return;
+diff --git a/apps/navigator-extension/ui/opc.js b/apps/navigator-extension/ui/opc.js
+index 1ba0482..1e8f666 100644
+--- a/apps/navigator-extension/ui/opc.js
++++ b/apps/navigator-extension/ui/opc.js
+@@ -5,22 +5,23 @@ import { ProjectWorkspacePanel } from './project-workspace.js';
+ import { findTextMatches } from '../domain/search.js';
+ import { ConversationLibrary } from './conversation-library.js';
+ import { GlobalSearch, snippetBody } from './global-search.js';
+-import { el, button, badge, ask, timeLabel, openSource } from './dom.js';
++import { el, button, badge, ask, timeLabel, openSource, showDialog } from './dom.js';
+ import { richBody, copyBodyButton } from './body.js';
+ import { CARD_TYPES, ORGANIZATION_STATES, ADOPTION_STATES } from '../domain/card-metadata.js';
+ import { HorizontalTimeline } from './horizontal-timeline.js';
+ import { ContextDeploy } from './context-deploy.js';
+ import { ReflectionPanel } from './reflection.js';
+-import { defaultTrackPreferences } from '../domain/timeline-tracks.js';
+ import { AnnotationDrafts } from './opc-drafts.js';
+ import { canvasEdge } from '../domain/canvas-layout.js';
+ import { fitNodeViewport, visibleNodeViewport } from '../domain/canvas-viewport.js';
+ import { timelineScope } from '../domain/timeline-scope.js';
+ import { TagSuggestionsPanel } from './tag-suggestions.js';
++import { PanelCloseButton, registerClosablePanel, releaseClosablePanel, resetDialogClose, configurePanelClose, requestPanelClose } from './panel-close.js';
+ 
+ const searchFieldLabels={title:'卡片标题',question:'用户问题',answer:'回答正文',notes:'个人批注',tags:'标签',reflection:'用户判断',conversation:'对话信息',status:'整理状态'};
+ const day = value => value ? new Intl.DateTimeFormat('sv-SE').format(new Date(value)) : '时间未知';
+ const title = card => card.metadata?.title || card.metadata?.autoTitle || card.questionPreview;
++const projectFilters = filters => ({ ...filters, timelineIds: [], offset: 0, cardId: null, query: '', date: '', tag: '', revealCardId: null, canvasCardIds: [], includeHidden: false, includeInvalid: false, conversationId: '', contentType: '', organizationStatus: '', favorite: false, dateFrom: '', dateTo: '' });
+ export function comparePositions(cards, width = 1400, range = null) {
+   const known = cards.filter(c => c.questionTime?.value), times = known.map(c => Date.parse(c.questionTime.value));
+   const min = range?.min ?? (times.length ? Math.min(...times) : null), max = range?.max ?? (times.length ? Math.max(...times) : null), span = Math.max(1, max - min);
+@@ -28,9 +29,9 @@ export function comparePositions(cards, width = 1400, range = null) {
+ }
+ 
+ export class OPCTimeline {
+-  constructor(host, { api, onError, onModeChange, onScopeChange, onOpenGlobalCard, legacyList = false } = {}) {
++  constructor(host, { api, onError, onModeChange, onScopeChange, onOpenGlobalCard, beforeRender, legacyList = false } = {}) {
+     this.navigationEpoch=0;this.canvasGestures=[];this.workspace=new ProjectWorkspacePanel(this);this.onOpenGlobalCard=onOpenGlobalCard;this.globalSearch=new GlobalSearch(this);this.library=new ConversationLibrary(this);
+-    this.host = host; this.api = api; this.onError = onError; this.epoch = 0; this.detailEpoch = 0;
++    this.host = host; this.api = api; this.onError = onError;this.beforeRender=beforeRender; this.epoch = 0; this.detailEpoch = 0;
+     this.filters = { timelineIds: [], query: '', tag: '', date: '', cardId: null, offset: 0, limit: 60 };
+     this.checked = new Set(); this.mode = 'timeline'; this.positions = {}; this.viewport = { x: 20, y: 20, zoom: 1 };
+     this.drafts = new AnnotationDrafts({ onError });
+@@ -41,54 +42,87 @@ export class OPCTimeline {
+     globalThis.addEventListener?.('pagehide', this.onPageHide);
+     this.onSearchKey=this.safe(async e=>{if(!this.host.isConnected||!this.host.children.length||document.querySelector('dialog[open]')||e.isComposing||e.target.closest?.('input,textarea,select,[contenteditable=true]'))return;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();await this.globalSearch.open();}});
+     globalThis.addEventListener?.('keydown',this.onSearchKey);
+-    this.onReaderKey=this.safe(async e=>{if(e.key!=='Escape'||e.defaultPrevented||e.isComposing||document.querySelector('dialog[open]')||!this.detail?.isConnected||this.detail.hidden)return;e.preventDefault();await this.closeCard();});
+-    globalThis.addEventListener?.('keydown',this.onReaderKey);
+   }
+   safe(run) { return async (...args) => { try { await run(...args); } catch (e) { this.onError?.(e.message); } }; }
++  cancelNavigation(){++this.navigationEpoch;++this.epoch;}
+   async show({ projectId, mode = 'timeline', targetCardId = null }) {
+-    const navigation=++this.navigationEpoch;++this.epoch;++this.detailEpoch;this.hoverPreview?.close();this.disposeCanvasGestures();
+-    this.horizontal.capture();this.horizontal.detach();await this.deploy.flush();await this.horizontal.flush();await this.flushMetadata();
+-    await this.flushLayout();
+-    if(navigation!==this.navigationEpoch)return;
+-    if (this.projectId !== projectId) { this.trackPreferences=null;Object.assign(this.filters, { timelineIds: [], offset: 0, cardId: null, query: '', date: '', tag: '', revealCardId: null, canvasCardIds: [], includeHidden: false, includeInvalid: false, conversationId: '', contentType: '', organizationStatus: '', favorite: false, dateFrom: '', dateTo: '' }); this.checked.clear(); this.selected = null; this.relationSource = null; }
+-    if(String(projectId).startsWith('workspace_')&&!String(this.projectId).startsWith('workspace_'))this.sourceProjectId=this.projectId;
+-    this.projectId = projectId;this.scope=timelineScope(projectId); this.mode = mode;await this.onScopeChange?.(this.scope,mode);if(mode==='deploy'){await this.deploy.show(projectId);return;} await this.load(); if (targetCardId) await this.locate(targetCardId);
++    const request={projectId,mode,navigation:++this.navigationEpoch};
++    this.pendingNavigation=request;++this.epoch;this.hoverPreview?.close();
++    try {
++      this.horizontal.capture();await this.deploy.flush();await this.horizontal.flush();await this.flushMetadata();await this.flushLayout();
++      if(request!==this.pendingNavigation)return;
++      if(mode==='deploy'){
++        if(this.projectId!==projectId){this.filters=projectFilters(this.filters);this.checked.clear();this.selected=null;this.relationSource=null;}
++        this.projectId=projectId;this.scope=timelineScope(projectId);this.mode=mode;
++        await this.deploy.show(projectId);await this.onScopeChange?.(this.scope,mode);return;
++      }
++      // Keep the displayed scope and its handlers intact until the target read
++      // succeeds. A slow/failed B read must never turn visible A nodes into B.
++      const committed=await this.load(request);
++      if(!committed||request!==this.pendingNavigation)return;
++      await this.onScopeChange?.(this.scope,mode);
++      if(targetCardId&&request===this.pendingNavigation)await this.locate(targetCardId);
++    } finally { if(this.pendingNavigation===request)this.pendingNavigation=null; }
+   }
+   async navigate(mode,targetCardId=null){await this.flushMetadata();await this.deploy.flush();if(this.onModeChange)return this.onModeChange(mode,targetCardId);return this.show({projectId:this.projectId,mode,targetCardId});}
+   async addToTray(cardIds){await this.flushMetadata();await this.api('releaseWrite',{projectId:this.projectId,action:'tray',operation:'add',cardIds});if(this.mode==='deploy')await this.deploy.show(this.projectId);else await this.load();}
+-  async load() {
+-    if(this.mode==='deploy'){await this.deploy.show(this.projectId);return;}
++  async load(request=null) {
++    if(!request&&this.pendingNavigation&&this.pendingNavigation.projectId!==this.projectId)return;
++    const projectId=request?.projectId??this.projectId,mode=request?.mode??this.mode;
++    if(mode==='deploy'){await this.deploy.show(projectId);return;}
++    const epoch=++this.epoch,navigation=request?.navigation??this.navigationEpoch;
++    const current=()=>epoch===this.epoch&&navigation===this.navigationEpoch;
++    const filters=projectId===this.projectId?{...this.filters}:projectFilters(this.filters);
+     this.horizontal.capture();await this.horizontal.flush();
+     await this.flushMetadata();
+     await this.flushLayout();
+-    const epoch = ++this.epoch;
+-    const args = () => ({ projectId: this.projectId, ...this.filters, timeZone: this.timeZone, canvasCardIds: this.mode === 'canvas' ? this.filters.canvasCardIds : [] });
+-    const pageAPI=this.mode==='timeline'&&!this.legacyList?'opcTimeline':'opcPage';
++    if(!current())return;
++    const args = () => ({ projectId, ...filters, timeZone: this.timeZone, canvasCardIds: mode === 'canvas' ? filters.canvasCardIds : [] });
++    const pageAPI=mode==='timeline'&&!this.legacyList?'opcTimeline':'opcPage';
+     let data = await this.api(pageAPI, args());
+-    if (epoch !== this.epoch) return;
++    if (!current()) return;
+     const visibleIds = new Set(data.timelines.filter(t => !t.hidden && !t.archived).map(t => t.id));
+-    if (!this.filters.includeHidden && !this.filters.cardId && this.filters.timelineIds.some(k => !visibleIds.has(k))) {
+-      this.filters.timelineIds = this.filters.timelineIds.filter(k => visibleIds.has(k)); this.filters.offset = 0;
+-      data = await this.api(pageAPI, args()); if (epoch !== this.epoch) return;
++    if (!filters.includeHidden && !filters.cardId && filters.timelineIds.some(k => !visibleIds.has(k))) {
++      filters.timelineIds = filters.timelineIds.filter(k => visibleIds.has(k)); filters.offset = 0;
++      data = await this.api(pageAPI, args()); if (!current()) return;
++    }
++    if ((!data.timelines.length || data.needsProjection) && !String(projectId).startsWith('workspace_') && !this.ensured?.has(projectId)) {
++      this.ensured ??= new Set(); await this.api('opcEnsure', { projectId }); this.ensured.add(projectId);
++      data = await this.api(pageAPI, args()); if (!current()) return;
+     }
+-    if ((!data.timelines.length || data.needsProjection) && !String(this.projectId).startsWith('workspace_') && !this.ensured?.has(this.projectId)) {
+-      this.ensured ??= new Set(); await this.api('opcEnsure', { projectId: this.projectId }); this.ensured.add(this.projectId);
+-      data = await this.api(pageAPI, args()); if (epoch !== this.epoch) return;
++    await this.beforeRender?.({changingProject:projectId!==this.projectId});
++    if(!current())return;
++    if(projectId!==this.projectId){
++      // The old view stays usable during the target read. Drain edits completed
++      // in that interval before replacing its saved Canvas/metadata baselines.
++      let drained=false;
++      do{
++        await this.flushMetadata();await this.flushLayout();await this.horizontal.flush();
++        const writes=[this.metadataWrite,this.layoutWrite,this.horizontal.queue];
++        await this.beforeRender?.({changingProject:true});if(!current())return;
++        drained=!this.pendingMetadata&&!this.pendingLayout&&writes.every((write,index)=>write===[this.metadataWrite,this.layoutWrite,this.horizontal.queue][index]);
++      }while(!drained);
++      if(String(projectId).startsWith('workspace_')&&!String(this.projectId).startsWith('workspace_'))this.sourceProjectId=this.projectId;
++      this.checked.clear();this.selected=null;this.relationSource=null;
+     }
+-    this.filters.offset = data.offset; this.filters.revealCardId = null;
++    this.horizontal.capture();
++    this.projectId=projectId;this.scope=timelineScope(projectId);this.mode=mode;
++    this.filters={...filters,offset:data.offset,revealCardId:null};
+     this.data = data; this.canvasCards = [...data.cards, ...(data.pinnedCards ?? [])];
+-    if(data.preferences||!this.trackPreferences||this.trackPreferences.initialNoActivity)this.trackPreferences=defaultTrackPreferences(data);
++    this.horizontal.capture();
++    this.trackPreferences=this.horizontal.preferencesFor(data,projectId);
+     this.savedPositions = structuredClone(data.layout?.positions ?? {}); this.positions = structuredClone(this.savedPositions);
+     this.savedViewport = { ...(data.layout?.viewport ?? { x: 0, y: 0, zoom: 1 }) }; this.viewport = { ...(data.layout?.viewport ?? { x: 20, y: 20, zoom: 1 }) };
+     this.render();
+     if (this.selected) await this.openCard(this.selected);
++    return true;
+   }
+   async write(action, values, { reload = true } = {}) {
+     const result = await this.api('opcWrite', { projectId: this.projectId, action, ...values });
+     if (reload) await this.load(); return result;
+   }
+   render() {
+-    ++this.detailEpoch;this.hoverPreview?.close();this.disposeCanvasGestures();this.horizontal.capture();this.horizontal.detach();this.host.replaceChildren(); this.root = el('section', { class: 'opc-root','data-mode':this.mode });
++    ++this.detailEpoch;releaseClosablePanel(this.detail);this.hoverPreview?.close();this.disposeCanvasGestures();this.horizontal.capture();this.horizontal.detach();this.host.replaceChildren(); this.root = el('section', { class: 'opc-root','data-mode':this.mode });
+     const header = el('div', { class: 'opc-toolbar' }), create = button('＋ 主题时间线', this.safe(async () => {
+       const v = await ask('新建主题时间线', [{ name: 'name', label: '名称' }]); if (v) await this.write('timeline', v);
+     }));
+@@ -184,7 +218,7 @@ export class OPCTimeline {
+   async tagDialog(card) {
+     await this.flushMetadata();
+     const data = await this.api('opcDetail', { projectId: this.projectId, cardId: card.id }), projectId = this.projectId;
+-    const dialog = document.querySelector('#edit-dialog'); dialog.replaceChildren();
++    const dialog = document.querySelector('#edit-dialog');resetDialogClose(dialog); dialog.replaceChildren();
+     const draftKey = card.id + ':tags', draft = this.drafts.get(projectId, draftKey);
+     let revision = draft?.baseRevision ?? data.metadata.revision ?? 0, queue = Promise.resolve(), error = revision !== (data.metadata.revision ?? 0);
+     const status = el('p', { role: 'status', text: error ? '另一窗口已修改标签。草稿已恢复，请核对已保存内容后继续。' : draft ? '已恢复标签草稿' : '修改后自动保存' });
+@@ -202,13 +236,13 @@ export class OPCTimeline {
+         .catch(e => { error = true; status.textContent = e.message + '；当前输入仍保留，请核对后重试。'; this.onError?.(e.message); });
+     };
+     for (const control of [topic, kind, state]) control.addEventListener('change', update);
+-    const close = button('完成', this.safe(async () => { if (this.drafts.get(projectId, draftKey) && !error) update(); close.disabled = true; await queue; close.disabled = false; if (!error) { dialog.close(); await this.load(); } }));
+-    dialog.oncancel = e => { e.preventDefault(); close.click(); };
++    const finish=async()=>{if(this.drafts.get(projectId,draftKey)&&!error)update();close.disabled=true;await queue;close.disabled=false;if(!error){dialog.close();await this.load();}};
++    const close=button('保存并关闭',this.safe(finish));configurePanelClose(dialog,{guardEdits:false,onClose:finish});
+     const form = el('form', { class: 'dialog-body' }, [el('h2', { text: '编辑卡片标签' }), el('label', { class: 'field' }, ['主题', topic]), topics, el('label', { class: 'field' }, ['类型', kind]), el('label', { class: 'field' }, ['整理状态', state]), status, close, button('保留已保存内容并关闭', this.safe(async () => { await queue; dialog.close(); await this.load(); }))]);
+     form.append(el('details', {}, [el('summary', { text: '已保存的标签' }), el('p', { text: [data.metadata.topic || '主题未设置', data.metadata.contentType || '类型未设置', data.metadata.organizationStatus].join(' · ') })]),
+       button('读取最新标签并保留草稿', this.safe(async () => { await queue; dialog.close(); await this.tagDialog(card); })),
+       button('已核对，基于此保存版本继续', () => { revision = data.metadata.revision ?? 0; error = false; update(); }));
+-    form.addEventListener('submit', e => { e.preventDefault(); close.click(); }); dialog.append(form); dialog.showModal();
++    form.addEventListener('submit', e => { e.preventDefault(); close.click(); }); dialog.append(form); showDialog(dialog);
+   }
+   renderTimeline() {
+     let prior;
+@@ -250,19 +284,21 @@ export class OPCTimeline {
+     if(this.detail.hidden||!this.detail.contains(document.activeElement))this.readerReturnFocus=document.activeElement;
+     this.selected = cardId; this.detail.hidden = false;
+     for (const node of this.list.querySelectorAll('[data-card-id]')) node.classList.toggle('selected', node.dataset.cardId === cardId);
+-    const readerClose=button('×',this.safe(()=>this.closeCard()),'btn close-detail',{'aria-label':'关闭详情',title:'关闭详情（Esc）'});
+-    this.detail.replaceChildren(readerClose,el('p', { text: '读取完整问答…' }));
++    registerClosablePanel(this.detail,{guardEdits:false,onClose:()=>this.closeCard()});
++    const readerClose=el('div',{class:'panel-close-header opc-detail-close-header'},[PanelCloseButton(()=>void requestPanelClose(detail),{title:'关闭详情（Esc）',className:'close-detail'})]);
++    const readingContent=el('div',{class:'opc-detail-content'},[el('p',{text:'读取完整问答…'})]);
++    this.detail.replaceChildren(readerClose,readingContent);
+     const data = await this.api('opcDetail', { projectId, cardId }); if (epoch !== this.detailEpoch||projectId!==this.projectId||detail!==this.detail) return;
+     this.detail.dataset.cardId=cardId;
+     const relatedIds = new Set(data.relatedCards.map(c => c.id));
+     for (const node of this.list.querySelectorAll('[data-card-id]')) node.classList.toggle('related', relatedIds.has(node.dataset.cardId));
+-    for(const child of [...this.detail.children])if(child!==readerClose)child.remove();
+-    if(this.readingHistory?.length)this.detail.append(button('返回上一张 Q/A',this.safe(async()=>{const row=this.readingHistory.pop();await this.openIndexedCard(row);})));
+-    this.detail.append(el('h2', { text: data.metadata.title || data.metadata.autoTitle || data.card.questionPreview }),
++    readingContent.replaceChildren();
++    if(this.readingHistory?.length)readingContent.append(button('返回上一张 Q/A',this.safe(async()=>{const row=this.readingHistory.pop();await this.openIndexedCard(row);})));
++    readingContent.append(el('h2', { text: data.metadata.title || data.metadata.autoTitle || data.card.questionPreview }),
+       el('p', { class: 'muted', text: `${data.card.sourceTitle} · ${timeLabel(data.card.questionTime)}` }));
+     const actions = el('div', { class: 'actions' }, [button('返回 Project Workspace', this.safe(()=>this.workspace.open())),button('建立关系', () => { this.relationSource = cardId; this.render(); this.safe(() => this.openCard(cardId))(); }), button('搜索关系目标', this.safe(() => this.relationshipDialog(cardId))), button('添加到主题线', this.safe(() => this.membershipDialog([cardId])))]);
+     const readingBody=el('div',{class:'opc-reading-body'},[el('h3',{text:'Q · 原始用户提问'}),richBody(data.questionBody || data.question?.text || '问题正文未取得或提问尚未完成', data.question?.presentation),el('h3',{text:'A · 历史 AI 最终回答'})]);
+-    this.detail.append(actions,el('article',{class:'opc-reading-card'},[readingBody,this.tagModule({...data.card,metadata:data.metadata,relationshipCount:data.relationships.length})]));
++    readingContent.append(actions,el('article',{class:'opc-reading-card'},[readingBody,this.tagModule({...data.card,metadata:data.metadata,relationshipCount:data.relationships.length})]));
+     actions.append(button('加入上下文托盘',this.safe(()=>this.addToTray([cardId]))),button('构建上下文',this.safe(async()=>{await this.addToTray([cardId]);await this.navigate('deploy');})),button('在时间线定位',this.safe(()=>this.navigate('timeline',cardId))),button('在画布定位',this.safe(()=>this.navigate('canvas',cardId))));
+     actions.append(copyBodyButton(data.questionBody, '复制问题', this.onError), copyBodyButton(data.answerBody, '复制回答', this.onError));
+     if(this.workspace.row?.conversationIds.includes(data.card.conversationId))actions.append(button('加入当前 Workspace 并打开 Deploy',this.safe(()=>this.workspace.deploy([cardId]))));
+@@ -270,7 +306,7 @@ export class OPCTimeline {
+     const secondary=el('details',{class:'reading-menu'},[el('summary',{text:'更多操作'})]);for(const child of [...actions.children])if(!['建立关系','加入上下文托盘'].includes(child.textContent))secondary.append(child);actions.append(secondary);
+     if (!data.answers.length) readingBody.append(el('p', { text: data.card.status === 'generating' ? '回答尚未完成，请稍后同步。' : '尚无可读回答。' }));
+     if (data.answers.length) readingBody.append(richBody(data.answerBody, { format: 'markdown' }, this.onError));
+-    for (const diagnostic of data.diagnostics ?? []) this.detail.append(el('p', { class: 'muted', text: diagnostic.reason }));
++    for (const diagnostic of data.diagnostics ?? []) readingContent.append(el('p', { class: 'muted', text: diagnostic.reason }));
+     const form = el('form', { class: 'opc-annotation' });
+     const draft = this.drafts.get(projectId, cardId);
+     let baseRevision = draft?.baseRevision ?? data.metadata.revision ?? 0;
+@@ -317,18 +353,18 @@ export class OPCTimeline {
+       for (const control of [name, tags, notes]) control.disabled = true;
+       try { this.pendingMetadata = persist; await this.flushMetadata(); if (!blocked) await this.load(); }
+       finally { save.disabled = false; for (const control of [name, tags, notes]) control.disabled = false; }
+-    })); this.detail.append(form);this.tagSuggestions.mount(this.detail,data);this.reflection.mount(this.detail,data);
+-    this.detail.append(el('h3', { text: `关联节点 · ${data.relationships.length}` }));
++    })); readingContent.append(form);this.tagSuggestions.mount(readingContent,data);this.reflection.mount(readingContent,data);
++    readingContent.append(el('h3', { text: `关联节点 · ${data.relationships.length}` }));
+     for (const r of data.relationships) {
+       const target = r.fromCardId === cardId ? r.toCardId : r.fromCardId;
+       const label = `${r.directed ? r.fromCardId === cardId ? '→' : '←' : '↔'} ${r.type} ${r.description ? '· ' + r.description : ''}`;
+       const related = data.relatedCards?.find(c => c.id === target);
+-      this.detail.append(el('div', { class: 'opc-relation' }, [el('span', { text: related ? `${related.sourceTitle} · ${related.questionPreview}` : '关联卡片' }), button(label, this.safe(() => this.relationshipDialog(r.fromCardId, r.toCardId, r))), button('定位节点 ↗', this.safe(() => this.locate(target)))]));
++      readingContent.append(el('div', { class: 'opc-relation' }, [el('span', { text: related ? `${related.sourceTitle} · ${related.questionPreview}` : '关联卡片' }), button(label, this.safe(() => this.relationshipDialog(r.fromCardId, r.toCardId, r))), button('定位节点 ↗', this.safe(() => this.locate(target)))]));
+     }
+-    if (this.mode === 'canvas' && data.relationships.length) this.detail.append(button('在画布展开关联节点', this.safe(async () => { this.filters.canvasCardIds = [...new Set([...(this.filters.canvasCardIds ?? []), ...data.relatedCards.map(c => c.id)])].slice(0, 40); await this.load(); this.fitCanvas(); })));
++    if (this.mode === 'canvas' && data.relationships.length) readingContent.append(button('在画布展开关联节点', this.safe(async () => { this.filters.canvasCardIds = [...new Set([...(this.filters.canvasCardIds ?? []), ...data.relatedCards.map(c => c.id)])].slice(0, 40); await this.load(); this.fitCanvas(); })));
+     const diagnostics = el('details', { class: 'opc-diagnostics' }, [el('summary', { text: '来源记录与排查' }), el('p', { text: `提问时间来源：${data.card.questionTime.source ?? '未知'}；精度：${data.card.questionTime.precision ?? 'unknown'}。导入时间：${data.card.importedAt}。原始消息及历史版本单独保留。` })]);
+     diagnostics.append(button('读取原始记录', this.safe(async () => { const raw = await this.api('opcRaw', { projectId: this.projectId, cardId }); diagnostics.append(el('pre', { text: JSON.stringify(raw, null, 2) })); })));
+-    this.detail.append(diagnostics);
++    readingContent.append(diagnostics);
+     if(searchHit?.match){
+       let located=false;
+       if(['question','answer'].includes(searchHit.field)){
+@@ -337,7 +373,7 @@ export class OPCTimeline {
+       }
+       if(!located){const found=el('details',{class:'opc-search-hit',open:true},[el('summary',{text:'检索命中原文 · '+(searchFieldLabels[searchHit.field]??'内容')}),snippetBody(searchHit)]);readingBody.append(found);found.scrollIntoView({block:'nearest'});}
+     }
+-    const recommendations=el('section',{class:'opc-related-discussions',hidden:true,'aria-label':'相关历史讨论'});this.detail.append(recommendations);
++    const recommendations=el('section',{class:'opc-related-discussions',hidden:true,'aria-label':'相关历史讨论'});readingContent.append(recommendations);
+     this.safe(async()=>{const rows=await this.api('relatedDiscussions',{projectId,cardId});if(epoch!==this.detailEpoch||!recommendations.isConnected||!rows.length)return;recommendations.hidden=false;recommendations.append(el('h3',{text:'相关历史讨论'}),el('small',{class:'muted',text:'本地文本推荐 · 点击查看原始问答，不会建立人工关系。'}));
+       for(const row of rows.slice(0,3))recommendations.append(el('article',{class:'opc-related-item','data-related-card':row.cardId},[button(row.title,this.safe(async()=>{this.readingHistory??=[];this.readingHistory.push({projectId,cardId});this.readingHistory=this.readingHistory.slice(-20);await this.openIndexedCard(row);}), 'opc-result-open'),el('small',{text:`${row.sourceTitle} · ${timeLabel(row.time)}`}),el('p',{text:row.snippet.text})]));
+     })();
+@@ -345,6 +381,7 @@ export class OPCTimeline {
+   }
+   async closeCard(){
+     ++this.detailEpoch;this.selected=null;
++    releaseClosablePanel(this.detail);this.drafts.flush();
+     const restore=this.detail?.contains(document.activeElement);if(this.detail)this.detail.hidden=true;
+     this.list?.querySelectorAll('.selected,.related').forEach(node=>node.classList.remove('selected','related'));
+     if(restore)(this.readerReturnFocus?.isConnected?this.readerReturnFocus:this.mode==='canvas'?this.canvas:this.horizontal.scroll)?.focus({preventScroll:true});
+@@ -383,14 +420,14 @@ export class OPCTimeline {
+     if (v) await this.write('membership', { timelineId: v.timelineId, cardIds });
+   }
+   async manageTimelines() {
+-    const dialog = document.querySelector('#edit-dialog'); dialog.replaceChildren(el('h2', { text: '管理时间线' }));
++    const dialog = document.querySelector('#edit-dialog');resetDialogClose(dialog); dialog.replaceChildren(el('h2', { text: '管理时间线' }));
+     const operations = new Set();
+     const done = button('完成', this.safe(async () => {
+       const controls = [...dialog.querySelectorAll('button,input')], disabled = controls.map(c => c.disabled); controls.forEach(c => c.disabled = true);
+       const results = await Promise.allSettled([...operations]);
+       if (results.some(r => r.status === 'rejected')) controls.forEach((c, i) => c.disabled = disabled[i]); else dialog.close();
+     })); dialog.append(done);
+-    dialog.addEventListener('cancel', e => { if (operations.size) { e.preventDefault(); done.click(); } }, { once: true });
++    dialog.oncancel=e=>{if(operations.size){e.preventDefault();done.click();}};
+     for (const t of this.data.timelines) {
+       const row = el('div', { class: 'opc-manage-row' }), name = el('input', { value: t.name, disabled: t.kind === 'source', 'aria-label': '时间线名称' });
+       let queue = Promise.resolve();
+@@ -400,10 +437,10 @@ export class OPCTimeline {
+       for (const [key, label] of [['hidden', '隐藏'], ['archived', '归档']]) { const control = el('input', { type: 'checkbox', checked: t[key] }); control.addEventListener('change', this.safe(() => update({ [key]: control.checked }))); row.append(el('label', {}, [control, label])); }
+       dialog.append(row);
+     }
+-    dialog.addEventListener('close', this.safe(() => this.load()), { once: true }); dialog.showModal();
++    dialog.addEventListener('close', this.safe(() => this.load()), { once: true }); showDialog(dialog);
+   }
+   async relationshipDialog(fromCardId, toCardId = null, relationship = null) {
+-    const dialog = document.querySelector('#edit-dialog'); dialog.oncancel = null; dialog.replaceChildren();
++    const dialog = document.querySelector('#edit-dialog');resetDialogClose(dialog); dialog.replaceChildren();
+     const form = el('form', { class: 'dialog-body' }); form.append(el('h2', { text: relationship ? '编辑关系' : '建立关系' }));
+     const sourceDetail = await this.api('opcDetail', { projectId: this.projectId, cardId: fromCardId });
+     form.append(el('p', { text: `来源：${sourceDetail.metadata.title || sourceDetail.card.questionPreview}` }), button('跳转来源 Q/A', this.safe(async () => { dialog.close(); await this.locate(fromCardId); })));
+@@ -433,7 +470,7 @@ export class OPCTimeline {
+         toCardId: direction.value === 'reverse' ? fromCardId : targets.value, type: type.value, directed: direction.value !== 'both', description: description.value }, { reload: false });
+       dialog.close(); this.relationSource = null; await this.load();
+     }));
+-    dialog.append(form); dialog.showModal();
++    dialog.append(form); showDialog(dialog);
+     if (toCardId) { const detail = await this.api('opcDetail', { projectId: this.projectId, cardId: toCardId }); targets.append(el('option', { value: toCardId, text: detail.card.sourceTitle + ' · ' + (detail.metadata.title || detail.card.questionPreview) })); targets.value = toCardId; }
+     await update(false);
+     if (toCardId && ![...targets.options].some(o => o.value === toCardId)) { const detail = await this.api('opcDetail', { projectId: this.projectId, cardId: toCardId }); targets.append(el('option', { value: toCardId, text: detail.card.questionPreview })); targets.value = toCardId; }
+@@ -577,5 +614,5 @@ export class OPCTimeline {
+     }).catch(e => { this.onError?.(`画布保存失败，本次移动未覆盖已有位置：${e.message}`); });
+     await this.layoutWrite;
+   }
+-  destroy() { ++this.navigationEpoch;this.disposeCanvasGestures();this.hoverPreview?.dispose();this.hoverPreview=null;this.horizontal.detach();++this.epoch; ++this.detailEpoch; if (this.edgeFrame != null) cancelAnimationFrame(this.edgeFrame); this.edgeFrame = null; this.pendingEdges?.clear(); this.flushMetadata(); this.flushLayout();this.deploy.flush();this.horizontal.flush(); this.host.replaceChildren(); }
++  destroy() { releaseClosablePanel(this.detail);++this.navigationEpoch;this.disposeCanvasGestures();this.hoverPreview?.dispose();this.hoverPreview=null;this.horizontal.detach();++this.epoch; ++this.detailEpoch; if (this.edgeFrame != null) cancelAnimationFrame(this.edgeFrame); this.edgeFrame = null; this.pendingEdges?.clear(); this.flushMetadata(); this.flushLayout();this.deploy.flush();this.horizontal.flush(); this.host.replaceChildren(); }
+ }
+diff --git a/apps/navigator-extension/ui/organization.js b/apps/navigator-extension/ui/organization.js
+index 1c39a0a..bc96c09 100644
+--- a/apps/navigator-extension/ui/organization.js
++++ b/apps/navigator-extension/ui/organization.js
+@@ -1,4 +1,4 @@
+-import { el, button, badge, labelStatus } from './dom.js';
++import { el, button, badge, labelStatus, showDialog } from './dom.js';
+ import { prepareDialogLayout, routeDialogNotice } from './dialog-layout.js';
+ 
+ const STATUS = { pending: '待确认', confirmed: '已确认', applied: '已确认', rejected: '已拒绝', needs_review: '需要复核', stale: '需要复核' };
+@@ -24,14 +24,14 @@ export class OrganizationPanel {
+     this.context = await this.api('organizationContext', { conversationId, pathId });
+     this.detail = null; this.dirty = false; this.groups = [];
+     this.render();
+-    if (!this.dialog.open) this.dialog.showModal();
++    if (!this.dialog.open) showDialog(this.dialog);
+   }
+ 
+   async openSuggestion(suggestionId) {
+     const detail = await this.api('organizationSuggestion', { suggestionId });
+     this.context = await this.api('organizationContext', { conversationId: detail.conversationId, pathId: detail.pathId });
+     this.setDetail(detail); this.render();
+-    if (!this.dialog.open) this.dialog.showModal();
++    if (!this.dialog.open) showDialog(this.dialog);
+   }
+ 
+   setDetail(detail) { this.detail = detail; this.groups = clone(detail.groups ?? []); this.dirty = false; }
+diff --git a/apps/navigator-extension/ui/project-workspace.js b/apps/navigator-extension/ui/project-workspace.js
+index 0b1c866..4b42838 100644
+--- a/apps/navigator-extension/ui/project-workspace.js
++++ b/apps/navigator-extension/ui/project-workspace.js
+@@ -1,6 +1,7 @@
+-import { el, button, ask } from './dom.js';
++import { el, button, ask, showDialog } from './dom.js';
+ import { cardPresentation } from '../domain/card-presentation.js';
+ import { ContextDeploy } from './context-deploy.js';
++import { configurePanelClose } from './panel-close.js';
+ 
+ export class ProjectWorkspacePanel {
+   constructor(owner) {
+@@ -12,7 +13,7 @@ export class ProjectWorkspacePanel {
+     if(workspaceId===undefined&&globalThis.chrome?.storage?.local){const saved=await chrome.storage.local.get('opcWorkspaceSelection');workspaceId=saved.opcWorkspaceSelection;}
+     if(workspaceId&&globalThis.chrome?.storage?.local){const saved=await chrome.storage.local.get('opcWorkspaceDirectory:'+workspaceId);this.collapsed=new Set(saved['opcWorkspaceDirectory:'+workspaceId]??[]);}
+     this.workspaceId=workspaceId;
+-    await this.refresh();if(!this.dialog.open)this.dialog.showModal();
++    await this.refresh();if(!this.dialog.open)showDialog(this.dialog);
+     if(globalThis.chrome?.storage?.local)await chrome.storage.local.set({opcWorkspaceSelection:this.workspaceId??null});
+   }
+   async refresh(){
+@@ -30,7 +31,7 @@ export class ProjectWorkspacePanel {
+     const list=el('div',{class:'workspace-conversation-list'});
+     for(const c of this.data.conversations){const check=el('input',{type:'checkbox',checked:selected.has(c.id)});check.addEventListener('change',()=>check.checked?selected.add(c.id):selected.delete(c.id));list.append(el('label',{},[check,el('span',{text:c.customTitle||c.title||c.id}),c.hidden||c.archived?el('small',{text:'隐藏／归档'}):null]));}
+     dialog.append(list,button('保存关联',this.safe(async()=>{await this.write('conversations',{conversationIds:[...selected]});dialog.close();})),button('取消',()=>dialog.close()));
+-    dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);dialog.showModal();
++    dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);showDialog(dialog);
+   }
+   async openCard(card){
+     this.dialog.close();await this.owner.openIndexedCard({projectId:card.projectId,cardId:card.id});
+@@ -43,9 +44,10 @@ export class ProjectWorkspacePanel {
+       await panel.flush();dialog.close();if(key){const c=this.data.cards.find(c=>c.id===key)??(await this.owner.api('workspaceData',{workspaceId:this.row.id})).cards.find(c=>c.id===key);if(c)await this.openCard(c);}else await this.open();
+     }};
+     const panel=new ContextDeploy(deployOwner);
+-    dialog.append(button('返回项目目录',this.safe(async()=>{await panel.flush();dialog.close();})),host);
++    configurePanelClose(dialog,{guardEdits:false,onClose:async()=>{await panel.flush();dialog.close();}});
++    dialog.append(el('h2',{text:'Workspace Deploy'}),host);
+     dialog.addEventListener('cancel',event=>{event.preventDefault();this.owner.safe(async()=>{await panel.flush();dialog.close();})();});
+-    dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);dialog.showModal();await panel.show(this.row.id);
++    dialog.addEventListener('close',()=>dialog.remove());document.body.append(dialog);showDialog(dialog);await panel.show(this.row.id);
+   }
+   render(){
+     this.dialog.replaceChildren(el('header',{class:'dialog-header'},[el('h2',{text:'Project Workspace'}),button('关闭',()=>this.dialog.close())]));
+diff --git a/apps/navigator-extension/ui/reflection.js b/apps/navigator-extension/ui/reflection.js
+index b253248..4c9a6f7 100644
+--- a/apps/navigator-extension/ui/reflection.js
++++ b/apps/navigator-extension/ui/reflection.js
+@@ -1,4 +1,4 @@
+-import { el, button } from './dom.js';
++import { el, button, showDialog } from './dom.js';
+ import { ISSUE_STATES, DECISION_STATES } from '../domain/release-data.js';
+ 
+ const dialog = () => { let node=document.querySelector('#reflection-dialog');if(!node){node=el('dialog',{id:'reflection-dialog',class:'release-dialog'});document.body.append(node);}node.replaceChildren();node.oncancel=null;return node; };
+@@ -24,7 +24,7 @@ export class ReflectionPanel {
+     const resolved=field(form,'后续解决依据 Q/A',choose('解决依据',[{id:'',text:'未指定'},...data.cards.filter(c=>c.validity?.state==='ACTIVE').map(c=>({id:c.id,text:c.title}))],row?.resolvedByCardId??''));
+     form.append(el('button',{type:'submit',class:'btn primary',text:'保存问题'}),button('取消',()=>d.close()));
+     if(row)form.append(button('删除问题',this.owner.safe(()=>this.save('issue',{id:row.id,expectedRevision:row.revision,remove:true},d))));
+-    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();await this.save('issue',{id:row?.id,expectedRevision:row?.revision??0,cardId:source.value,title:title.value,description:description.value,status:status.value,resolutionNote:resolution.value,resolvedByCardId:resolved.value},d);}));d.append(form);d.showModal();
++    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();await this.save('issue',{id:row?.id,expectedRevision:row?.revision??0,cardId:source.value,title:title.value,description:description.value,status:status.value,resolutionNote:resolution.value,resolvedByCardId:resolved.value},d);}));d.append(form);showDialog(d);
+   }
+   async decisionDialog(cardId,row=null){
+     const data=await this.data(),d=dialog(),form=el('form',{class:'dialog-body'});form.append(el('h2',{text:row?'编辑我的决定':'记录我的决定'}));
+@@ -34,7 +34,7 @@ export class ReflectionPanel {
+     const conflicts=field(form,'冲突决定（可多选）',choose('冲突决定',other.map(r=>({id:r.id,text:r.text})),row?.conflictsWithDecisionIds??[],true));
+     const evidence=field(form,'依据 Q/A（可多选）',choose('决定依据',data.cards.map(c=>({id:c.id,text:c.sourceTitle+' · '+c.title})),row?.evidenceCardIds??[cardId],true));
+     form.append(el('button',{type:'submit',class:'btn primary',text:'保存决定'}),button('取消',()=>d.close()));if(row)form.append(button('删除决定',this.owner.safe(()=>this.save('decision',{id:row.id,expectedRevision:row.revision,remove:true},d))));
+-    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();await this.save('decision',{id:row?.id,expectedRevision:row?.revision??0,cardId,text:text.value,status:status.value,verifiedByUser:verified.checked,supersededByDecisionId:superseded.value,conflictsWithDecisionIds:[...conflicts.selectedOptions].map(o=>o.value),evidenceCardIds:[...evidence.selectedOptions].map(o=>o.value)},d);}));d.append(form);d.showModal();
++    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();await this.save('decision',{id:row?.id,expectedRevision:row?.revision??0,cardId,text:text.value,status:status.value,verifiedByUser:verified.checked,supersededByDecisionId:superseded.value,conflictsWithDecisionIds:[...conflicts.selectedOptions].map(o=>o.value),evidenceCardIds:[...evidence.selectedOptions].map(o=>o.value)},d);}));d.append(form);showDialog(d);
+   }
+   async fragmentDialog(detail,row=null){
+     const d=dialog(),form=el('form',{class:'dialog-body'});form.append(el('h2',{text:row?'编辑手动摘录':'从来源正文手动摘录'}));
+@@ -48,6 +48,6 @@ export class ReflectionPanel {
+       select.addEventListener('change',this.owner.safe(load));form.append(button('使用选中文字',()=>{const start=original.selectionStart,end=original.selectionEnd;range={start,end};evidenceText=original.value.slice(start,end);excerpt.value=evidenceText;}));await load();
+     }else form.append(el('pre',{class:'source-excerpt',text:row.text}));
+     form.append(el('button',{type:'submit',class:'btn primary',text:'保存摘录'}),button('取消',()=>d.close()));if(row)form.append(button('删除摘录',this.owner.safe(()=>this.save('fragment',{id:row.id,expectedRevision:row.revision,remove:true},d))));
+-    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();if(!row&&!evidenceText)throw new Error('请先在来源正文中选择文字，并点击“使用选中文字”。');await this.save('fragment',{id:row?.id,expectedRevision:row?.revision??0,cardId:detail.card.id,title:title.value,userNote:note.value,sourceVersionId,evidenceText,start:range?.start,end:range?.end},d);}));d.append(form);d.showModal();
++    form.addEventListener('submit',this.owner.safe(async e=>{e.preventDefault();if(!row&&!evidenceText)throw new Error('请先在来源正文中选择文字，并点击“使用选中文字”。');await this.save('fragment',{id:row?.id,expectedRevision:row?.revision??0,cardId:detail.card.id,title:title.value,userNote:note.value,sourceVersionId,evidenceText,start:range?.start,end:range?.end},d);}));d.append(form);showDialog(d);
+   }
+ }
+diff --git a/apps/navigator-extension/ui/styles.css b/apps/navigator-extension/ui/styles.css
+index cef8333..60502d9 100644
+--- a/apps/navigator-extension/ui/styles.css
++++ b/apps/navigator-extension/ui/styles.css
+@@ -92,6 +92,7 @@ input[type="checkbox"] { flex: none; width: 16px; height: 16px; min-width: 16px;
+   dialog.dialog-layout > .dialog-notice { max-height: 48px; margin-top: 6px; }
+ }
+ /* V0.5 document export and V0.6 manual bundle builder. */
++.panel-close-header{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;min-height:44px;flex:none}.panel-close-bar{padding:4px 0 8px;margin-bottom:8px}.panel-close-header>h2{margin:0;min-width:0;overflow-wrap:anywhere}.panel-close-header>.panel-close{margin-left:auto;flex:none}.panel-close.btn{display:inline-flex;align-items:center;justify-content:center;min-width:40px;width:40px;min-height:40px;height:40px;padding:0;font-size:25px;font-weight:400;line-height:1;border-radius:9px;background:#fff;color:#526477}.panel-close.btn:hover{background:#eef2f6}.panel-close:focus-visible{outline:3px solid #91a2d9;outline-offset:2px}.has-panel-close> .panel-close-header{isolation:isolate}.panel-close-header .panel-close[hidden],button[hidden]{display:none!important}.panel-unsaved-confirm{width:min(440px,calc(100vw - 24px))}.panel-unsaved-confirm p{line-height:1.7}.panel-close-error{white-space:normal}.card-hover-preview .panel-close{pointer-events:auto}.card-hover-preview>.panel-close-header{padding:0;min-height:40px;margin:0 0 6px}
+ .document-builder { display:flex; flex-direction:column; gap:24px; min-width:0; }
+ .document-settings { padding:16px; border:1px solid var(--border); border-radius:12px; background:#f8fafc; }
+ .document-settings .footnote { margin:10px 0 16px; }
+diff --git a/apps/navigator-extension/ui/tag-suggestions.js b/apps/navigator-extension/ui/tag-suggestions.js
+index c9c15dd..5d75539 100644
+--- a/apps/navigator-extension/ui/tag-suggestions.js
++++ b/apps/navigator-extension/ui/tag-suggestions.js
+@@ -4,17 +4,19 @@ export class TagSuggestionsPanel {
+   constructor(owner){this.owner=owner;}
+   mount(host,data){
+     const owner=this.owner,projectId=owner.projectId,cardId=data.card.id,s=data.metadata.localSuggestion;
++    const draftProjectId=data.card.projectId,draftKey='suggestion:'+cardId,draft=owner.drafts.get(draftProjectId,draftKey);
+     const section=el('section',{class:'qa-local-suggestions','aria-label':'本地候选标签'},[el('h3',{text:'本地候选 · 待人工审核'}),el('p',{class:'muted',text:'TF-IDF / 中文 n-gram；关键词式标题，不是语义摘要。人工标题、标签和主题优先。'})]);host.append(section);
+     const generate=button(s?'重新分析本卡':'生成本卡候选',owner.safe(async()=>{await owner.flushMetadata();generate.disabled=true;try{await owner.api('qaAnalyze',{projectId,cardIds:[cardId]});await owner.load();}finally{generate.disabled=false;}}));section.append(generate);
+     if(!s){section.append(el('p',{text:'尚未分析；仅在本机运行。'}));return;}
+     const stale=s.sourceKey!==featureSourceKey(data.card)||s.version!==FEATURE_VERSION;
+     section.append(el('small',{text:`${s.status==='accepted'?'已采用':s.status==='rejected'?'已拒绝':s.status==='edited'?'已编辑，待采用':'待审核'} · 来源：${data.card.sourceTitle}${stale?' · 来源或算法已变化，请重新分析':''}`}));
+     if(s.sourceMarkers?.length)section.append(el('p',{class:'muted',text:'原始导入问题中含 $app 标记；只在候选特征中排除此标记，完整原文保留。'}));
+-    const title=el('input',{value:s.title,'aria-label':'候选简洁标题',maxLength:80}),tags=el('input',{value:s.tags.join('，'),'aria-label':'候选标签',placeholder:'最多5个标签，用逗号分隔'});
++    const title=el('input',{value:draft?.title??s.title,'aria-label':'候选简洁标题',maxLength:80}),tags=el('input',{value:draft?.tags??s.tags.join('，'),'aria-label':'候选标签',placeholder:'最多5个标签，用逗号分隔'});
+     section.append(el('label',{class:'field'},['候选简洁标题',title]),el('label',{class:'field'},['候选标签',tags]));
+     if(s.topicCandidate)section.append(el('small',{text:'主题特征候选：'+s.topicCandidate+'（不会自动修改主题归属）'}));
+-    const status=el('p',{role:'status'}),controls=el('div',{class:'actions'});
+-    const review=operation=>owner.safe(async()=>{await owner.flushMetadata();for(const b of controls.querySelectorAll('button'))b.disabled=true;try{await owner.api('qaReview',{projectId,cardId,operation,title:title.value,tags:tags.value.split(/[,，]/).map(t=>t.trim()).filter(Boolean),expectedRevision:data.metadata.revision??0});await owner.load();}catch(e){status.textContent=e.message+'；当前候选编辑仍保留。';for(const b of controls.querySelectorAll('button'))b.disabled=stale;throw e;}});
++    const status=el('p',{role:'status',text:draft?'已恢复本地候选草稿；请核对后保存或采用。':''}),controls=el('div',{class:'actions'});
++    const remember=()=>{owner.drafts.set(draftProjectId,draftKey,{title:title.value,tags:tags.value,sourceKey:s.sourceKey});owner.drafts.flush();status.textContent='候选草稿已在本地保留，关闭后可继续编辑。';};for(const input of [title,tags])input.addEventListener('input',remember);
++    const review=operation=>owner.safe(async()=>{await owner.flushMetadata();for(const b of controls.querySelectorAll('button'))b.disabled=true;try{await owner.api('qaReview',{projectId,cardId,operation,title:title.value,tags:tags.value.split(/[,，]/).map(t=>t.trim()).filter(Boolean),expectedRevision:data.metadata.revision??0});if(operation!=='clear')owner.drafts.remove(draftProjectId,draftKey);await owner.load();}catch(e){status.textContent=e.message+'；当前候选编辑仍保留。';for(const b of controls.querySelectorAll('button'))b.disabled=stale;throw e;}});
+     controls.append(button('采用候选',review('accept'),'btn primary',{disabled:stale}),button('保存候选编辑',review('edit'),'btn',{disabled:stale}),button('拒绝候选',review('reject'),'btn',{disabled:stale}));
+     if(data.metadata.autoTitle||data.metadata.autoTags?.length)controls.append(button('移除已采用的自动内容',review('clear')));
+     section.append(controls,status,el('details',{},[el('summary',{text:'为什么选择这些词'}),...s.features.map(f=>el('p',{text:f.manualPriority?`${f.term} · 优先沿用你已有的标签。`:`${f.term} · TF-IDF ${f.score.toFixed(3)} · 加权词频 ${f.tf} · 出现于 ${f.df} 张 Q/A；问题权重高于回答。`}))]));
+diff --git a/apps/navigator-extension/ui/topics.js b/apps/navigator-extension/ui/topics.js
+index 276a657..e171536 100644
+--- a/apps/navigator-extension/ui/topics.js
++++ b/apps/navigator-extension/ui/topics.js
+@@ -1,4 +1,4 @@
+-import { el, button } from './dom.js';
++import { el, button, showDialog } from './dom.js';
+ import { prepareDialogLayout } from './dialog-layout.js';
+ 
+ export class TopicManager {
+@@ -38,7 +38,7 @@ export class TopicManager {
+     dialog.append(el('header', { class: 'dialog-header' }, [el('h2', { text: title }), button('关闭', cancel)]), form,
+       el('footer', { class: 'preview-footer' }, [el('div', { class: 'actions' }, [button('取消', cancel), confirm])]));
+     prepareDialogLayout(dialog);
+-    dialog.showModal();
++    showDialog(dialog);
+     controls[0]?.focus();
+     return result;
+   }
+diff --git a/apps/navigator-extension/ui/workbench.css b/apps/navigator-extension/ui/workbench.css
+index 696788b..4d74434 100644
+--- a/apps/navigator-extension/ui/workbench.css
++++ b/apps/navigator-extension/ui/workbench.css
+@@ -32,7 +32,8 @@ body .conversation-map{border:0;padding:0;background:transparent;min-height:0;ov
+ .ht-scroll.panning{cursor:grabbing;user-select:none}.ht-board{position:relative;min-width:100%;height:100%;background:transparent}
+ .ht-scroll{overflow-y:auto;scrollbar-gutter:stable}.ht-lane-title{position:sticky;left:8px;width:max-content;max-width:min(75vw,350px);height:22px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;color:var(--muted);background:#fff;pointer-events:none}.ht-legend>.btn{font-size:11px;padding:3px 7px}
+ .qa-local-suggestions .field{display:grid;gap:5px;margin:10px 0}.qa-local-suggestions input{width:100%;min-width:0;box-sizing:border-box;padding:8px;border:1px solid var(--border);border-radius:6px}.qa-local-suggestions small{display:block;overflow-wrap:anywhere}.qa-auto-chip,.qa-candidate-chip{display:inline-block;font-size:10px;padding:2px 6px;border-radius:8px;background:#eaf1f6;color:#486e88;margin:2px}.qa-candidate-chip{background:#f2f0fa;color:#77698b}
+-.opc-detail>.close-detail{position:sticky;top:0;float:right;width:34px;height:34px;min-width:34px;padding:0;font-size:24px;line-height:30px;margin:0 0 8px 10px;background:#fff;z-index:1}.opc-detail>.close-detail:focus-visible{outline:2px solid #456b88;outline-offset:2px}
++.opc-detail-close-header{position:static;justify-content:flex-end;margin:0 0 10px;min-height:44px;border-bottom:1px solid #edf0f5}.opc-detail-close-header>.close-detail{float:none;margin:0 0 4px}.opc-stable-workspace>.opc-detail{overflow:hidden}.opc-stable-workspace>.opc-detail:not([hidden]){display:flex;flex-direction:column}.opc-detail-content{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;padding-right:4px}
++@media(max-width:1050px){body.library-open .library{display:block}.library-section-heading{display:flex;align-items:center;gap:6px}.library-section-heading>.panel-close{margin-left:auto;flex:none}}
+ .ht-ticks{position:absolute;top:24px;left:0;height:calc(100% - 48px);width:100%;padding:0;border:0;background:transparent}
+ .ht-ticks time{position:absolute;top:0;font-size:11px;white-space:nowrap;color:var(--muted);transform:translateX(-50%)}
+ .ht-ticks time:after{content:'';position:absolute;left:50%;top:26px;height:150px;border-left:1px solid #edf0f3}
+@@ -59,4 +60,5 @@ body .conversation-map{border:0;padding:0;background:transparent;min-height:0;ov
+ /* A small visual time anchor has a usable hit area. Stable mobile scrollbar
+    space prevents width-driven redraws while a node is being activated. */
+ .ht-point{width:24px;height:24px;border:0;background:transparent;box-shadow:none}.ht-point:after{content:'';position:absolute;inset:5px;border:2px solid #fff;background:var(--source-color);border-radius:50%;box-shadow:0 0 0 1px #c9d4de;pointer-events:none}
++@media(max-width:1050px){body[data-mode=workspace].library-open .library{display:block}}
+ @media(max-width:768px){html{scrollbar-gutter:stable}}
+diff --git a/apps/navigator-extension/workspace.html b/apps/navigator-extension/workspace.html
+index bcf47ce..71a4b61 100644
+--- a/apps/navigator-extension/workspace.html
++++ b/apps/navigator-extension/workspace.html
+@@ -7,7 +7,7 @@
+ </head>
+ <body data-mode="workspace">
+   <header class="app-header">
+-    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.0</span></div></div>
++    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.2</span></div></div>
+     <nav class="workbench-tabs" aria-label="主要工作入口"><button id="timeline-view-button" type="button" aria-pressed="true">Timeline</button><button id="canvas-view-button" type="button" aria-pressed="false">Canvas</button><button id="deploy-view-button" type="button" aria-pressed="false">Deploy</button></nav>
+     <div class="actions header-actions"><button id="capture-button" class="btn primary" type="button">导入当前对话</button><button id="settings-button" class="icon-button" type="button" aria-label="设置与导入选项" title="设置与导入选项">⚙</button><button id="open-workspace" class="btn header-workspace" type="button">工作台 ↗</button></div></header>
+   <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>

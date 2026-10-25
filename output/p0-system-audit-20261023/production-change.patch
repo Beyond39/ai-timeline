@@ -1,0 +1,420 @@
+diff --git a/apps/navigator-extension/background.js b/apps/navigator-extension/background.js
+index be6b4ec..f74649f 100644
+--- a/apps/navigator-extension/background.js
++++ b/apps/navigator-extension/background.js
+@@ -5,6 +5,7 @@ import { readConversationData } from './adapters/conversation-data.js';
+ import { normalizeConversationData, DATA_ADAPTER_VERSION } from './domain/full-conversation.js';
+ import { recordImportFailure } from './storage/release.js';
+ import { changeNotification } from './domain/change-notification.js';
++import { RUNTIME_BUILD } from './domain/runtime-build.js';
+ 
+ const broadcast = (event, data = {}) => chrome.runtime.sendMessage({ event, ...data }).catch(() => {});
+ const captureReasons = {
+@@ -116,6 +117,7 @@ const writes = new Set(['qaAnalyze','qaReview','workspaceWrite','conversationMan
+   'organizationRules', 'organizationExport', 'organizationImport', 'organizationUpdate', 'organizationApply', 'organizationReject', 'organizationArchive', 'topicApply', 'labelMessageRole',
+   'memoryRestore', 'memoryImport', 'connectionSave', 'connectionArchive', 'documentRecipeSave', 'documentRecipeRename', 'documentRecipeArchive']);
+ async function dispatch(type, args) {
++  if(type==='runtimeInfo')return {build:RUNTIME_BUILD,extensionId:chrome.runtime.id,version:chrome.runtime.getManifest().version};
+   if (type === 'captureSourceStatus') return captureSourceStatus(args);
+   if (type === 'captureSourceRebind') return rebindCaptureSource(args);
+   if (type === 'capture') {try{return await capture(args);}catch(error){try{await recordImportFailure({sourceUrl:args.expectedSourceUrl,projectId:args.projectId,code:error.errorCode??error.code});}catch{/* A logging failure must never replace the original capture diagnostic. */}throw error;}}
+diff --git a/apps/navigator-extension/ui/app.js b/apps/navigator-extension/ui/app.js
+index 7617ee3..472c911 100644
+--- a/apps/navigator-extension/ui/app.js
++++ b/apps/navigator-extension/ui/app.js
+@@ -13,6 +13,8 @@ import { ConnectionsPanel } from './connections.js';
+ import { visibleSegments as deriveVisibleSegments, resolveReadingPosition, qaNavigation } from '../domain/navigation.js';
+ import { normalizeForSearch } from '../domain/search.js';
+ import { PanelCloseButton, registerClosablePanel, releaseClosablePanel, requestPanelClose } from './panel-close.js';
++import { selectionState } from './selection-state.js';
++import { RUNTIME_BUILD } from '../domain/runtime-build.js';
+ 
+ const $ = selector => document.querySelector(selector);
+ const panel = document.body.dataset.mode === 'panel';
+@@ -21,12 +23,16 @@ const sourceTabId = parameters.has('sourceTab') ? Number(parameters.get('sourceT
+ const conversationModes = [['#timeline-view-button', 'timeline'], ['#canvas-view-button', 'canvas'], ['#deploy-view-button','deploy']];
+ let projects = [], view = null, committedView=null, busy = 0, searchEpoch = 0, exportURL = null;
+ let reloadEpoch=0,pendingRefresh=false,pendingProjectId=null,refreshFrame=null;
+-const pressedPointers=new Set();
++const pressedPointers=new Map();
+ const waitingViewReads=new Set();
+-function waitForViewInteraction({changingProject=false}={}){
++function waitForViewInteraction({changingProject=false,signal}={}){
+   const ready=()=>!pressedPointers.size&&(!changingProject||!document.querySelector('dialog[open]'));
+-  if(ready())return;
+-  return new Promise(resolve=>waitingViewReads.add({ready,resolve}));
++  if(ready()||signal?.aborted)return;
++  return new Promise(resolve=>{
++    const finish=()=>{waitingViewReads.delete(read);signal?.removeEventListener('abort',finish);resolve();};
++    const read={ready,resolve:finish};waitingViewReads.add(read);
++    signal?.addEventListener('abort',finish,{once:true});
++  });
+ }
+ function scheduleRefresh(){
+   if(refreshFrame!==null||!pendingRefresh&&pendingProjectId===null&&!waitingViewReads.size)return;
+@@ -42,9 +48,23 @@ function scheduleRefresh(){
+     }else if(pendingRefresh){pendingRefresh=false;guard(()=>reload(true))();}
+   });
+ }
+-document.addEventListener('pointerdown',event=>pressedPointers.add(event.pointerId),true);
++document.addEventListener('pointerdown',event=>{
++  if(event.button!==0)return;
++  // A new mouse press replaces a stale ID left by a native popup that consumed
++  // the previous release. Touch and pen pointers retain their own identities.
++  if(event.pointerType==='mouse')for(const[id,type]of pressedPointers)if(type==='mouse')pressedPointers.delete(id);
++  pressedPointers.set(event.pointerId,event.pointerType);
++},true);
+ for(const type of ['pointerup','pointercancel'])document.addEventListener(type,event=>{pressedPointers.delete(event.pointerId);scheduleRefresh();},true);
++for(const type of ['pointermove','pointerover','lostpointercapture'])document.addEventListener(type,event=>{
++  // buttons=0 is observed release evidence, not a timeout. Do not clear an
++  // actually held mouse or a separate touch/pen interaction.
++  if(event.pointerType!=='mouse'||event.buttons!==0)return;
++  let changed=false;for(const[id,kind]of pressedPointers)if(kind==='mouse'){pressedPointers.delete(id);changed=true;}
++  if(changed)scheduleRefresh();
++},true);
+ window.addEventListener('blur',()=>{pressedPointers.clear();scheduleRefresh();});
++document.addEventListener('visibilitychange',()=>{if(document.hidden){pressedPointers.clear();scheduleRefresh();}});
+ document.addEventListener('close',scheduleRefresh,true);
+ let selection = { projectId: null, conversationId: null, filterConversationId: '', pathId: null, segmentId: null, qaId: null, topicId: '', stateFilter: '', allPaths: false, query: '', mapMode: panel ? 'qas' : 'overview', conversationMode: 'timeline', browseSegmentId: null };
+ let readingPositions = {}, layout = { libraryCollapsed: true }, readingFocused = false, positionWrite = Promise.resolve(), noticeTimer;
+@@ -57,7 +77,8 @@ const notice = (text, error = false) => {
+     if (!error) noticeTimer = setTimeout(() => { host.hidden = true; }, 8000);
+   }
+ };
+-const persist = () => chrome.storage.local.set({ navigatorSelection: { ...selection } });
++const selectionStore=selectionState(panel?'panel':'workspace');
++const persist = () => selectionStore.write(selection);
+ const guard = fn => async (...args) => {
+   if (busy) return; busy++;for(const [id] of conversationModes)$(id).disabled=true; $('#capture-button').disabled = true; $('#import-button').disabled = true;
+   try { await fn(...args); } catch (e) { notice(e.message, true); }
+@@ -620,9 +641,9 @@ chrome.runtime.onMessage.addListener(message => {
+ });
+ async function initialize() {
+   try { await rpc('memoryInitialize'); } catch (error) { notice(`升级恢复点尚未建立：${error.message} 已保存的资料仍在，请打开“记忆”另存备份。`, true); }
+-  const [settings, positions, preferences] = await Promise.all(['navigatorSelection', 'navigatorReadingPositions', 'navigatorLayout'].map(key => chrome.storage.local.get(key)));
+-  selection = { ...selection, ...settings.navigatorSelection };
+-  if (!settings.navigatorSelection?.opcVersion || !['timeline', 'canvas','deploy'].includes(selection.conversationMode)) selection.conversationMode = 'timeline';
++  const [savedSelection, positions, preferences] = await Promise.all([selectionStore.read(),chrome.storage.local.get('navigatorReadingPositions'),chrome.storage.local.get('navigatorLayout')]);
++  selection = { ...selection, ...savedSelection };
++  if (!savedSelection.opcVersion || !['timeline', 'canvas','deploy'].includes(selection.conversationMode)) selection.conversationMode = 'timeline';
+   selection.opcVersion = 2; readingPositions = positions.navigatorReadingPositions ?? {};
+   layout.libraryCollapsed = preferences.navigatorLayout?.libraryCollapsed !== false;
+   document.body.classList.toggle('library-collapsed', layout.libraryCollapsed); renderLibraryToggle();
+@@ -633,3 +654,6 @@ async function initialize() {
+   const draft = await rpc('latestDraft'); if (draft) showPreview(draft, { resumed: true });
+ }
+ guard(initialize)();
++
++// Read-only, explicit diagnostics; no global trace, Q/A text or storage reads.
++export function runtimeStateSnapshot(){return {build:RUNTIME_BUILD,entry:panel?'panel':'workspace',projectId:selection.projectId,displayedProjectId:opc.projectId,pendingProjectId,reloadEpoch,busy,pendingRefresh,pressedPointers:[...pressedPointers].map(([id,type])=>({id,type})),waitingViewReads:waitingViewReads.size};}
+diff --git a/apps/navigator-extension/ui/opc.js b/apps/navigator-extension/ui/opc.js
+index 1e8f666..8cfd20b 100644
+--- a/apps/navigator-extension/ui/opc.js
++++ b/apps/navigator-extension/ui/opc.js
+@@ -44,10 +44,10 @@ export class OPCTimeline {
+     globalThis.addEventListener?.('keydown',this.onSearchKey);
+   }
+   safe(run) { return async (...args) => { try { await run(...args); } catch (e) { this.onError?.(e.message); } }; }
+-  cancelNavigation(){++this.navigationEpoch;++this.epoch;}
++  cancelNavigation(){++this.navigationEpoch;++this.epoch;this.renderWait?.abort();}
+   async show({ projectId, mode = 'timeline', targetCardId = null }) {
+     const request={projectId,mode,navigation:++this.navigationEpoch};
+-    this.pendingNavigation=request;++this.epoch;this.hoverPreview?.close();
++    this.pendingNavigation=request;++this.epoch;this.renderWait?.abort();this.hoverPreview?.close();
+     try {
+       this.horizontal.capture();await this.deploy.flush();await this.horizontal.flush();await this.flushMetadata();await this.flushLayout();
+       if(request!==this.pendingNavigation)return;
+@@ -71,7 +71,8 @@ export class OPCTimeline {
+     const projectId=request?.projectId??this.projectId,mode=request?.mode??this.mode;
+     if(mode==='deploy'){await this.deploy.show(projectId);return;}
+     const epoch=++this.epoch,navigation=request?.navigation??this.navigationEpoch;
+-    const current=()=>epoch===this.epoch&&navigation===this.navigationEpoch;
++    this.renderWait?.abort();const renderWait=this.renderWait=new AbortController();
++    const current=()=>epoch===this.epoch&&navigation===this.navigationEpoch&&!renderWait.signal.aborted;
+     const filters=projectId===this.projectId?{...this.filters}:projectFilters(this.filters);
+     this.horizontal.capture();await this.horizontal.flush();
+     await this.flushMetadata();
+@@ -90,7 +91,7 @@ export class OPCTimeline {
+       this.ensured ??= new Set(); await this.api('opcEnsure', { projectId }); this.ensured.add(projectId);
+       data = await this.api(pageAPI, args()); if (!current()) return;
+     }
+-    await this.beforeRender?.({changingProject:projectId!==this.projectId});
++    await this.beforeRender?.({changingProject:projectId!==this.projectId,signal:renderWait.signal});
+     if(!current())return;
+     if(projectId!==this.projectId){
+       // The old view stays usable during the target read. Drain edits completed
+@@ -99,7 +100,7 @@ export class OPCTimeline {
+       do{
+         await this.flushMetadata();await this.flushLayout();await this.horizontal.flush();
+         const writes=[this.metadataWrite,this.layoutWrite,this.horizontal.queue];
+-        await this.beforeRender?.({changingProject:true});if(!current())return;
++        await this.beforeRender?.({changingProject:true,signal:renderWait.signal});if(!current())return;
+         drained=!this.pendingMetadata&&!this.pendingLayout&&writes.every((write,index)=>write===[this.metadataWrite,this.layoutWrite,this.horizontal.queue][index]);
+       }while(!drained);
+       if(String(projectId).startsWith('workspace_')&&!String(this.projectId).startsWith('workspace_'))this.sourceProjectId=this.projectId;
+@@ -614,5 +615,5 @@ export class OPCTimeline {
+     }).catch(e => { this.onError?.(`画布保存失败，本次移动未覆盖已有位置：${e.message}`); });
+     await this.layoutWrite;
+   }
+-  destroy() { releaseClosablePanel(this.detail);++this.navigationEpoch;this.disposeCanvasGestures();this.hoverPreview?.dispose();this.hoverPreview=null;this.horizontal.detach();++this.epoch; ++this.detailEpoch; if (this.edgeFrame != null) cancelAnimationFrame(this.edgeFrame); this.edgeFrame = null; this.pendingEdges?.clear(); this.flushMetadata(); this.flushLayout();this.deploy.flush();this.horizontal.flush(); this.host.replaceChildren(); }
++  destroy() { releaseClosablePanel(this.detail);++this.navigationEpoch;this.renderWait?.abort();this.disposeCanvasGestures();this.hoverPreview?.dispose();this.hoverPreview=null;this.horizontal.detach();++this.epoch; ++this.detailEpoch; if (this.edgeFrame != null) cancelAnimationFrame(this.edgeFrame); this.edgeFrame = null; this.pendingEdges?.clear(); this.flushMetadata(); this.flushLayout();this.deploy.flush();this.horizontal.flush(); this.host.replaceChildren(); }
+ }
+diff --git a/apps/navigator-extension/ui/horizontal-timeline.js b/apps/navigator-extension/ui/horizontal-timeline.js
+index 3a00687..73618ac 100644
+--- a/apps/navigator-extension/ui/horizontal-timeline.js
++++ b/apps/navigator-extension/ui/horizontal-timeline.js
+@@ -13,9 +13,9 @@ export class HorizontalTimeline {
+     if(!this.preferences||!this.projectId)return;
+     this.views.set(this.projectId,Object.fromEntries(['axisVersion','axisFit','axisSpanMs','scrollLeft','scrollTop'].map(key=>[key,this.preferences[key]])));
+   }
+-  detach(){this.observer?.disconnect();globalThis.removeEventListener?.('resize',this.onWindowResize);this.stopPan?.();this.stopPan=null;}
++  detach(){this.observer?.disconnect();this.resizeWait?.abort();this.resizeWait=null;globalThis.removeEventListener?.('resize',this.onWindowResize);this.stopPan?.();this.stopPan=null;}
+   render(host,data){
+-    this.detach();this.host=host;this.data=data;this.projectId=this.owner.projectId;host.replaceChildren();
++    this.detach();this.renderCount=(this.renderCount??0)+1;this.host=host;this.data=data;this.projectId=this.owner.projectId;host.replaceChildren();
+     const owner=this.owner;this.preferences=owner.trackPreferences??defaultTrackPreferences(data);owner.trackPreferences=this.preferences;
+     this.scroll=el('div',{class:'ht-scroll',tabindex:0,'aria-label':'共享时间线：滚轮或左右键平移；Shift 滚轮或上下键纵向滚动；拖动空白区域'});host.append(this.scroll);
+     const width=Math.max(240,this.scroll.clientWidth),hostWidth=host.clientWidth,pref=this.preferences;
+@@ -61,7 +61,19 @@ export class HorizontalTimeline {
+     this.bindPan();
+     if(layout.unknown.length){const unknown=el('details',{class:'ht-unknown'},[el('summary',{text:`时间未知 · ${layout.unknown.length} 轮（不会用导入时间代替）`})]);for(const lane of layout.lanes)for(const c of layout.unknown.filter(c=>c.conversationId===lane.id))unknown.append(button(`${lane.name} · #${c.ordinal} ${name(c)}`,owner.safe(()=>owner.openCard(c.id))));host.append(unknown);}
+     if(owner.filters.query){const results=el('details',{open:true,class:'ht-results'},[el('summary',{text:`搜索结果 · ${data.total} 张（按相关性）`})]);for(const c of data.cards.slice(0,40))results.append(button(`${c.sourceTitle} · ${name(c)}`,owner.safe(()=>owner.locate(c.id))));host.prepend(results);}
+-    this.observer=new ResizeObserver(()=>{if(!this.scroll?.isConnected)return;if(Math.abs(host.clientWidth-hostWidth)>2){this.capture();this.render(host,data);}else this.sizeScroll();});this.observer.observe(host);
++    this.observer=new ResizeObserver(()=>{if(this.host!==host||this.data!==data||!this.scroll?.isConnected)return;if(Math.abs(host.clientWidth-hostWidth)>2)this.resizeAfterInteraction(host,data,hostWidth);else this.sizeScroll();});this.observer.observe(host);
++  }
++  async resizeAfterInteraction(host,data,hostWidth){
++    if(this.resizeWait)return;
++    const request=this.resizeWait=new AbortController(),projectId=this.projectId;
++    try{
++      // Resize is another render producer. It must obey the same native-click
++      // boundary as data reads, and a detached/older Project cannot resume it.
++      await this.owner.beforeRender?.({signal:request.signal});
++      if(request.signal.aborted||!host.isConnected||this.host!==host||this.data!==data||this.owner.projectId!==projectId)return;
++      if(Math.abs(host.clientWidth-hostWidth)>2){this.capture();this.render(host,data);}else this.sizeScroll();
++    }catch(error){this.owner.onError?.(error.message);}
++    finally{if(this.resizeWait===request)this.resizeWait=null;}
+   }
+   sizeScroll(){if(this.scroll?.isConnected)this.scroll.style.height=`${Math.max(230,document.documentElement.clientHeight-Math.max(140,this.scroll.getBoundingClientRect().top)-85)}px`;}
+   date(t,clock=true){return new Date(t).toLocaleString('zh-CN',{timeZone:this.owner.timeZone,year:'numeric',month:'2-digit',day:'2-digit',...(clock?{hour:'2-digit',minute:'2-digit'}:{})});}
+diff --git a/apps/navigator-extension/package.json b/apps/navigator-extension/package.json
+index b8e6e5c..c21e9ea 100644
+--- a/apps/navigator-extension/package.json
++++ b/apps/navigator-extension/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "ai-conversation-visual-navigator",
+-  "version": "1.6.2",
++  "version": "1.6.3",
+   "private": true,
+   "type": "module",
+   "scripts": {
+@@ -42,6 +42,7 @@
+     "test:project-delete-browser": "node scripts/test-project-delete-browser.mjs",
+     "test:second-project-browser": "node scripts/diagnose-second-project.mjs --expect-fixed",
+     "test:workspace-sync-mv3": "node scripts/test-workspace-sync-mv3.mjs",
+-    "test:project-lifecycle-mv3": "node scripts/diagnose-project-lifecycle-mv3.mjs --navigation-races"
++    "test:project-lifecycle-mv3": "node scripts/diagnose-project-lifecycle-mv3.mjs --navigation-races",
++    "test:workspace-runtime-mv3": "node scripts/test-workspace-runtime-mv3.mjs"
+   }
+ }
+diff --git a/apps/navigator-extension/manifest.json b/apps/navigator-extension/manifest.json
+index adb0464..d3dcc04 100644
+--- a/apps/navigator-extension/manifest.json
++++ b/apps/navigator-extension/manifest.json
+@@ -1,8 +1,8 @@
+ {
+   "manifest_version": 3,
+   "name": "OPC Timeline",
+-  "version": "1.6.2",
+-  "version_name": "1.6.2 Alpha · Atomic Project navigation",
++  "version": "1.6.3",
++  "version_name": "1.6.3 Alpha · Timeline interaction lifecycle",
+   "description": "本地导入 ChatGPT 完整问答，在时间线和关系画布中浏览、标注与连接。",
+   "minimum_chrome_version": "116",
+   "permissions": [
+diff --git a/apps/navigator-extension/domain/common.js b/apps/navigator-extension/domain/common.js
+index 52347a3..4c6d31f 100644
+--- a/apps/navigator-extension/domain/common.js
++++ b/apps/navigator-extension/domain/common.js
+@@ -1,5 +1,5 @@
+ export const SCHEMA_VERSION = 3;
+-export const EXTENSION_VERSION = '1.6.2';
++export const EXTENSION_VERSION = '1.6.3';
+ export const CAPTURE_ADAPTER_VERSION = 'chatgpt-dom-v7';
+ export const now = () => new Date().toISOString();
+ export const id = prefix => `${prefix}_${crypto.randomUUID()}`;
+diff --git a/apps/navigator-extension/workspace.html b/apps/navigator-extension/workspace.html
+index 71a4b61..04d0477 100644
+--- a/apps/navigator-extension/workspace.html
++++ b/apps/navigator-extension/workspace.html
+@@ -7,7 +7,7 @@
+ </head>
+ <body data-mode="workspace">
+   <header class="app-header">
+-    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.2</span></div></div>
++    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.3</span></div></div>
+     <nav class="workbench-tabs" aria-label="主要工作入口"><button id="timeline-view-button" type="button" aria-pressed="true">Timeline</button><button id="canvas-view-button" type="button" aria-pressed="false">Canvas</button><button id="deploy-view-button" type="button" aria-pressed="false">Deploy</button></nav>
+     <div class="actions header-actions"><button id="capture-button" class="btn primary" type="button">导入当前对话</button><button id="settings-button" class="icon-button" type="button" aria-label="设置与导入选项" title="设置与导入选项">⚙</button><button id="open-workspace" class="btn header-workspace" type="button">工作台 ↗</button></div></header>
+   <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+diff --git a/apps/navigator-extension/sidepanel.html b/apps/navigator-extension/sidepanel.html
+index e1e2e64..84432c3 100644
+--- a/apps/navigator-extension/sidepanel.html
++++ b/apps/navigator-extension/sidepanel.html
+@@ -7,7 +7,7 @@
+ </head>
+ <body data-mode="panel">
+   <header class="app-header">
+-    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.2</span></div></div>
++    <div class="brand"><button id="library-toggle" class="icon-button" type="button" aria-label="收起项目导航" aria-expanded="true" aria-controls="project-library">☰</button><div class="brand-icon" aria-hidden="true">◈</div><div><strong>OPC Timeline</strong><span>本地对话资料库 · 1.6.3</span></div></div>
+     <nav class="workbench-tabs" aria-label="主要工作入口"><button id="timeline-view-button" type="button" aria-pressed="true">Timeline</button><button id="canvas-view-button" type="button" aria-pressed="false">Canvas</button><button id="deploy-view-button" type="button" aria-pressed="false">Deploy</button></nav>
+     <div class="actions header-actions"><button id="capture-button" class="btn primary" type="button">导入当前对话</button><button id="settings-button" class="icon-button" type="button" aria-label="设置与导入选项" title="设置与导入选项">⚙</button><button id="open-workspace" class="btn header-workspace" type="button">工作台 ↗</button></div></header>
+   <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+diff --git a/apps/navigator-extension/scripts/build.mjs b/apps/navigator-extension/scripts/build.mjs
+index 34b39d9..d8c4426 100644
+--- a/apps/navigator-extension/scripts/build.mjs
++++ b/apps/navigator-extension/scripts/build.mjs
+@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
+ 
+ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+ const checkOnly = process.argv.includes('--check');
+-const entries = ['manifest.json', 'background.js', 'sidepanel.html', 'workspace.html', 'print.html', 'adapters', 'analysis', 'domain', 'exports', 'importers', 'storage', 'ui', 'vendor', 'icons', 'README.md', 'docs'];
++const entries = ['manifest.json', 'background.js', 'sidepanel.html', 'workspace.html', 'print.html', 'adapters', 'analysis', 'domain', 'exports', 'importers', 'storage', 'ui', 'vendor', 'icons', 'README.md', 'docs', 'scripts/workspace-live-probe.js'];
+ function walk(directory) { return fs.readdirSync(directory, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name)).flatMap(item => item.isDirectory() ? walk(path.join(directory, item.name)) : [path.join(directory, item.name)]); }
+ function local(relative, from = root) {
+   const resolved = path.resolve(from, relative);
+diff --git a/apps/navigator-extension/scripts/verify-package.mjs b/apps/navigator-extension/scripts/verify-package.mjs
+index 071ca79..c37466d 100644
+--- a/apps/navigator-extension/scripts/verify-package.mjs
++++ b/apps/navigator-extension/scripts/verify-package.mjs
+@@ -24,7 +24,9 @@ function walk(directory) {
+ const files = new Map(walk(target).map(file => [path.relative(target, file).split(path.sep).join('/'), fs.readFileSync(file)]));
+ assert.equal(files.size, staticReport.runtimeFiles, 'Install folder has unexpected files');
+ for (const [name, data] of files) {
+-  assert.ok(!/^(?:validation|scripts|dist)\//.test(name), `Validation-only content shipped: ${name}`);
++  // This one opt-in diagnostic is a support artifact, never an automatic entry.
++  // All fixtures, browser runners and other scripts remain excluded.
++  assert.ok(name === 'scripts/workspace-live-probe.js' || !/^(?:validation|scripts|dist)\//.test(name), `Validation-only content shipped: ${name}`);
+   assert.ok(data.equals(fs.readFileSync(path.join(root, name))), `Install/source mismatch: ${name}`);
+ }
+ // Read the central directory of our standard, non-ZIP64 build archive and
+@@ -56,7 +58,7 @@ const sha256 = createHash('sha256').update(archive).digest('hex');
+ assert.ok(fs.readFileSync(path.join(dist, 'SHA256SUMS.txt'), 'utf8').includes(`${sha256}  ${archiveName}`));
+ const report = { version: manifest.version, checkedAt: new Date().toISOString(), passed: true, files: files.size,
+   archive: archiveName, bytes: archive.length, sha256, checks: ['Version metadata consistent', 'Source/install directory byte equality',
+-    'All ZIP entries decompressed and compared to install directory', 'ZIP structure and SHA256 consistent', 'Validation fixtures/scripts excluded'],
++    'All ZIP entries decompressed and compared to install directory', 'ZIP structure and SHA256 consistent', 'Validation fixtures and runners excluded; only the opt-in live probe is shipped'],
+   scope: 'Artifact integrity only; does not execute the installed extension' };
+ fs.writeFileSync(path.join(dist, 'PACKAGE_CHECK_REPORT.json'), JSON.stringify(report, null, 2));
+ console.log(JSON.stringify(report));
+diff --git a/apps/navigator-extension/ui/selection-state.js b/apps/navigator-extension/ui/selection-state.js
+new file mode 100644
+--- /dev/null
++++ b/apps/navigator-extension/ui/selection-state.js
+@@ -0,0 +1,23 @@
++// Content is shared in IndexedDB. Navigation belongs to this page; a reload
++// must not adopt the Project most recently selected in another open page.
++export function selectionState(mode, { storage = chrome.storage, session = globalThis.sessionStorage, windows = chrome.windows } = {}) {
++  const key = `navigatorSelection:${mode}`;
++  const windowKey = Promise.resolve(windows?.getCurrent?.()).then(w => Number.isInteger(w?.id) ? `${key}:${w.id}` : null).catch(() => null);
++  const object = value => value && typeof value === 'object' && !Array.isArray(value) ? value : null;
++  return {
++    async read() {
++      try { const current = object(JSON.parse(session.getItem(key))); if (current) return current; } catch { /* Use durable defaults if session storage is unavailable or malformed. */ }
++      const scoped = await windowKey;
++      if (scoped && storage.session) { const current = object((await storage.session.get(scoped))[scoped]); if (current) return current; }
++      const saved = await storage.local.get([key, 'navigatorSelection']);
++      // Legacy is read-only migration input. Never write another page's key.
++      return object(saved[key]) ?? object(saved.navigatorSelection) ?? {};
++    },
++    async write(value) {
++      const snapshot = { ...value };
++      try { session.setItem(key, JSON.stringify(snapshot)); } catch { /* The window-scoped fallback remains available. */ }
++      const scoped = await windowKey;
++      await Promise.all([storage.local.set({ [key]: snapshot }), ...(scoped && storage.session ? [storage.session.set({ [scoped]: snapshot })] : [])]);
++    }
++  };
++}
+diff --git a/apps/navigator-extension/domain/runtime-build.js b/apps/navigator-extension/domain/runtime-build.js
+new file mode 100644
+--- /dev/null
++++ b/apps/navigator-extension/domain/runtime-build.js
+@@ -0,0 +1,3 @@
++// Identifies running module generations even when an existing unpacked 1.6.2
++// page or service worker still holds code loaded before the disk was updated.
++export const RUNTIME_BUILD = 'p0-interaction-lifecycle-20261023.1';
+diff --git a/apps/navigator-extension/scripts/workspace-live-probe.js b/apps/navigator-extension/scripts/workspace-live-probe.js
+new file mode 100644
+--- /dev/null
++++ b/apps/navigator-extension/scripts/workspace-live-probe.js
+@@ -0,0 +1,71 @@
++// Paste this entire file into DevTools Console of the ORIGINAL failing page.
++// No reload, click simulation, storage read/write, network or Q/A text capture.
++globalThis.__opcProbeReady = (async () => {
++  if (globalThis.__opcLiveProbe) throw Error('Probe already installed; use __opcLiveProbe.stop() first.');
++  const module = await import(chrome.runtime.getURL('ui/opc.js'));
++  const horizontalModule = await import(chrome.runtime.getURL('ui/horizontal-timeline.js'));
++  // Discover an existing controller on its next real method call. Do not force
++  // a render/Fit to obtain it. DOM evidence remains available if no click lands.
++  let timeline = null;
++  const app = await import(chrome.runtime.getURL('ui/app.js'));
++  const hash = async text => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))].map(b => b.toString(16).padStart(2, '0')).join('');
++  const element = n => n?.nodeType === 1 ? { tag: n.tagName, id: n.id || null, class: typeof n.className === 'string' ? n.className : null, cardId: n.dataset.cardId ?? null } : null;
++  const box = n => { const r = n?.getBoundingClientRect(); return r && { x: r.x, y: r.y, width: r.width, height: r.height }; };
++  const samples = [], events = [], calls = [], errors = [], restores = [];
++  let active = true;
++  const push = (list, value) => { if (active) { list.push(value); if (list.length > 300) list.shift(); } };
++  const control = n => n?.closest?.('[aria-label="时间放大"],[aria-label="时间缩小"],.ht-point,.ht-density');
++  function snapshot() {
++    const h = timeline?.horizontal, appState = app.runtimeStateSnapshot?.(), modal = document.querySelector('dialog:modal');
++    const dots = [...document.querySelectorAll('.ht-evidence-dot[data-time]')].map(n => ({ t: Date.parse(n.dataset.time), x: parseFloat(n.style.left) })).filter(p => Number.isFinite(p.t) && Number.isFinite(p.x));
++    const first = dots[0], next = first && dots.find(p => p.t !== first.t), derivedScale = next ? (next.x - first.x) / (next.t - first.t) : null;
++    const viewport = document.querySelector('.ht-scroll')?.clientWidth;
++    const controls = Object.fromEntries(['时间放大', '时间缩小'].map(label => {
++      const b = document.querySelector('[aria-label="' + label + '"]'), r = box(b), hit = r && document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
++      return [label, { connected: b?.isConnected, disabled: b?.matches(':disabled'), inertAncestor: element(b?.closest('[inert]')), blockedByModal: Boolean(b && modal && !modal.contains(b)), pointerEvents: b && getComputedStyle(b).pointerEvents, zIndex: b && getComputedStyle(b).zIndex, hover: b?.matches(':hover'), box: r, hit: element(hit), hitsButton: Boolean(b && (b === hit || b.contains(hit))) }];
++    }));
++    return { time: performance.now(), page: location.pathname, entry: document.body.dataset.mode, projectId: timeline?.projectId ?? appState?.displayedProjectId ?? null, renderedProjectId: h?.projectId ?? null, selectedProjectId: document.querySelector('#project-select')?.value, scaleSource: h?.layout ? 'controller' : derivedScale > 0 ? 'derived-from-rendered-evidence-dots' : 'unavailable', pxPerMs: h?.layout?.pxPerMs ?? derivedScale, visibleSpan: h?.layout?.visibleSpan ?? (derivedScale > 0 ? (Math.max(240, viewport) - 48) / derivedScale : null), axisSpanMs: h?.preferences?.axisSpanMs ?? null, axisFit: h?.preferences?.axisFit ?? null, renderCount: h?.renderCount ?? null, controls, app: appState ?? 'unavailable in this loaded generation', dialogs: [...document.querySelectorAll('dialog[open]')].map(d => ({ ...element(d), modal: d.matches(':modal'), hidden: d.hidden, display: getComputedStyle(d).display, box: box(d) })), inertElements: [...document.querySelectorAll('[inert]')].slice(0, 20).map(element), nodes: [...document.querySelectorAll('.ht-point')].slice(0, 8).map(n => ({ ...element(n), left: parseFloat(n.style.left), box: box(n) })) };
++  }
++  const functions = {};
++  for (const [name, object, methods] of [['OPCTimeline', module.OPCTimeline.prototype, ['show', 'load', 'render', 'openCard']], ['HorizontalTimeline', horizontalModule.HorizontalTimeline.prototype, ['zoom', 'render', 'resizeAfterInteraction']]]) for (const method of methods) {
++    if (typeof object[method] === 'function') functions[name + '.' + method] = await hash(object[method].toString());
++  }
++  const styles = [];
++  for (const sheet of document.styleSheets) {
++    if (!sheet.href?.startsWith(chrome.runtime.getURL(''))) continue;
++    try { styles.push({ path: new URL(sheet.href).pathname, parsedRulesSha256: await hash([...sheet.cssRules].map(r => r.cssText).join('\n')) }); } catch { styles.push({ path: new URL(sheet.href).pathname, unreadable: true }); }
++  }
++  const initial = snapshot();
++  for (const [object, methods] of [[module.OPCTimeline.prototype, ['show', 'load', 'render', 'openCard']], [horizontalModule.HorizontalTimeline.prototype, ['zoom', 'render']]]) for (const method of methods) {
++    const original = object[method], hadOwn = Object.hasOwn(object, method);
++    const wrapped = function (...args) {
++      const owner = this.owner ?? this;
++      if (owner.host?.ownerDocument !== document || !owner.host.isConnected) return original.apply(this, args);
++      timeline = owner;
++      push(calls, { method, phase: 'before', projectId: timeline.projectId, state: snapshot() });
++      let result;
++      try { result = original.apply(this, args); } catch (error) { push(errors, { method, name: error.name }); throw error; }
++      // Observe the original promise without replacing its identity or result.
++      Promise.resolve(result).then(() => push(calls, { method, phase: 'after', projectId: timeline.projectId, state: snapshot() }), error => push(errors, { method, name: error.name }));
++      return result;
++    };
++    object[method] = wrapped;
++    restores.push(() => { if (object[method] === wrapped) { if (hadOwn) object[method] = original; else delete object[method]; } });
++  }
++  const listen = (target, type, fn) => { target.addEventListener(type, fn, true); restores.push(() => target.removeEventListener(type, fn, true)); };
++  for (const type of ['pointerover', 'pointerdown', 'pointerup', 'pointercancel', 'click']) listen(document, type, e => {
++    const node = control(e.target); if (!node) return;
++    push(events, { type, time: performance.now(), pointerId: e.pointerId, buttons: e.buttons, trusted: e.isTrusted, projectId: timeline?.projectId ?? null, target: element(node), connected: node.isConnected, path: e.composedPath().filter(n => n.nodeType === 1).slice(0, 8).map(element), hit: element(document.elementFromPoint(e.clientX, e.clientY)) });
++    requestAnimationFrame(() => push(samples, { trigger: type, originalTargetConnected: node.isConnected, ...snapshot() }));
++  });
++  listen(window, 'error', e => push(errors, { type: 'error', name: e.error?.name, file: e.filename?.startsWith(chrome.runtime.getURL('')) ? new URL(e.filename).pathname : 'external-or-unknown', line: e.lineno }));
++  listen(window, 'unhandledrejection', e => push(errors, { type: 'unhandledrejection', name: e.reason?.name }));
++  const onMessage = m => { if (['changed', 'viewChanged'].includes(m.event)) push(events, { type: 'notification', event: m.event, action: m.action, projectId: m.projectId, time: performance.now() }); };
++  chrome.runtime.onMessage.addListener(onMessage); restores.push(() => chrome.runtime.onMessage.removeListener(onMessage));
++  const metadata = { checkedAt: new Date().toISOString(), extensionId: chrome.runtime.id, runtimeManifestVersion: chrome.runtime.getManifest().version, visibleVersion: document.querySelector('.brand span')?.textContent.match(/\d+\.\d+\.\d+/)?.[0] ?? null, entry: location.pathname, functions, styles, scope: 'Original in-memory module fingerprints and passive event/state trace. Parsed CSS rule hashes are not raw file hashes. No Q/A bodies, history or storage contents.' };
++  const report = () => ({ metadata, initial, current: snapshot(), samples, events, calls, errors });
++  globalThis.__opcLiveProbe = { report, snapshot, stop() { const result = report(); active = false; restores.reverse().forEach(restore => restore()); delete globalThis.__opcLiveProbe; delete globalThis.__opcProbeReady; return result; } };
++  // Older workers can reject this read-only diagnostic; preserve that evidence.
++  metadata.worker = await chrome.runtime.sendMessage({ type: 'runtimeInfo', args: {} }).then(r => r?.ok ? r.data : { unavailable: true }, () => ({ unavailable: true }));
++  return { metadata, initial, next: 'Manually hover and click +, −, then a visible Q/A. Run copy(__opcLiveProbe.stop()) to copy the trace and remove instrumentation.' };
++})();

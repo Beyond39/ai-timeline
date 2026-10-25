@@ -1,0 +1,46 @@
+[
+  {
+    "File": "ui/workbench.css",
+    "Unchanged": true
+  },
+  {
+    "File": "ui/workspace.css",
+    "Unchanged": true
+  },
+  {
+    "File": "ui/v1-workspace.css",
+    "Unchanged": true
+  },
+  {
+    "File": "ui/v07-workspace.css",
+    "Unchanged": true
+  },
+  {
+    "File": "ui/panel-close.js",
+    "Unchanged": true
+  },
+  {
+    "File": "domain/timeline-viewport.js",
+    "Unchanged": true
+  },
+  {
+    "File": "domain/timeline-tracks.js",
+    "Unchanged": true
+  },
+  {
+    "File": "domain/change-notification.js",
+    "Unchanged": true
+  },
+  {
+    "File": "manifest.json",
+    "Unchanged": false
+  },
+  {
+    "File": "workspace.html",
+    "Unchanged": false
+  },
+  {
+    "File": "sidepanel.html",
+    "Unchanged": false
+  }
+]

@@ -1,0 +1,107 @@
+{
+  "scope": "Real Edge MV3 + actual loopback HTTP proxy + mocked upstream OpenAI; isolated synthetic conversations; no real paid API",
+  "checks": [
+    {
+      "name": "real HTTP proxy rejects wrong pairing credentials and unapproved origins",
+      "passed": true
+    },
+    {
+      "name": "offline auto analysis is source-preserving and creates chronological stages in real IndexedDB",
+      "passed": true,
+      "evidence": {
+        "stages": 3,
+        "versions": 1
+      }
+    },
+    {
+      "name": "field edits automatically protected; rerun updates other fields and saves a new version",
+      "passed": true,
+      "evidence": {
+        "revision": 3
+      }
+    },
+    {
+      "name": "stage navigation locates real Timeline and reader shows owning stage",
+      "passed": true
+    },
+    {
+      "name": "evidence opens exact original message substring with highlight",
+      "passed": true
+    },
+    {
+      "name": "real loopback pairing, model choice and explicit cost/upload confirmation",
+      "passed": true,
+      "evidence": {
+        "usage": {
+          "input_tokens": 200,
+          "output_tokens": 80,
+          "total_tokens": 280,
+          "cached_input_tokens": 0
+        },
+        "mode": "ai"
+      }
+    },
+    {
+      "name": "same request reuses cached AI result and records cache hit",
+      "passed": true
+    },
+    {
+      "name": "editing while AI pending keeps current human fields when completion arrives",
+      "passed": true
+    },
+    {
+      "name": "cancelled API leaves previous version intact and next task works",
+      "passed": true
+    },
+    {
+      "name": "proxy failure preserves offline and historical versions",
+      "passed": true
+    },
+    {
+      "name": "historical restore keeps latest human title, overview edits and revision log",
+      "passed": true
+    },
+    {
+      "name": "atomic competing analysis commits reject stale completion",
+      "passed": true
+    },
+    {
+      "name": "analysis in A then switching to independent B cannot write across project boundary",
+      "passed": true,
+      "evidence": {
+        "projectId": "prj_8b0ba306-156f-4fd3-b16b-73f18fbd5213",
+        "before": 483840000,
+        "after": 322560000
+      }
+    },
+    {
+      "name": "refresh/reload persists B analysis and keeps Timeline and reader usable",
+      "passed": true
+    },
+    {
+      "name": "knowledge archive export/import is additive and cannot overwrite latest manual edits",
+      "passed": true,
+      "evidence": {
+        "count": 2,
+        "retained": 1,
+        "revision": 19
+      }
+    },
+    {
+      "name": "source update while AI pending rejects stale result and invalidates old message-version evidence",
+      "passed": true
+    },
+    {
+      "name": "refresh during an active analysis preserves committed data and never automatically retries",
+      "passed": true
+    },
+    {
+      "name": "shared Side Panel entry opens saved knowledge at narrow width without horizontal overflow",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "realAPI": false,
+  "browser": "155.0.4283.62",
+  "ok": true
+}

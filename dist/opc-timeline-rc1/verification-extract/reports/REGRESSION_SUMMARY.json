@@ -1,0 +1,429 @@
+[
+  {
+    "report": "OPC_NODE_REPORT.json",
+    "scope": "Node domain/renderer/adapter regression and static checks. Browser/IndexedDB tests have a separate report. No live ChatGPT account or installed MV3 assertion.",
+    "passed": true,
+    "cases": [
+      {
+        "name": "core",
+        "passed": true
+      },
+      {
+        "name": "regressions",
+        "passed": true
+      },
+      {
+        "name": "v03",
+        "passed": true
+      },
+      {
+        "name": "adapter",
+        "passed": true
+      },
+      {
+        "name": "full-conversation",
+        "passed": true
+      },
+      {
+        "name": "reader",
+        "passed": true
+      },
+      {
+        "name": "navigation",
+        "passed": true
+      },
+      {
+        "name": "document-sources",
+        "passed": true
+      },
+      {
+        "name": "document-formats",
+        "passed": true
+      },
+      {
+        "name": "conversation-outline",
+        "passed": true
+      },
+      {
+        "name": "document-recipes",
+        "passed": true
+      },
+      {
+        "name": "v1-links",
+        "passed": true
+      },
+      {
+        "name": "opc",
+        "passed": true
+      },
+      {
+        "name": "opc-improvements",
+        "passed": true
+      },
+      {
+        "name": "qa-p0",
+        "passed": true
+      },
+      {
+        "name": "v14",
+        "passed": true
+      },
+      {
+        "name": "release",
+        "passed": true
+      },
+      {
+        "name": "search-management",
+        "passed": true
+      },
+      {
+        "name": "project-workspace",
+        "passed": true
+      },
+      {
+        "name": "interactions",
+        "passed": true
+      },
+      {
+        "name": "timeline-stability",
+        "passed": true
+      },
+      {
+        "name": "tag-suggestions",
+        "passed": true
+      },
+      {
+        "name": "project-deletion",
+        "passed": true
+      },
+      {
+        "name": "knowledge",
+        "passed": true
+      },
+      {
+        "name": "hybrid",
+        "passed": true
+      },
+      {
+        "name": "static",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "report": "HYBRID_BROWSER_REPORT.json",
+    "scope": "Real Edge MV3 + actual loopback HTTP proxy + mocked upstream OpenAI; isolated synthetic conversations; no real paid API",
+    "passed": true,
+    "cases": [
+      {
+        "name": "real HTTP proxy rejects wrong pairing credentials and unapproved origins",
+        "passed": true
+      },
+      {
+        "name": "offline auto analysis is source-preserving and creates chronological stages in real IndexedDB",
+        "passed": true
+      },
+      {
+        "name": "field edits automatically protected; rerun updates other fields and saves a new version",
+        "passed": true
+      },
+      {
+        "name": "stage navigation locates real Timeline and reader shows owning stage",
+        "passed": true
+      },
+      {
+        "name": "evidence opens exact original message substring with highlight",
+        "passed": true
+      },
+      {
+        "name": "real loopback pairing, model choice and explicit cost/upload confirmation",
+        "passed": true
+      },
+      {
+        "name": "same request reuses cached AI result and records cache hit",
+        "passed": true
+      },
+      {
+        "name": "editing while AI pending keeps current human fields when completion arrives",
+        "passed": true
+      },
+      {
+        "name": "cancelled API leaves previous version intact and next task works",
+        "passed": true
+      },
+      {
+        "name": "proxy failure preserves offline and historical versions",
+        "passed": true
+      },
+      {
+        "name": "historical restore keeps latest human title, overview edits and revision log",
+        "passed": true
+      },
+      {
+        "name": "atomic competing analysis commits reject stale completion",
+        "passed": true
+      },
+      {
+        "name": "analysis in A then switching to independent B cannot write across project boundary",
+        "passed": true
+      },
+      {
+        "name": "refresh/reload persists B analysis and keeps Timeline and reader usable",
+        "passed": true
+      },
+      {
+        "name": "knowledge archive export/import is additive and cannot overwrite latest manual edits",
+        "passed": true
+      },
+      {
+        "name": "source update while AI pending rejects stale result and invalidates old message-version evidence",
+        "passed": true
+      },
+      {
+        "name": "refresh during an active analysis preserves committed data and never automatically retries",
+        "passed": true
+      },
+      {
+        "name": "shared Side Panel entry opens saved knowledge at narrow width without horizontal overflow",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "report": "P0_SECOND_PROJECT_AFTER.json",
+    "scope": "Native unpacked MV3, fresh isolated browser profile, synthetic data only; no private Q/A bodies logged.",
+    "passed": true,
+    "cases": [
+      {
+        "name": "one independent Project, two Conversations",
+        "passed": true
+      },
+      {
+        "name": "creating B during A press retains actual + click and refreshes project list",
+        "passed": true
+      },
+      {
+        "name": "second independent Project B",
+        "passed": true
+      },
+      {
+        "name": "return to A after B creation",
+        "passed": true
+      },
+      {
+        "name": "return to B",
+        "passed": true
+      },
+      {
+        "name": "three Projects switch C",
+        "passed": true
+      },
+      {
+        "name": "three Projects switch A",
+        "passed": true
+      },
+      {
+        "name": "three Projects switch B",
+        "passed": true
+      },
+      {
+        "name": "A exact parameter shape, alone",
+        "passed": true
+      },
+      {
+        "name": "A with B open, same sourceTab",
+        "passed": true
+      },
+      {
+        "name": "B with A open, same sourceTab",
+        "passed": true
+      },
+      {
+        "name": "real pointer survives B save: [aria-label=\"时间放大\"]",
+        "passed": true
+      },
+      {
+        "name": "real pointer survives B save: [aria-label=\"时间缩小\"]",
+        "passed": true
+      },
+      {
+        "name": "real pointer survives B save: .ht-point",
+        "passed": true
+      },
+      {
+        "name": "A after closing B",
+        "passed": true
+      },
+      {
+        "name": "single Conversation under independent Project A",
+        "passed": true
+      },
+      {
+        "name": "existing Canvas opens original Reader after cross-project edits",
+        "passed": true
+      },
+      {
+        "name": "existing Search opens matching original Q/A",
+        "passed": true
+      },
+      {
+        "name": "existing Deploy compiles original source answer",
+        "passed": true
+      },
+      {
+        "name": "A with different sourceTab B",
+        "passed": true
+      },
+      {
+        "name": "B with different sourceTab A",
+        "passed": true
+      },
+      {
+        "name": "B after closing A",
+        "passed": true
+      },
+      {
+        "name": "B after page reload",
+        "passed": true
+      },
+      {
+        "name": "B after actual extension reload",
+        "passed": true
+      },
+      {
+        "name": "original Q/A, versions, annotations, manual relationships and Canvas layout hashes unchanged",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "report": "PROJECT_LIFECYCLE_DIAGNOSTIC.json",
+    "scope": "Native Chrome MV3, isolated profile, synthetic records; default viewport state is never repaired by Fit All. Navigation race checks use explicit read gates and injected failures, ordinary lifecycle checks do not.",
+    "passed": true,
+    "cases": [
+      {
+        "name": "one Project, default zoom, ordinary mouse clicks",
+        "passed": true
+      },
+      {
+        "name": "an empty second independent Project does not break A interactions",
+        "passed": true
+      },
+      {
+        "name": "same Workspace creates second independent Project, default zoom without closing navigation",
+        "passed": true
+      },
+      {
+        "name": "native project select popup switches B to A, then ordinary zoom and node clicks",
+        "passed": true
+      },
+      {
+        "name": "visible Project A remains interactive while Project B is loading",
+        "passed": true
+      },
+      {
+        "name": "failed target read preserves the visible Project and its handlers",
+        "passed": true
+      },
+      {
+        "name": "a source-selection dialog keeps its Project until saving and closing during target loading",
+        "passed": true
+      },
+      {
+        "name": "a Canvas edit completed during target loading is saved only to the source Project",
+        "passed": true
+      },
+      {
+        "name": "refresh and reopen Workspace with two independent Projects preserve working default controls",
+        "passed": true
+      },
+      {
+        "name": "three independent Projects, third with one Q/A, default zoom and Reader",
+        "passed": true
+      },
+      {
+        "name": "native A/B/C/A switches keep correct ownership without Fit",
+        "passed": true
+      },
+      {
+        "name": "a newer native Project choice during a pending read is never discarded",
+        "passed": true
+      },
+      {
+        "name": "a failed native Project selection restores selector, title and active scope together",
+        "passed": true
+      },
+      {
+        "name": "delete synthetic B, then A/C continue working and A source data survives",
+        "passed": true
+      },
+      {
+        "name": "browser process restart preserves independent Projects and their working controls",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "report": "TIMELINE_PROJECT_BROWSER_REPORT.json",
+    "scope": "Isolated Edge/Chromium with synthetic local IndexedDB; no live Chrome profile.",
+    "passed": true,
+    "cases": [
+      {
+        "name": "A single source zoom/fit/latest/pan",
+        "passed": true
+      },
+      {
+        "name": "B first local Project linked to one source",
+        "passed": true
+      },
+      {
+        "name": "C second local Project linked to another source",
+        "passed": true
+      },
+      {
+        "name": "D same Project two sources share X, independent lanes and density bins",
+        "passed": true
+      },
+      {
+        "name": "Project Timeline full-answer search locates a card from a different source project",
+        "passed": true
+      },
+      {
+        "name": "E repeated Project switching preserves working zoom and local viewport ownership",
+        "passed": true
+      },
+      {
+        "name": "F return to original single Conversation",
+        "passed": true
+      },
+      {
+        "name": "G Reader close preserves timeline state",
+        "passed": true
+      },
+      {
+        "name": "H Canvas return preserves original annotations/layout",
+        "passed": true
+      },
+      {
+        "name": "I Workspace open/close and real button entry, lane visibility",
+        "passed": true
+      },
+      {
+        "name": "J reload page retains persisted source choices and source data; zoom remains usable",
+        "passed": true
+      },
+      {
+        "name": "Reader ×, nested-modal Escape priority, focus and narrow viewport state preservation",
+        "passed": true
+      },
+      {
+        "name": "multi-lane vertical scroll and unknown timestamps remain honest",
+        "passed": true
+      },
+      {
+        "name": "Reader can close while local body read is pending; late response cannot reopen it",
+        "passed": true
+      }
+    ]
+  }
+]

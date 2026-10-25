@@ -1,0 +1,5335 @@
+{
+  "startedAt": "2026-10-22T16:17:48.661Z",
+  "scope": "Isolated Chrome MV3, synthetic records. This is NOT the user failing instance.",
+  "extension": "D:\\mytools\\GPT-SaaS\\apps\\navigator-extension",
+  "profile": "D:\\mytools\\GPT-SaaS\\apps\\navigator-extension\\dist\\workspace-runtime-profile-1792685868660",
+  "checks": [
+    {
+      "name": "loaded Workspace JavaScript is the disk source, worker ID/version agree",
+      "status": "PASS"
+    },
+    {
+      "name": "single Project: ten physical +/− clicks change span and actual node positions",
+      "status": "PASS",
+      "evidence": [
+        {
+          "pxPerMs": 0.000002139136904761905,
+          "visibleSpan": 483840000,
+          "x": 264.268
+        },
+        {
+          "pxPerMs": 0.0000032087053571428573,
+          "visibleSpan": 322560000,
+          "x": 384.402
+        },
+        {
+          "pxPerMs": 0.000004813058035714286,
+          "visibleSpan": 215040000,
+          "x": 564.603
+        },
+        {
+          "pxPerMs": 0.0000072195870535714286,
+          "visibleSpan": 143360000,
+          "x": 834.904
+        },
+        {
+          "pxPerMs": 0.000010829380580357143,
+          "visibleSpan": 95573333.33333333,
+          "x": 1240.36
+        },
+        {
+          "pxPerMs": 0.000016244070870535717,
+          "visibleSpan": 63715555.55555555,
+          "x": 1848.53
+        },
+        {
+          "pxPerMs": 0.000010829380580357143,
+          "visibleSpan": 95573333.33333333,
+          "x": 1240.36
+        },
+        {
+          "pxPerMs": 0.0000072195870535714286,
+          "visibleSpan": 143360000,
+          "x": 834.904
+        },
+        {
+          "pxPerMs": 0.000004813058035714286,
+          "visibleSpan": 215040000,
+          "x": 564.603
+        },
+        {
+          "pxPerMs": 0.0000032087053571428573,
+          "visibleSpan": 322560000,
+          "x": 384.402
+        },
+        {
+          "pxPerMs": 0.000002139136904761905,
+          "visibleSpan": 483840000,
+          "x": 264.268
+        }
+      ]
+    },
+    {
+      "name": "ResizeObserver between 时间放大 pointerdown/up preserves the native click",
+      "status": "PASS",
+      "evidence": {
+        "connected": true,
+        "before": 483840000,
+        "after": 322560000
+      }
+    },
+    {
+      "name": "ResizeObserver between 时间缩小 pointerdown/up preserves the native click",
+      "status": "PASS",
+      "evidence": {
+        "connected": true,
+        "before": 322560000,
+        "after": 483840000
+      }
+    },
+    {
+      "name": "ResizeObserver between Q/A pointerdown/up keeps the node and opens its actual Reader",
+      "status": "PASS",
+      "evidence": {
+        "connected": true,
+        "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0"
+      }
+    },
+    {
+      "name": "a lost terminal pointer event is reconciled by the next real unpressed mouse move",
+      "status": "PASS",
+      "evidence": {
+        "syntheticFault": true,
+        "recoveredWithoutReload": true
+      }
+    },
+    {
+      "name": "three independent Projects: native selection, zoom and Q/A ownership after A/B/C/A",
+      "status": "PASS"
+    },
+    {
+      "name": "separate Workspace tabs retain their own selected Project across refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "Side Panel has independent restore state from Workspace",
+      "status": "PASS",
+      "evidence": {
+        "scope": "sidepanel.html as a tab; native Side Panel tested by test-workspace-sync-mv3.mjs"
+      }
+    }
+  ],
+  "observations": [
+    {
+      "label": "single initial",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 0,
+      "pxPerMs": 0.000002139136904761905,
+      "visibleSpan": 483840000,
+      "axisFit": true,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 79.4464
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 264.268
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 449.089
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 633.911
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [],
+      "calls": []
+    },
+    {
+      "label": "时间放大",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 1,
+      "pxPerMs": 0.0000032087053571428573,
+      "visibleSpan": 322560000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 107.17
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 384.402
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 661.634
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 938.866
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        }
+      ]
+    },
+    {
+      "label": "时间放大",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 2,
+      "pxPerMs": 0.000004813058035714286,
+      "visibleSpan": 215040000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 148.754
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 564.603
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 980.451
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 1396.3
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        }
+      ]
+    },
+    {
+      "label": "时间放大",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 3,
+      "pxPerMs": 0.0000072195870535714286,
+      "visibleSpan": 143360000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 211.132
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 834.904
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 1458.68
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 2082.45
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        }
+      ]
+    },
+    {
+      "label": "时间放大",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 4,
+      "pxPerMs": 0.000010829380580357143,
+      "visibleSpan": 95573333.33333333,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 304.698
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 1240.36
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 2176.01
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 3111.67
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        }
+      ]
+    },
+    {
+      "label": "时间放大",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 5,
+      "pxPerMs": 0.000016244070870535717,
+      "visibleSpan": 63715555.55555555,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 445.046
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 1848.53
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 3252.02
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 4655.51
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        }
+      ]
+    },
+    {
+      "label": "时间缩小",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 6,
+      "pxPerMs": 0.000010829380580357143,
+      "visibleSpan": 95573333.33333333,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 304.698
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 1240.36
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 2176.01
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 3111.67
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        }
+      ]
+    },
+    {
+      "label": "时间缩小",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 7,
+      "pxPerMs": 0.0000072195870535714286,
+      "visibleSpan": 143360000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 211.132
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 834.904
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 1458.68
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 2082.45
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        }
+      ]
+    },
+    {
+      "label": "时间缩小",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 8,
+      "pxPerMs": 0.000004813058035714286,
+      "visibleSpan": 215040000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 148.754
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 564.603
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 980.451
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 1396.3
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        }
+      ]
+    },
+    {
+      "label": "时间缩小",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 9,
+      "pxPerMs": 0.0000032087053571428573,
+      "visibleSpan": 322560000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 107.17
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 384.402
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 661.634
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 938.866
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        }
+      ]
+    },
+    {
+      "label": "时间缩小",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1100,
+      "renderCount": 10,
+      "pxPerMs": 0.000002139136904761905,
+      "visibleSpan": 483840000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 79.4464
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 264.268
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 449.089
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 633.911
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 278.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 244,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 221.89999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.5999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.69999998807907
+        }
+      ]
+    },
+    {
+      "label": "resize 时间放大 before",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 952,
+      "renderCount": 11,
+      "pxPerMs": 0.0000018332506613756614,
+      "visibleSpan": 483840000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 71.5179
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 229.911
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 388.304
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 546.696
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 132.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 98,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 222.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.5999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 389.69999998807907
+        }
+      ]
+    },
+    {
+      "label": "resize 时间放大 after",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 972,
+      "renderCount": 12,
+      "pxPerMs": 0.00000281187996031746,
+      "visibleSpan": 322560000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 96.8839
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 339.83
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 582.777
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 825.723
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 132.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 98,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.5999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 389.69999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.5999999642372
+        }
+      ]
+    },
+    {
+      "label": "resize 时间缩小 before",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 972,
+      "renderCount": 12,
+      "pxPerMs": 0.00000281187996031746,
+      "visibleSpan": 322560000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 96.8839
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 339.83
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 582.777
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 825.723
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 132.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 98,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 234.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.5999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 389.69999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.5999999642372
+        }
+      ]
+    },
+    {
+      "label": "resize 时间缩小 after",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 992,
+      "renderCount": 13,
+      "pxPerMs": 0.000001915922619047619,
+      "visibleSpan": 483840000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 73.6607
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 239.196
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 404.732
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 570.268
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 132.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 98,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 248.19999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.5999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 389.69999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 477.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 477.89999997615814
+        }
+      ]
+    },
+    {
+      "label": "node resize release",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 1012,
+      "renderCount": 14,
+      "pxPerMs": 0.000001957258597883598,
+      "visibleSpan": 483840000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 74.7321
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 243.839
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 412.946
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 582.054
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 132.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 98,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 263.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 282.5
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 303.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.19999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 328.30000001192093
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.80000001192093
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 344.89999997615814
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 359.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.5999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 371.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 389.69999998807907
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.39999997615814
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 477.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 477.89999997615814
+        },
+        {
+          "method": "openCard",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 542.8999999761581
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 544.8000000119209
+        }
+      ]
+    },
+    {
+      "label": "selected prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "entry": "workspace",
+      "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "renderedProjectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "selectedProjectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "hostWidth": 812,
+      "renderCount": 22,
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_4663cdc9-0e8e-4e43-a265-79f9eba9dbd8",
+          "x": 64.0179
+        },
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_245cf0f3-5aaa-4bfe-acfa-12f61686570b",
+          "x": 197.411
+        },
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_b8392bb2-4d77-4a75-bab5-e0bab391f0a5",
+          "x": 330.804
+        },
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_3240a1f6-89cf-4a49-b0f2-c6802f624488",
+          "x": 464.196
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "阅读 Synthetic A question 0",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 712,
+          "buttons": 1,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 432.5999999642372
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 477.69999998807907
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 477.89999997615814
+        },
+        {
+          "method": "openCard",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 542.8999999761581
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 544.8000000119209
+        },
+        {
+          "method": "show",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 826
+        },
+        {
+          "method": "load",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 826.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 830.6999999880791
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 831.3000000119209
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 850
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 850.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 928.6999999880791
+        },
+        {
+          "method": "show",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 1954.199999988079
+        },
+        {
+          "method": "load",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 1954.3999999761581
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 1955.8999999761581
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 1956.300000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 2962
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 2962.099999964237
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 3965
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 3965
+        }
+      ]
+    },
+    {
+      "label": "selected prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+      "entry": "workspace",
+      "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+      "renderedProjectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+      "selectedProjectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+      "hostWidth": 812,
+      "renderCount": 26,
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_525174ca-6254-4551-8a6c-7f939b838449:msg_5128dddf-1e83-4548-914f-c7e5a8960089",
+          "x": 64.0179
+        },
+        {
+          "id": "card:conv_525174ca-6254-4551-8a6c-7f939b838449:msg_0ea8447d-b98b-4ed7-a8e1-3ec2fa874098",
+          "x": 197.411
+        },
+        {
+          "id": "card:conv_525174ca-6254-4551-8a6c-7f939b838449:msg_8150d979-2277-4ec7-8599-ad65cb26b9c4",
+          "x": 330.804
+        },
+        {
+          "id": "card:conv_525174ca-6254-4551-8a6c-7f939b838449:msg_6c1c007e-a026-49cc-b174-69c8d8bc85a1",
+          "x": 464.196
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        }
+      ],
+      "calls": [
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 831.3000000119209
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 850
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 850.0999999642372
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 928.6999999880791
+        },
+        {
+          "method": "show",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 1954.199999988079
+        },
+        {
+          "method": "load",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 1954.3999999761581
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 1955.8999999761581
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 1956.300000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 2962
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 2962.099999964237
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 3965
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 3965
+        },
+        {
+          "method": "show",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 5966.800000011921
+        },
+        {
+          "method": "load",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 5967.099999964237
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 5968.399999976158
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 5968.800000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 6972.199999988079
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 6972.300000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 7978.099999964237
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 7978.199999988079
+        }
+      ]
+    },
+    {
+      "label": "selected prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 812,
+      "renderCount": 30,
+      "pxPerMs": 0.0000023158482142857145,
+      "visibleSpan": 322560000,
+      "axisFit": false,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 84.0268
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 284.116
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 484.205
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 684.295
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": true,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "connected": true,
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间放大",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerdown",
+          "pointerId": 1,
+          "buttons": 1,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "pointerup",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        },
+        {
+          "type": "click",
+          "pointerId": 1,
+          "buttons": 0,
+          "control": "时间缩小",
+          "connected": true,
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba"
+        }
+      ],
+      "calls": [
+        {
+          "method": "zoom",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 2962
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 2962.099999964237
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 3965
+        },
+        {
+          "method": "render",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 3965
+        },
+        {
+          "method": "show",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 5966.800000011921
+        },
+        {
+          "method": "load",
+          "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+          "time": 5967.099999964237
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 5968.399999976158
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 5968.800000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 6972.199999988079
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 6972.300000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 7978.099999964237
+        },
+        {
+          "method": "render",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 7978.199999988079
+        },
+        {
+          "method": "show",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 9941.699999988079
+        },
+        {
+          "method": "load",
+          "projectId": "prj_b628da91-2f93-4302-ae5a-99c8f5259225",
+          "time": 9942.099999964237
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 9943.699999988079
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 9944.199999988079
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 10947.800000011921
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 10947.800000011921
+        },
+        {
+          "method": "zoom",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 11954.599999964237
+        },
+        {
+          "method": "render",
+          "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+          "time": 11954.599999964237
+        }
+      ]
+    },
+    {
+      "label": "first refreshed",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 812,
+      "renderCount": 0,
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisFit": true,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 64.0179
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 197.411
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 330.804
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 464.196
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [],
+      "calls": []
+    },
+    {
+      "label": "peer refreshed",
+      "entry": "workspace",
+      "projectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "renderedProjectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "selectedProjectId": "prj_d67f9d8a-4d5b-4bf1-bd35-7c56d60b66d9",
+      "hostWidth": 1100,
+      "renderCount": 0,
+      "pxPerMs": 0.000002139136904761905,
+      "visibleSpan": 483840000,
+      "axisFit": true,
+      "nodes": [
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_4663cdc9-0e8e-4e43-a265-79f9eba9dbd8",
+          "x": 79.4464
+        },
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_245cf0f3-5aaa-4bfe-acfa-12f61686570b",
+          "x": 264.268
+        },
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_b8392bb2-4d77-4a75-bab5-e0bab391f0a5",
+          "x": 449.089
+        },
+        {
+          "id": "card:conv_abb77978-af26-425a-857d-1f748db66186:msg_3240a1f6-89cf-4a49-b0f2-c6802f624488",
+          "x": 633.911
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 378.34375,
+            "y": 168.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 344,
+            "y": 168.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [],
+      "calls": []
+    },
+    {
+      "label": "Workspace after panel selection",
+      "entry": "workspace",
+      "projectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "renderedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "selectedProjectId": "prj_09dd00a2-13a8-41c5-9c6f-0df1975eeaba",
+      "hostWidth": 812,
+      "renderCount": 0,
+      "pxPerMs": 0.0000015438988095238096,
+      "visibleSpan": 483840000,
+      "axisFit": true,
+      "nodes": [
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_3fd8d96c-db87-454c-89d7-c6e037860ce0",
+          "x": 64.0179
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_171c1b95-b55f-4b9e-89a8-863c4a6516bc",
+          "x": 197.411
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_7e57d275-7728-4f31-a141-0f956cb015cc",
+          "x": 330.804
+        },
+        {
+          "id": "card:conv_e9ce8065-5d67-4f0b-80c9-1daf0070497b:msg_a43bbfd2-0620-49c7-9acc-62a75591cf02",
+          "x": 464.196
+        }
+      ],
+      "controls": {
+        "时间放大": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 332.34375,
+            "y": 166.5,
+            "width": 32,
+            "height": 30
+          }
+        },
+        "时间缩小": {
+          "connected": true,
+          "disabled": false,
+          "inertAncestor": false,
+          "pointerEvents": "auto",
+          "hits": true,
+          "hover": false,
+          "box": {
+            "x": 298,
+            "y": 166.5,
+            "width": 28.34375,
+            "height": 30
+          }
+        }
+      },
+      "dialogs": [],
+      "events": [],
+      "calls": []
+    }
+  ],
+  "errors": [],
+  "diskFiles": {
+    "ui/app.js": "0e852a939c3dc3fdb3cc9f6705c68cce65854b10bf00c67e55910b85d3a2b32a",
+    "ui/opc.js": "33a6a6f87594fe98038f897b0dea0f4a477919250c2bddf73c1065435427922e",
+    "ui/horizontal-timeline.js": "791f62d902cfae74e5f4cc88761121c6eee8a8d7e8a30e5e2bdd611b23dcdab9",
+    "background.js": "699cb3f761fc38d61ca9c69762fd784751f8a4515c5f585555774ec306785207",
+    "workspace.html": "113a7251667d744eb175c8df96190b45fbb573becbb23e5a937ebf64a76b428a",
+    "ui/workbench.css": "afd8d5a36e5dccdcee68a8139f3e24cc6519b78c2958541345f52f258a159463"
+  },
+  "browserVersion": "152.0.7977.65",
+  "extensionId": "kckhiofgkmoilpdcdonjgnnpdmjcacaj",
+  "worker": {
+    "id": "kckhiofgkmoilpdcdonjgnnpdmjcacaj",
+    "version": "1.6.2"
+  },
+  "memoryFiles": {
+    "ui/app.js": {
+      "sha256": "0e852a939c3dc3fdb3cc9f6705c68cce65854b10bf00c67e55910b85d3a2b32a",
+      "matchesDisk": true
+    },
+    "ui/opc.js": {
+      "sha256": "33a6a6f87594fe98038f897b0dea0f4a477919250c2bddf73c1065435427922e",
+      "matchesDisk": true
+    },
+    "ui/horizontal-timeline.js": {
+      "sha256": "791f62d902cfae74e5f4cc88761121c6eee8a8d7e8a30e5e2bdd611b23dcdab9",
+      "matchesDisk": true
+    }
+  },
+  "finishedAt": "2026-10-22T16:18:05.344Z",
+  "ok": true
+}
