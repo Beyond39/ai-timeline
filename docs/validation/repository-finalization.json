@@ -510,7 +510,58 @@
     ]
   },
   "remote": {
-    "status": "pending"
+    "status": "published",
+    "repository": "https://github.com/Beyond39/ai-timeline",
+    "mainAtPublication": "3256575b6bbb16bc468402203780a962f8ae5c58",
+    "push": "fast-forward; no rewritten history",
+    "ciAtRelease": [
+      {
+        "runId": 40176083836,
+        "jobs": [
+          {
+            "name": "extension (windows-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/Beyond39/ai-timeline/actions/runs/40176083836/job/121116948481"
+          },
+          {
+            "name": "extension (ubuntu-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/Beyond39/ai-timeline/actions/runs/40176083836/job/121116948623"
+          }
+        ]
+      },
+      {
+        "runId": 40176083787,
+        "jobs": [
+          {
+            "name": "unittest (ubuntu-latest, 3.12)",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/Beyond39/ai-timeline/actions/runs/40176083787/job/121116948215"
+          },
+          {
+            "name": "unittest (windows-latest, 3.12)",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/Beyond39/ai-timeline/actions/runs/40176083787/job/121116948281"
+          },
+          {
+            "name": "unittest (ubuntu-latest, 3.11)",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/Beyond39/ai-timeline/actions/runs/40176083787/job/121116948333"
+          },
+          {
+            "name": "unittest (windows-latest, 3.11)",
+            "status": "completed",
+            "conclusion": "success",
+            "url": "https://github.com/Beyond39/ai-timeline/actions/runs/40176083787/job/121116948347"
+          }
+        ]
+      }
+    ]
   },
   "limits": [
     "No signed-in live capture",
@@ -546,5 +597,47 @@
     },
     "historyRewritten": false,
     "privateVulnerabilityReporting": true
+  },
+  "release": {
+    "id": 423246630,
+    "url": "https://github.com/Beyond39/ai-timeline/releases/tag/v1.7.1-beta.1",
+    "tag": "v1.7.1-beta.1",
+    "commit": "3256575b6bbb16bc468402203780a962f8ae5c58",
+    "draft": false,
+    "prerelease": true,
+    "assets": [
+      {
+        "name": "ai-conversation-visual-navigator-v1.7.1.zip",
+        "bytes": 6370543,
+        "sha256": "4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a",
+        "url": "https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/ai-conversation-visual-navigator-v1.7.1.zip"
+      },
+      {
+        "name": "INSTALLATION-PRIVACY.md",
+        "bytes": 3133,
+        "sha256": "eac9b2f9a85785a6ae49dd3673b6a0ae6e989f64a5998c51cd6c785c5f93e153",
+        "url": "https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/INSTALLATION-PRIVACY.md"
+      },
+      {
+        "name": "LICENSE.txt",
+        "bytes": 1078,
+        "sha256": "9ed9a839d0e0204e5f4a58aa6ad5fe2e2d4ee2d10aac559f7407a0e909d7df9b",
+        "url": "https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/LICENSE.txt"
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "bytes": 110,
+        "sha256": "daa23043ed8a79ebdf67006a6512c2f5c03f7d49099aa3ae789ce8ca4834aed2",
+        "url": "https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/SHA256SUMS.txt"
+      },
+      {
+        "name": "THIRD_PARTY_NOTICES.md",
+        "bytes": 1311,
+        "sha256": "51ef6e0e9831419435c1c641e37fd22defa19fb1bdc036ec3cf6241ab6830167",
+        "url": "https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/THIRD_PARTY_NOTICES.md"
+      }
+    ],
+    "publicDownloadVerified": true,
+    "downloadedZipSha256": "4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a"
   }
 }

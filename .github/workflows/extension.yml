@@ -32,4 +32,4 @@ jobs:
             apps/navigator-extension/dist/SHA256SUMS.txt
             apps/navigator-extension/dist/PACKAGE_CHECK_REPORT.json
 # Native MV3 suites need an installed compatible browser + Playwright and remain
-# separately documented local acceptance. No publishing or upload job is run.
+# separately documented local acceptance. Artifacts are verified ZIPs; no Release is published by CI.

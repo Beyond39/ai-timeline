@@ -30,6 +30,13 @@ Node 25 套件和静态门禁通过；Python 39 测试通过。隔离 MV3 Projec
 
 原公开提交中的空数据库和生成副本仍留在历史；数据库原件检查未发现业务数据、WAL 或空页残留，因此没有按隐私泄漏重写历史。完整范围与限制见 security-audit.md。真实登录采集、私人旧配置/原位升级、真实付费 AI、Word/WPS 和全版本浏览器兼容未验证。GitHub Actions 以实际远程运行结果为准。
 
-## 发布状态
+## 发布状态（已核实）
 
-本页准备于正常推送前；实际远程与 Release 结果以 GitHub main、Actions 和 Releases 页面为准。同步完成后会在交付回复中提供精确提交与下载链接，不预先声称发布成功。
+- 已正常推送源码提交 `3a5ae6b9` 与证据提交 `3256575b` 到 origin/main，没有强推、改写历史或推送其他分支。本记录由后续文档提交落库。
+- 已发布 [v1.7.1-beta.1 Pre-release](https://github.com/Beyond39/ai-timeline/releases/tag/v1.7.1-beta.1)，tag 指向 `3256575b6bbb16bc468402203780a962f8ae5c58`。
+- 5 个附件：插件 ZIP、SHA256SUMS.txt、安装/隐私说明、第三方说明、MIT LICENSE。全部上传摘要核对通过；公开 ZIP 下载也已实际下载并重新计算摘要，与本地和独立克隆相同。
+- [插件 CI](https://github.com/Beyond39/ai-timeline/actions/runs/40176083836)：Windows/Linux 两个 job 成功，包含 Node 测试、源码门禁、构建和包校验。
+- [Python CI](https://github.com/Beyond39/ai-timeline/actions/runs/40176083787)：Windows/Linux × Python 3.11/3.12 四个 job 成功。
+- 源码跟踪清单 481 文件，其中正式插件 342 文件；运行包 143 文件。机器证据见 [repository-finalization.json](validation/repository-finalization.json)。
+
+[下载插件 ZIP](https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/ai-conversation-visual-navigator-v1.7.1.zip) · [校验值](https://github.com/Beyond39/ai-timeline/releases/download/v1.7.1-beta.1/SHA256SUMS.txt)

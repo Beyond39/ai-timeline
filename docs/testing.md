@@ -13,7 +13,7 @@
 | Hybrid 分析流程 | 18 项通过 | 真实 MV3/IndexedDB 和 loopback，OpenAI 上游是 mock，未付费调用 |
 | Python 原型 | 39 个 unittest 通过 | 原型组件，非插件依赖 |
 | 独立 Git 克隆 | 状态与摘要见机器记录和本轮报告 | 不复制开发目录隐藏文件或 node_modules |
-| GitHub Actions | 推送后另查实际运行状态 | 本地通过不等于远程 CI 通过 |
+| GitHub Actions | 发布提交的 6 个 job 全部成功 | 插件 Windows/Linux；Python 3.11/3.12 × Windows/Linux |
 
 生命周期、同步与指针测试使用本机 Chrome `155.0.8059.85`；Hybrid 使用 Edge Chromium `156.0.4314.42`。均采用新建隔离 Profile；当前浏览器实测不能替代全部 Chrome 版本验收。Node `24.22.1`，可选测试 Playwright `1.62.1`。
 
@@ -58,3 +58,5 @@ Hybrid 会绑定本机 8787 端口且使用 mock 上游，不能与另一个代�
 桌面自带运行时提供 Node 可执行文件，故本地直接执行 package.json 脚本对应的 `node scripts/validate-all.mjs`、`node --experimental-vm-modules scripts/build.mjs` 和 `node scripts/verify-package.mjs`。GitHub Actions 使用上文 npm 入口。
 
 从提交 3a5ae6b9 通过真正 Git 克隆（--no-local、--single-branch、main）得到隔离目录，没有 node_modules、大型 fixture 或旧 dist。25 套件、静态、构建、包校验均通过；143 文件 ZIP 与原目录逐字节相同，SHA-256 为 `4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a`。克隆构建的最终安装目录再次通过生命周期 15 项、同步 23 项、指针/尺寸 13 项 MV3 测试。后续提交仅记录证据及安全反馈入口，不改变包输入。
+
+发布提交 3256575b 的远程结果：[extension checks](https://github.com/Beyond39/ai-timeline/actions/runs/40176083836) 与 [Python tests](https://github.com/Beyond39/ai-timeline/actions/runs/40176083787) 全部成功，细项见机器记录。后续文档提交不改变运行包输入。
