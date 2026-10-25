@@ -137,7 +137,7 @@
         "passed": true
       }
     ],
-    "checkedAt": "2026-10-25T07:57:48.883Z",
+    "checkedAt": "2026-10-25T08:12:45.252Z",
     "scope": "Node domain/renderer/adapter regression and static checks. Browser/IndexedDB tests have a separate report. No live ChatGPT account or installed MV3 assertion."
   },
   "browser": {
@@ -150,6 +150,8 @@
     "suites": {
       "lifecycle": {
         "passed": true,
+        "origin": "clean Git clone, final runtime directory",
+        "browserVersion": "155.0.8059.85",
         "checks": [
           {
             "name": "one Project, default zoom, ordinary mouse clicks",
@@ -211,10 +213,18 @@
             "name": "browser process restart preserves independent Projects and their working controls",
             "passed": true
           }
-        ]
+        ],
+        "loadedFileHashes": {
+          "ui/app.js": "5cffabfdf31f55c4db765ccf39e663a9e9bc8942daaadc37d640034ba8b0cec2",
+          "ui/opc.js": "ae533acfb7a5f216ce58f7ea6405260460cd6d1109da7ea18ccaf63015b403e5",
+          "ui/horizontal-timeline.js": "8af5a72b2430f8f440b1d08e0392b5ce393a2a05d504116d239ffe1e52f0388d",
+          "ui/workbench.css": "ad90b9938c05b62123227bdef2b0d605ba8489c43a394a5834eb4da6b6a41b1b"
+        }
       },
       "sync": {
         "passed": true,
+        "origin": "clean Git clone, final runtime directory",
+        "browserVersion": "155.0.8059.85",
         "checks": [
           {
             "name": "Workspace + changes scale and rendered coordinates on every one of five clicks",
@@ -308,10 +318,17 @@
             "name": "Source identities, Q/A, original text, versions, relations, Canvas and stored viewport hashes unchanged",
             "passed": true
           }
-        ]
+        ],
+        "loadedFileHashes": {
+          "ui/app.js": "5cffabfdf31f55c4db765ccf39e663a9e9bc8942daaadc37d640034ba8b0cec2",
+          "ui/opc.js": "ae533acfb7a5f216ce58f7ea6405260460cd6d1109da7ea18ccaf63015b403e5",
+          "ui/horizontal-timeline.js": "8af5a72b2430f8f440b1d08e0392b5ce393a2a05d504116d239ffe1e52f0388d"
+        }
       },
       "runtime": {
         "passed": true,
+        "origin": "clean Git clone, final runtime directory",
+        "browserVersion": "155.0.8059.85",
         "checks": [
           {
             "name": "loaded Workspace JavaScript is the disk source, worker ID/version agree",
@@ -365,7 +382,15 @@
             "name": "original-page diagnostic probe collects +/−/Q/A events and modal hit testing without Q/A text",
             "passed": true
           }
-        ]
+        ],
+        "loadedFileHashes": {
+          "ui/app.js": "5cffabfdf31f55c4db765ccf39e663a9e9bc8942daaadc37d640034ba8b0cec2",
+          "ui/opc.js": "ae533acfb7a5f216ce58f7ea6405260460cd6d1109da7ea18ccaf63015b403e5",
+          "ui/horizontal-timeline.js": "8af5a72b2430f8f440b1d08e0392b5ce393a2a05d504116d239ffe1e52f0388d",
+          "background.js": "3e595664dedbe7db4be1085979f6a6eef41fce6a68f51ed00d35674735f1b303",
+          "workspace.html": "10315929d1179c1c6e0010d96f7d2561ffd13f3b33146c6fbeb0c3578c3e4770",
+          "ui/workbench.css": "ad90b9938c05b62123227bdef2b0d605ba8489c43a394a5834eb4da6b6a41b1b"
+        }
       },
       "hybrid": {
         "passed": true,
@@ -468,7 +493,21 @@
     "scope": "Artifact integrity only; does not execute the installed extension"
   },
   "cleanClone": {
-    "status": "pending"
+    "status": "passed",
+    "commit": "3a5ae6b954fdb0db84e3ac8a98a848aa2dd92e76",
+    "method": "git clone --no-local --single-branch --branch main",
+    "nodeModulesPresent": false,
+    "largeFixturePresent": false,
+    "nodeTests": true,
+    "staticBuild": true,
+    "packageVerify": true,
+    "zipByteIdentical": true,
+    "sha256": "4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a",
+    "nativeBrowserSuitesPassed": [
+      "lifecycle",
+      "sync",
+      "runtime"
+    ]
   },
   "remote": {
     "status": "pending"
@@ -479,5 +518,33 @@
     "No private original profile inspection or upgrade acceptance",
     "No Word/WPS acceptance",
     "No complete binary/PDF semantic privacy guarantee"
-  ]
+  ],
+  "security": {
+    "scanCounts": {
+      "working-tree": 704,
+      "archive": 770,
+      "git-history": 712
+    },
+    "candidateCounts": {
+      "chat-url-candidate": 246,
+      "literal-secret-candidate": 8,
+      "email-candidate": 173
+    },
+    "confirmedCredentials": 0,
+    "committedDatabase": {
+      "bytes": 483328,
+      "tables": 38,
+      "businessRows": 0,
+      "metadataRows": 1,
+      "walBytes": 0,
+      "emptyPagesWithNonzeroPayload": 0
+    },
+    "historicalPdfText": {
+      "files": 7,
+      "pages": 91,
+      "candidateCount": 0
+    },
+    "historyRewritten": false,
+    "privateVulnerabilityReporting": true
+  }
 }

@@ -1,7 +1,7 @@
 # Security Policy
 
-OPC Timeline's core data live in the local browser. The optional Node AI proxy is paired/authenticated and binds only to loopback; the separate legacy Python prototype has different local API boundaries. Do not expose either local development service to the internet.
+Report vulnerabilities privately through [GitHub private vulnerability reporting](https://github.com/Beyond39/ai-timeline/security/advisories/new). This repository enabled that channel during the public Beta finalization. Do not put private material in public Issues. Beta versions have no long-term support or response-time guarantee.
 
-Never attach chat exports, databases, cookies, API keys, pairing tokens, HAR files or browser profiles to public issues. Use synthetic reproductions and review diagnostics/screenshots before sharing. See [privacy](docs/privacy.md) and the [release audit](docs/security-audit.md).
+Never attach real chat exports, databases, Cookie/session values, API keys, pairing tokens, HAR files or browser profiles. Use synthetic reproductions and review diagnostics/screenshots before sharing. See [privacy](docs/privacy.md) and [release audit](docs/security-audit.md).
 
-Before publication the maintainer must enable GitHub private vulnerability reporting or provide a verified private contact. Once configured, report data-exposure vulnerabilities through that channel, not a public issue. No private contact or response-time commitment is invented here. No published supported-version/security-fix policy exists yet; this candidate is a local Beta preparation.
+Core data are stored in the browser. The optional paired Node AI proxy binds to loopback only; the legacy Python prototype has separate local API boundaries. Do not expose either development service to the internet. If a credential is exposed, revoke or rotate it at the provider before considering history cleanup.

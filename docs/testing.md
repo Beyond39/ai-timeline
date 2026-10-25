@@ -52,3 +52,9 @@ Hybrid 会绑定本机 8787 端口且使用 mock 上游，不能与另一个代�
 ## 必须另行验收的范围
 
 真实登录 ChatGPT 采集、原私人故障 Profile、已有安装的原位升级与备份恢复、付费 AI 输出质量、Word/WPS/PDF 最终显示和全部旧版 Chrome 未在本轮验证。测试数据全部为合成内容；不清空用户资料库来获得通过结果。多 Project 15/23/13 项存在覆盖重叠，不能相加当作独立质量样本。
+
+## 本轮实际命令与独立克隆
+
+桌面自带运行时提供 Node 可执行文件，故本地直接执行 package.json 脚本对应的 `node scripts/validate-all.mjs`、`node --experimental-vm-modules scripts/build.mjs` 和 `node scripts/verify-package.mjs`。GitHub Actions 使用上文 npm 入口。
+
+从提交 3a5ae6b9 通过真正 Git 克隆（--no-local、--single-branch、main）得到隔离目录，没有 node_modules、大型 fixture 或旧 dist。25 套件、静态、构建、包校验均通过；143 文件 ZIP 与原目录逐字节相同，SHA-256 为 `4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a`。克隆构建的最终安装目录再次通过生命周期 15 项、同步 23 项、指针/尺寸 13 项 MV3 测试。后续提交仅记录证据及安全反馈入口，不改变包输入。

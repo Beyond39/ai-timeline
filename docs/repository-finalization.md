@@ -20,12 +20,16 @@ Node 25 套件和静态门禁通过；Python 39 测试通过。隔离 MV3 Projec
 
 ## D. Git 与同步
 
-本地备份引用 backup/public-before-finalization-20261025 与 backup/source-before-finalization-20261025。保留 main 为主分支，采用普通后续提交，不改写已有公开历史、不推送其他开发分支。最终提交、远程和 CI 结果在完成同步后补记。
+本地备份引用 backup/public-before-finalization-20261025 与 backup/source-before-finalization-20261025。保留 main 为主分支，采用普通后续提交，不改写已有公开历史、不推送其他开发分支。源码与清理提交：3a5ae6b9。独立克隆的完整测试/构建/校验和 MV3 回归通过；最终证据提交不改变运行包输入。远程同步与 CI 见下方发布状态。
 
 ## E. Release
 
-目标 v1.7.1-beta.1 Pre-release，安装文件位于 apps/navigator-extension/dist/ai-conversation-visual-navigator-v1.7.1.zip，校验值位于同目录 SHA256SUMS.txt。在线 Release 状态将在验证与同步完成后补记。
+目标 v1.7.1-beta.1 Pre-release，安装文件位于 apps/navigator-extension/dist/ai-conversation-visual-navigator-v1.7.1.zip，校验值位于同目录 SHA256SUMS.txt。ZIP 共 143 个文件，6,370,543 字节；SHA-256：4968f520389837ed0ca6bb58307ff083de25f6941a129dca500583882ee8871a。在线状态见下方发布状态。
 
 ## F. 剩余范围
 
 原公开提交中的空数据库和生成副本仍留在历史；数据库原件检查未发现业务数据、WAL 或空页残留，因此没有按隐私泄漏重写历史。完整范围与限制见 security-audit.md。真实登录采集、私人旧配置/原位升级、真实付费 AI、Word/WPS 和全版本浏览器兼容未验证。GitHub Actions 以实际远程运行结果为准。
+
+## 发布状态
+
+本页准备于正常推送前；实际远程与 Release 结果以 GitHub main、Actions 和 Releases 页面为准。同步完成后会在交付回复中提供精确提交与下载链接，不预先声称发布成功。
